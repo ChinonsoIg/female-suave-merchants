@@ -1,0 +1,49 @@
+.authMain {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  align-items: flex-start;
+  padding: 2rem 6rem;
+  min-height: 100vh;
+
+  .authNav {
+    color: burlywood;
+  }
+
+  .authBox {
+    align-self: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 500px;
+    height: 500px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    // gap: 50px;
+    border-radius: 5px;
+
+    .authTitle {
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      // border: 1px solid red;
+
+      h1 {
+        padding-bottom: 20px;
+      }
+    }
+
+    .authInputs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 40px;
+      width: 100%;
+      // border: 1px solid red;
+    }
+
+  }
+
+}
