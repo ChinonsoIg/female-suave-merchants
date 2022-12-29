@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
@@ -6,6 +7,14 @@ import styles from "../styles/Auth.module.scss";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(email, password);
+  }
+
   return (
     <>
       <Head>
@@ -21,12 +30,15 @@ export default function Home() {
         <div className={styles.authBox}>
           <div className={styles.authTitle}>
             <h1 className={inter.className}>Welcome back</h1>
-            <p>Login to continue</p>
+            <p className={inter.className}>Login to continue</p>
           </div>
-          <div className={styles.authInputs}>
-            <input type="text" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-          </div>
+          {/* <div> */}
+            <form className={styles.authInputs} onSubmit={handleSubmit}>
+              <input type="text" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
+              <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+              <input type="submit" />
+            </form>
+          {/* </div> */}
         </div>
       </main>
     </>
