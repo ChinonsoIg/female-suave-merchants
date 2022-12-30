@@ -1,0 +1,43 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+  border: 1px solid red;
+
+  p {
+    font-size: x-large;
+    color: teal;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    ul {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      list-style: none;
+    }
+  }
+
+  .buttonPrimary {
+    background-color: teal;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+
+  .button {
+    padding: 10px 20px;
+    border: 2px solid teal;
+    color: teal;
+    background: white;
+    border-radius: 5px;
+  }
+
+}
