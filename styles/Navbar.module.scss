@@ -1,43 +1,52 @@
 .nav {
-  display: flex;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 0;
-  border: 1px solid red;
+  height: 80px;
+  background: white;
+  box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
+  // border: 1px solid red;
 
-  p {
-    font-size: x-large;
-    color: teal;
-  }
-
-  div {
+  .navBox {
+    width: 100%;
+    max-width: 1440px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 50px;
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    align-items: center;
+    
 
-    ul {
+    p {
+      font-size: x-large;
+      color: teal;
+    }
+
+    div {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      list-style: none;
+      gap: 20px;
+
+      ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        list-style: none;
+      }
+    }
+
+    .buttonPrimary {
+      background-color: teal;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+    }
+
+    .button {
+      padding: 10px 20px;
+      border: 2px solid teal;
+      color: teal;
+      background: white;
+      border-radius: 5px;
     }
   }
-
-  .buttonPrimary {
-    background-color: teal;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-  }
-
-  .button {
-    padding: 10px 20px;
-    border: 2px solid teal;
-    color: teal;
-    background: white;
-    border-radius: 5px;
-  }
-
 }

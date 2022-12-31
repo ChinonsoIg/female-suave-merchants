@@ -1,5 +1,9 @@
 .footer {
-  max-width: 1200px;
   margin: 0 auto;
-  margin-top: 50px;
+
+  .footerBox {
+    max-width: 1200px;
+    padding: 0 50px;
+    margin: 50px 0;
+  }
 }

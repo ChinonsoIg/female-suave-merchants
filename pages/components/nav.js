@@ -15,6 +15,7 @@ const Navbar = () => {
 
   return (
     <nav className={styles.nav}>
+      <div className={styles.navBox}>
       <p>Female Suave</p>
       <div>
         <ul>
@@ -27,11 +28,8 @@ const Navbar = () => {
         <p>
           {!session && (
             <>
-              <span className={styles.notSignedInText}>
-                Not signed in
-              </span>
               <a
-                href={`/api/auth/signin`}
+                href={`/auth/signin`}
                 className={styles.buttonPrimary}
                 onClick={(e) => {
                   e.preventDefault();
@@ -56,7 +54,7 @@ const Navbar = () => {
                 <strong>{session.user.email ?? session.user.name}</strong>
               </span>
               <a
-                href={`/api/auth/signout`}
+                href={`/auth/signout`}
                 className={styles.button}
                 onClick={(e) => {
                   e.preventDefault()
@@ -68,6 +66,7 @@ const Navbar = () => {
             </>
           )}
         </p>
+      </div>
       </div>
     </nav>
   );

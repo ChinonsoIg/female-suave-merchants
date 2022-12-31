@@ -1,14 +1,15 @@
 .authMain {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 100px;
-  align-items: flex-start;
   padding: 2rem 6rem;
   min-height: 100vh;
+  // border: 2px solid red;
 
-  .authNav {
-    color: burlywood;
-  }
+  // .authNav {
+  //   color: burlywood;
+  // }
 
   .authBox {
     align-self: center;
