@@ -6,9 +6,8 @@ import { MdArrowDropDown } from 'react-icons/md';
 import styles from "../../styles/Navbar.module.scss";
 
 const navItems = [
-  { id: 1, title: "Home", url: "home" },
-  { id: 2, title: "Products", url: "products" },
-  { id: 3, title: "New Product", url: "new-product" },
+  { id: 1, title: "Products", url: "products" },
+  { id: 2, title: "New Product", url: "new-product" },
 ];
 
 const Navbar = () => {
