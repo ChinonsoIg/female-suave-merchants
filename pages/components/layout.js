@@ -1,4 +1,5 @@
 import React from "react";
+import { AiFillEdit } from "react-icons/ai";
 import Navbar from "./nav";
 import styles from "../../styles/Layout.module.scss";
 import Footer from "./footer";
@@ -14,23 +15,17 @@ const Layout = ({ children }) => {
           alt="avatar"
           className={styles.avatar}
         />
-        <div>
+        <div className={styles.personalData}>
           <p>John Doe</p>
           <p>john@yahoo.com</p>
           <p>Date</p>
+          <a href="/profile">Edit profile <AiFillEdit /> </a>
         </div>
-        <button>Edit profule</button>
       </div>
 
-      
       <div className={styles.main}>
         <Navbar />
-        <div className={styles.mainBox}>
-          {/* <section className={styles.contents}> */}
-            {children}
-            
-          {/* </section> */}
-        </div>
+        <div className={styles.mainBox}>{children}</div>
         <Footer />
       </div>
     </div>
