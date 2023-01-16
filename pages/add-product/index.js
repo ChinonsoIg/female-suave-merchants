@@ -9,9 +9,9 @@ const Home = () => {
   const { status, data } = useSession();
   const ses = useSession();
 
-  useEffect(() => {
-    if (status === "unauthenticated" ) router.replace("/auth/signin");
-  }, [status])
+  // useEffect(() => {
+  //   if (status === "unauthenticated" ) router.replace("/auth/signin");
+  // }, [status])
   
   console.log("status homepage: ", ses);
   // console.log("data: ", data)
@@ -19,7 +19,7 @@ const Home = () => {
   if (status === "authenticated") {
     return (
       <Layout>
-        <div>Home</div>
+        <div>Add home</div>
       </Layout>
     );
   }

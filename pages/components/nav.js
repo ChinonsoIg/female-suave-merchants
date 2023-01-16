@@ -7,7 +7,7 @@ import styles from "../../styles/Navbar.module.scss";
 
 const navItems = [
   { id: 1, title: "Products", url: "products" },
-  { id: 2, title: "New Product", url: "new-product" },
+  { id: 2, title: "Add Product", url: "add-product" },
 ];
 
 const Navbar = () => {
