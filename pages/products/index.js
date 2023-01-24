@@ -7,7 +7,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 const Product = ({ data }) => {
   const { count, products } = data;
 
-  console.log("data: ", data);
+  // console.log("data: ", data);
 
   return (
     <SharedLayout>
