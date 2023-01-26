@@ -10,7 +10,7 @@ const navItems = [
   { id: 2, title: "Add Product", url: "add-product" },
 ];
 
-const Topbar = () => {
+export const Topbar = () => {
   const [open, setOpen] = React.useState(false);
   const { data: session, status } = useSession();
   const loading = status === "loading";
@@ -25,5 +25,3 @@ const Topbar = () => {
     </nav>
   );
 };
-
-export default Topbar;

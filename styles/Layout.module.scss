@@ -1,6 +1,7 @@
 @import "globals.module.scss";
 
 .container {
+  font-family: 'Mulish', sans-serif;
 
   %flex_shared {
     display: flex;
@@ -8,6 +9,10 @@
     gap: 10px;
     font-size: 16px;
     color: #213F7D;
+    text-decoration: none;
+  }
+  %flex_shared:hover {
+    background-color: $primary-color_active_link;
   }
 
   .topbar_container {
@@ -96,18 +101,19 @@
 
   .layout {
     position: relative;
-    // border: 1px solid red;
+    // border: 2px solid red;
 
     .sidebar {
       position: fixed;
       top: 100px;
       left: 0;
-      width: 283px;
+      width: 243px;
       bottom: 4px;
       min-height: 0 !important;
       background-color: $white;
-      box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.04);
+      box-shadow: 0px 5px 20px 0 rgba(0, 0, 0, 0.1);
       overflow: scroll;
+      // border: 1px solid red;
 
       .close_btn {
         display: none;
@@ -115,8 +121,8 @@
 
       .flex_container_1 {
         @extend %flex_shared;
-        margin-top: 39px;
-        padding-left: 30px;
+        margin-top: 10px;
+        padding: 10px 0px 10px 20px;
 
         p {
           margin: 0;
@@ -125,17 +131,21 @@
 
       .flex_container_2 {
         @extend %flex_shared;
-        margin-top: 52px;
-        padding: 5px 0 5px 30px;
+        margin-top: 20px;
+        padding: 10px 0px 10px 20px;
         // border: 1px solid red;
 
         p {
           margin: 0;
         }
       }
+      .active_link {
+        border-left: 3px solid $primary-color;
+        background-color: $primary-color_active_link;
+      }
 
       .nav_container {
-        margin: 41px 0 0 0;
+        margin: 21px 0 0 0;
         // border: 1px solid red;
 
         .nav_heading {
@@ -144,17 +154,31 @@
           font-weight: 500;
           line-height: 14px;
           color: #545F7D;
-          padding-left: 30px;
+          padding-left: 20px;
+          font-family: 'Roboto', sans-serif;
+          letter-spacing: 2px;
+          margin-bottom: 5px;
+          // border: 1px solid green;
         }
 
         .nav_item {
           @extend %flex_shared;
           text-transform: capitalize;
-          padding-left: 30px;
+          padding-left: 20px;
+          padding: 10px 0px 10px 20px;
           font-size: 16px;
           font-weight: 400;
           line-height: 18px;
+          text-decoration: none;
           // border: 1px solid red
+
+          p {
+            margin: 0;
+          }
+        }
+
+        .nav_item:hover {
+          background-color: $primary-color_active_link;
         }
 
         .active_link {
@@ -185,7 +209,7 @@
     gap: 10px;
     font-size: 16px;
     color: #213F7D;
-    border: 2px solid red;
+    // border: 2px solid red;
   }
 
   .container {

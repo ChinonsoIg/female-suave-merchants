@@ -1,11 +1,11 @@
 import React from "react";
 import { AiFillEdit } from "react-icons/ai";
-import Topbar from "./Topbar";
-import Sidebar from "./Sidebar";
+import { Topbar } from "./Topbar";
+import { Sidebar } from "./Sidebar";
+import { Footer } from "./Footer";
 import styles from "../../../styles/Layout.module.scss";
-import Footer from "./Footer";
 
-const SharedLayout = ({ children }) => {
+export const SharedLayout = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isDropdown, setIsDropdown] = React.useState(false);
 
@@ -36,4 +36,3 @@ const SharedLayout = ({ children }) => {
   );
 };
 
-export default SharedLayout;

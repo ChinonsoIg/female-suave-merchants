@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 
-import Layout from "../components/layout";
+import { SharedLayout } from "../components/layout/SharedLayout";
 
 const Home = () => {
   const router = useRouter();
@@ -18,9 +18,9 @@ const Home = () => {
 
   if (status === "authenticated") {
     return (
-      <Layout>
+      <SharedLayout>
         <div>Add home</div>
-      </Layout>
+      </SharedLayout>
     );
   }
 

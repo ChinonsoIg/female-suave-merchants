@@ -7,7 +7,7 @@ import { Inter } from "@next/font/google";
 import styled from 'styled-components'
 import { useTable } from 'react-table'
 
-import SharedLayout from "./components/layout/SharedLayout";
+import { SharedLayout } from "./components/layout/SharedLayout";
 import styles from "./../styles/Home.module.scss";
 import Image from "next/image";
 

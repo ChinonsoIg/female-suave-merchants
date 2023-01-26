@@ -1,10 +1,10 @@
 import React from 'react';
-import SharedLayout from "../components/layout";
+import { SharedLayout } from "../components/layout/SharedLayout";
 import styles from "../../styles/Products.module.scss";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
-const Product = ({ data }) => {
+const Product = () => {
   const { count, products } = data;
 
   // console.log("data: ", data);
@@ -21,7 +21,7 @@ const Product = ({ data }) => {
           <th>Quantity</th>
           <th>Status</th>
         </tr>
-        {
+        {/* {
           products.map((item, index) => (
             <tr>
               <td>{index + 1}</td>
@@ -31,26 +31,26 @@ const Product = ({ data }) => {
               <td>{item.status}</td>
             </tr>
           ))
-        }
+        } */}
         </tbody>
         </table>
     </SharedLayout>
   )
 }
 
-export async function getServerSideProps() {
-  // Fetch data from external API
-  const res = await fetch(`${BASE_URL}/products`, {
-    headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWUxNzVmNWIzZmVjMWEyNWRiMDI4ZmYiLCJuYW1lIjoiSmFuZSBEb2UiLCJpYXQiOjE2NzM3MTYxNDIsImV4cCI6MTY3MzgwMjU0Mn0.LR561VffQv1spJQqD9WaS3ZfHQgNR6ttrFuQOoZUzlw`,
-      "Access-Control-Allow-Origin": "*",
-    },
-  })
-  const data = await res.json()
+// export async function getServerSideProps() {
+//   // Fetch data from external API
+//   const res = await fetch(`${BASE_URL}/products`, {
+//     headers: {
+//       Authorization: `Bearer `,
+//       "Access-Control-Allow-Origin": "*",
+//     },
+//   })
+//   const data = await res.json()
 
-  // Pass data to the page via props
-  return { props: { data } }
-}
+//   // Pass data to the page via props
+//   return { props: { data } }
+// }
 
 
 export default Product;

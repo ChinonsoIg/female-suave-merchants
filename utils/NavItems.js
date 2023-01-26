@@ -1,72 +1,81 @@
-import { GiUnderwear } from "react-icons/gi";
+import { GiUnderwear, GiAmpleDress, GiLipstick, GiRunningShoe } from "react-icons/gi";
 import { DiRuby } from "react-icons/di";
+import { AiFillHome } from "react-icons/ai";
+import { MdSanitizer, MdOutlineLogout } from "react-icons/md";
+import { BsFillPersonLinesFill } from "react-icons/bs";
+import { HiViewGridAdd } from "react-icons/hi";
 
 export const navItems = [
   {
-    id: "1",
+    _id: "1",
     heading: "categories",
     items: [
       {
-        id: "1.1",
+        id: "101",
         title: "ornaments",
+        url: "/ornaments",
         icon: <DiRuby />
       },
       {
-        id: "1.2",
+        id: "102",
         title: "home wears",
-        icon: <Guarantors />
+        url: "/homewears",
+        icon: <AiFillHome />
       },
       {
-        id: "1.3",
+        id: "103",
         title: "dress",
-        icon: <Loans />
+        url: "/dress",
+        icon: <GiAmpleDress />
       },
       {
-        id: "1.4",
+        id: "104",
         title: "make-ups",
-        icon: <DecisionModels />
+        url: "/makeups",
+        icon: <GiLipstick />
       },
       {
-        id: "1.5",
-        title: "home wears",
-        icon: <Savings />
-      },
-      {
-        id: "1.6",
+        id: "105",
         title: "sanitaries",
-        icon: <LoanRequests />
+        url: "/sanitaries",
+        icon: <MdSanitizer />
       },
       {
-        id: "1.7",
+        id: "106",
         title: "underwears",
+        url: "/underwears",
         icon: <GiUnderwear />
       },
       {
-        id: "1.8",
+        id: "107",
         title: "foot wears",
-        icon: <Karma />
+        url: "/footwears",
+        icon: <GiRunningShoe />
       }
     ]
   },
   {
-    id: "2",
+    _id: "2",
     heading: "settings",
     items: [
       {
-        id: "2.1",
-        title: "preferences",
-        icon: <Preferences />
+        id: "201",
+        title: "profile",
+        url: "/profile",
+        icon: <BsFillPersonLinesFill />
       },
       {
-        id: "2.2",
-        title: "fees and pricing",
-        icon: <FeesAndPricing />
+        id: "202",
+        title: "logout",
+        url: "/logout",
+        icon: <MdOutlineLogout />
       },
-      {
-        id: "2.3",
-        title: "audit logs",
-        icon: <AuditLogs />
-      }
+      // {
+      //   id: "2.3",
+      //   title: "audit logs",
+      //   icon: <AuditLogs />
+      // }
     ]
   },
 ];
+

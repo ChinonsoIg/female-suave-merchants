@@ -10,7 +10,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function CustomSignInPage() {
+export const CustomSignInPage = () => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const router = useRouter();
 
