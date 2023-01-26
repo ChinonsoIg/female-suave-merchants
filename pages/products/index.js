@@ -1,5 +1,5 @@
 import React from 'react';
-import { SharedLayout } from "../components/layout/SharedLayout";
+import SharedLayout from '../../components/layout/SharedLayout';
 import styles from "../../styles/Products.module.scss";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;

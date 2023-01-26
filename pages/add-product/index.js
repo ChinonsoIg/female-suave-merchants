@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 
-import { SharedLayout } from "../components/layout/SharedLayout";
+import SharedLayout from "../../components/SharedLayout";
 
 const Home = () => {
   const router = useRouter();

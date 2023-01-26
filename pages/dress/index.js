@@ -1,5 +1,5 @@
 import React from 'react'
-import { SharedLayout } from '../components/layout/SharedLayout';
+import SharedLayout from '../../components/layout/SharedLayout';
 
 const Dress = () => {
   return (

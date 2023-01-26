@@ -1,63 +1,18 @@
-import styles from "../../../styles/Layout.module.scss";
+import styles from "../../styles/Layout.module.scss";
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { navItems } from "../../../utils/NavItems";
-
-// import { GiUnderwear, GiAmpleDress, GiLipstick, GiRunningShoe } from "react-icons/gi";
-// import { DiRuby } from "react-icons/di";
-// import { AiFillHome } from "react-icons/ai";
-import { MdSanitizer, MdOutlineLogout, MdAddBox } from "react-icons/md";
-// import { BsFillPersonLinesFill } from "react-icons/bs";
-// import { HiViewGridAdd } from "react-icons/hi";
+import { MdAddBox } from "react-icons/md";
 import { AiFillDashboard } from "react-icons/ai";
 
-// export const pickIcon = (value) => {
-//   let Icon;
-//   switch (value) {
-//     case "ornaments":
-//       Icon = <DiRuby />;
-//       break;
-//     case "homewears":
-//       Icon = <AiFillHome />;
-//       break;
-//     case "dress":
-//       Icon = <GiAmpleDress />;
-//       break;
-//     case "makeups":
-//       Icon = <GiLipstick />;
-//       break;
-//     case "sanitaries":
-//       Icon = <MdSanitizer />;
-//       break;
-//     case "underwears":
-//       Icon = <GiUnderwear />;
-//       break;
-//     case "footwears":
-//       Icon = <GiRunningShoe />;
-//       break;
-//     case "profile":
-//       Icon = <BsFillPersonLinesFill />;
-//       break;
-//     case "logout":
-//       Icon = <MdOutlineLogout />;
-//       break;
-//     default:
-//       Icon = <HiViewGridAdd />;
-//   }
-
-//   return Icon;
-// }
+import { navItems } from "../../utils/NavItems";
 
 
 export const Sidebar = () => {
   const router = useRouter();
   const routerPath = router.asPath;
-  // const style = {
-  //   marginRight: 10,
-  //   color: router.asPath === "href" ? 'red' : 'black',
-  // }
-  console.log("as path", router)
+
+  // console.log("as path", router)
 
   return (
     <>
