@@ -8,7 +8,7 @@ export default function Document() {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400&family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
       </Head>
-      <body>
+      <body style={{ margin: "0px", boxSizing: "border-box"  }}>
         <Main />
         <NextScript />
       </body>

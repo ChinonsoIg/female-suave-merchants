@@ -19,7 +19,7 @@ export const navItems = [
       {
         id: "102",
         title: "home wears",
-        url: "/homewears",
+        url: "/home-wears",
         icon: <AiFillHome />
       },
       {
@@ -31,7 +31,7 @@ export const navItems = [
       {
         id: "104",
         title: "make-ups",
-        url: "/makeups",
+        url: "/make-ups",
         icon: <GiLipstick />
       },
       {
@@ -49,7 +49,7 @@ export const navItems = [
       {
         id: "107",
         title: "foot wears",
-        url: "/footwears",
+        url: "/foot-wears",
         icon: <GiRunningShoe />
       }
     ]

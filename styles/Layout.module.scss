@@ -2,6 +2,8 @@
 
 .container {
   font-family: 'Mulish', sans-serif;
+  // border: 1px solid green;
+  // margin: 0;
 
   %flex_shared {
     display: flex;
@@ -17,13 +19,12 @@
 
   .topbar_container {
     display: grid;
-    grid-template-columns: 253px 1fr;
+    grid-template-columns: 243px 1fr;
     align-items: center;
-    padding: 0 60px 0 30px;
-    height: 100px;
+    padding: 0 20px;
+    height: 80px;
     background-color: $white;
     box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.04);
-    // box-shadow: 0px 20px 3px, 0px rgba(0, 0, 0, 0.04);
     position: sticky;
     top: 0;
     z-index: 2;
@@ -44,7 +45,6 @@
       display: grid;
       grid-template-columns: auto auto;
       align-items: center;
-      padding: 0 0 0 60px;
 
       .topbar_input_box {
         width: 400px;
@@ -59,15 +59,17 @@
           border-radius: 8px;
           font-size: 14px;
           padding: 0 16px;
+          box-sizing: border-box;
           border: 1px solid #213F7D;
         }
 
         .topbar_input_icon {
           position: absolute;
           top: 0px;
-          right: 0px;
+          right: -0.5px;
           padding: 13px 25px;
           border-radius: 0 8px 8px 0;
+          cursor: pointer;
           background-color: #39CDCC;
         }
       }
@@ -78,18 +80,25 @@
         justify-content: flex-end;
         gap: 30px;
 
-        .topbar_box_docs {
-          margin-right: 17px;
-          color: #213F7D;
-          font-weight: 400;
-          text-decoration: underline;
-          font-family: "Roboto", sans-serif;
-        }
-
         .user_profile {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 15px;
+          // border: 1px solid red;
+
+          .user_name {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+
+            p {
+              margin: 0;
+              // border: 1px solid red;
+              font-size: 13px;
+              letter-spacing: 1px;
+              font-family: "Roboto", sans-serif;
+            }
+          }
         }
       }
 
@@ -105,7 +114,7 @@
 
     .sidebar {
       position: fixed;
-      top: 100px;
+      top: 80px;
       left: 0;
       width: 243px;
       bottom: 4px;
@@ -121,17 +130,17 @@
 
       .flex_container_1 {
         @extend %flex_shared;
-        margin-top: 10px;
+        margin: 30px 0 10px 0;
         padding: 10px 0px 10px 20px;
 
         p {
-          margin: 0;
+          margin: 0
         }
       }
 
       .flex_container_2 {
         @extend %flex_shared;
-        margin-top: 20px;
+        margin-top: 20px 0 10px 0;
         padding: 10px 0px 10px 20px;
         // border: 1px solid red;
 
@@ -157,15 +166,16 @@
           padding-left: 20px;
           font-family: 'Roboto', sans-serif;
           letter-spacing: 2px;
-          margin-bottom: 5px;
+          margin-bottom: 10px;
           // border: 1px solid green;
         }
 
         .nav_item {
           @extend %flex_shared;
           text-transform: capitalize;
-          padding-left: 20px;
-          padding: 10px 0px 10px 20px;
+          // padding-left: 20px;
+          padding: 10px 0 10px 20px;
+          margin: 5px 15px 5px 0;
           font-size: 16px;
           font-weight: 400;
           line-height: 18px;
