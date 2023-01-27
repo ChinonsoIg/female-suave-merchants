@@ -227,11 +227,10 @@
       display: grid;
       grid-template-columns: 223px 1fr;
       align-items: center;
-      padding: 0 30px;
-      height: 100px;
+      padding: 0 20px;
+      height: 80px;
       background-color: $white;
       box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.04);
-      // box-shadow: 0px 20px 3px, 0px rgba(0, 0, 0, 0.04);
       position: sticky;
       top: 0;
       z-index: 2;
@@ -242,13 +241,15 @@
       }
 
       .topbar_right_container {
-        padding: 0 0 0 30px;
+        // padding: 0 0 0 20px;
+        // border: 1px solid red;
 
         .topbar_input_box {
           width: 350px;
           height: 40px;
           border-radius: 8px;
           position: relative;
+          box-sizing: border-box;
           // border: 2px solid red;
         }
 
@@ -277,12 +278,12 @@
       // border: 1px solid red;
 
       .sidebar {
-        width: 253px;
+        width: 223px;
 
         .flex_container_1 {
           @extend %flex_shared;
-          margin-top: 39px;
-          padding-left: 30px;
+          margin: 30px 0 10px 0;
+        padding: 10px 0px 10px 20px;
 
           p {
             margin: 0;
@@ -291,8 +292,8 @@
 
         .flex_container_2 {
           @extend %flex_shared;
-          margin-top: 42px;
-          padding: 5px 0 5px 30px;
+          margin-top: 30px 0 10px 0;
+        padding: 10px 0px 10px 20px;
           // border: 1px solid red;
 
           p {
@@ -302,8 +303,8 @@
       }
 
       .main {
-        padding: 30px;
-        margin-left: 253px;
+        padding: 20px;
+        margin-left: 223px;
       }
     }
 
@@ -327,11 +328,9 @@
       display: grid;
       grid-template-columns: 50px auto auto;
       align-items: center;
-      padding: 0 25px 0 25px;
-      height: 100px;
+      height: 80px;
       background-color: $white;
       box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.04);
-      // box-shadow: 0px 20px 3px, 0px rgba(0, 0, 0, 0.04);
       position: sticky;
       top: 0;
       z-index: 2;
@@ -343,13 +342,13 @@
       .logo {
         width: 100%;
         max-width: 120px;
-        margin-left: 30px;
+        margin-left: 20px;
         justify-self: flex-start;
       }
 
       .topbar_right_container {
         justify-self: flex-end;
-        padding: 0 0 0 25px;
+        // padding: 0 0 0 25px;
 
         .topbar_input_box {
           display: none;
@@ -362,6 +361,7 @@
         .topbar_profile_box_mobile {
           display: block;
           position: relative;
+          // border: 1px solid red;
 
           .dropdown_btn {
             display: flex;
@@ -369,28 +369,31 @@
           }
 
           .dropdown_content_mobile {
-            display: block;
+            display: flex;
             flex-direction: column;
             align-items: flex-start;
             position: absolute;
             right: 0;
-            top: 40px;
+            top: 42px;
             background-color: #f1f1f1;
-            min-width: 200px;
+            min-width: 250px;
             overflow: auto;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
             padding: 15px 10px;
             text-align: left;
             transition: 0.5s;
+            border-radius: 5px;
+            // border: 1px solid red;
 
             .topbar_input_box_mobile {
-              width: 200px;
+              box-sizing: border-box;
+              width: 230px;
               height: 35px;
               border-radius: 5px;
               position: relative;
 
-              .topbar_input {
+              .topbar_input_mobile {
                 width: 100%;
                 height: 100%;
                 border-radius: 5px;
@@ -399,19 +402,17 @@
                 border: 1px solid #213F7D;
               }
 
-              .topbar_input_icon {
+              .topbar_input_icon_mobile {
                 position: absolute;
                 top: 0px;
-                right: 0px;
-                padding: 10.5px 15px;
+                right: -18.5px;
+                padding: 11.5px 15px;
                 border-radius: 0 5px 5px 0;
                 background-color: #39CDCC;
+                cursor: pointer;
+                // border: 2px solid red;
               }
             }
-          }
-
-          .avatar {
-            width: 40px;
           }
         }
       }
@@ -455,8 +456,8 @@
 
       .flex_container_1 {
         @extend %flex_shared_medium_screen;
-        margin-top: 25px;
-        padding-left: 25px;
+        margin-top: 20px;
+        padding-left: 20px;
         // border: 1px solid red;
 
         p {
@@ -467,7 +468,7 @@
       .flex_container_2 {
         @extend %flex_shared_medium_screen;
         margin-top: 30px;
-        padding: 5px 0 5px 25px;
+        padding: 5px 0 5px 20px;
         // border: 1px solid red;
 
         p {
@@ -506,7 +507,7 @@
       position: relative;
 
       .main {
-        padding: 30px;
+        padding: 20px;
         margin: 0;
       }
 
@@ -531,17 +532,7 @@
     .topbar_container {
       display: grid;
       grid-template-columns: 30px auto auto;
-      align-items: center;
-      // justify-content: space-between;
       padding: 0 15px 0 15px;
-      height: 100px;
-      background-color: $white;
-      box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.04);
-      // box-shadow: 0px 20px 3px, 0px rgba(0, 0, 0, 0.04);
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      // border: 1px solid red;
 
       .sidebar_toggle {
         display: block;
@@ -568,138 +559,11 @@
           display: none;
         }
 
-        .topbar_profile_box_mobile {
-          display: block;
-          position: relative;
-
-          .dropdown_btn {
-            display: flex;
-            align-items: center;
-          }
-
-          .dropdown_content_mobile {
-            display: block;
-            flex-direction: column;
-            align-items: flex-start;
-            position: absolute;
-            right: 0;
-            top: 40px;
-            background-color: #f1f1f1;
-            min-width: 200px;
-            overflow: auto;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-            padding: 15px 10px;
-            text-align: left;
-            transition: 0.5s;
-
-            .topbar_input_box_mobile {
-              width: 200px;
-              height: 35px;
-              border-radius: 5px;
-              position: relative;
-
-              .topbar_input {
-                width: 100%;
-                height: 100%;
-                border-radius: 5px;
-                font-size: 14px;
-                padding: 0 8px;
-                border: 1px solid #213F7D;
-              }
-
-              .topbar_input_icon {
-                position: absolute;
-                top: 0px;
-                right: 0px;
-                padding: 10.5px 15px;
-                border-radius: 0 5px 5px 0;
-                background-color: #39CDCC;
-              }
-            }
-          }
-
-          .avatar {
-            width: 40px;
-          }
-        }
       }
     }
 
     .sidebar {
       display: none;
-    }
-
-    .show_sidebar {
-      display: block;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      width: 243px;
-      bottom: 4px;
-      min-height: 0 !important;
-      background-color: $white;
-      box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.04);
-      overflow: scroll;
-
-      .logo_box {
-        display: flex;
-        align-items: center;
-        height: 100px;
-
-        .close_btn {
-          display: block;
-          font-size: 30px;
-          font-weight: 700;
-          display: flex;
-          justify-content: flex-end;
-          width: 85%;
-        }
-
-        .logo {
-          display: none;
-        }
-      }
-
-      .flex_container_1 {
-        @extend %flex_shared_small_screen;
-        margin-top: 25px;
-        padding-left: 15px;
-
-        p {
-          margin: 0;
-        }
-      }
-
-      .flex_container_2 {
-        @extend %flex_shared_small_screen;
-        margin-top: 30px;
-        padding: 5px 0 5px 15px;
-
-        p {
-          margin: 0;
-        }
-      }
-
-      .nav_container {
-        margin: 41px 0 0 0;
-
-        .nav_heading {
-          padding-left: 25px;
-        }
-
-        .nav_item {
-          @extend %flex_shared_small_screen;
-          padding-left: 25px;
-        }
-
-        .active_link {
-          border-left: 3px solid $primary-color;
-          background-color: $primary-color_active_link;
-        }
-      }
-
     }
 
     .hide_sidebar {

@@ -9,14 +9,22 @@ const SharedLayout = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isDropdown, setIsDropdown] = React.useState(false);
 
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleDropdown = () => {
+    setIsDropdown(!isDropdown);
+  };
+
   return (
     <div
       className={styles.container}
     >
       <Topbar
-      // toggleSidebar={toggleSidebar}
-      // handleDropdown={handleDropdown}
-      // isDropdown={isDropdown}
+      toggleSidebar={toggleSidebar}
+      handleDropdown={handleDropdown}
+      isDropdown={isDropdown}
       />
       <div
         className={styles.layout}
