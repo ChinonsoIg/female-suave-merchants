@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signIn, signOut, getCsrfToken } from "next-auth/react";
+import { signIn, signOut, getCsrfToken, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
