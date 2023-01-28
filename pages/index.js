@@ -4,9 +4,6 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
 
-import styled from 'styled-components'
-import { useTable } from 'react-table'
-
 import AccessDenied from "../components/AccessDenied";
 import SharedLayout from "../components/layout/SharedLayout";
 import styles from "./../styles/Home.module.scss";
