@@ -1,6 +1,8 @@
 import styles from "../../styles/Layout.module.scss";
+import logo from "../../public/assets/images/logo.jpg";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { MdArrowDropDown } from 'react-icons/md';
 import { RiArrowDropDownFill } from "react-icons/ri";
@@ -8,6 +10,9 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
 
+// const myLoader = ({ src, width, quality }) => {
+//   return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+// }
 
 export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
   
@@ -23,7 +28,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
       <div className={styles.sidebar_toggle} onClick={toggleSidebar}>
         <GiHamburgerMenu size={24} />
       </div>
-      <img src={"logo"} alt="logo" className="logo" />
+      <Image src={logo} alt="logo" width={50} height={20} className="logo" />
       <div className={styles.topbar_right_container}>
 
         <div className={styles.topbar_input_box}>
@@ -37,13 +42,13 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
               <p>Chinonso</p>
               <p>Chinonso</p>
             </div>
-            <img src="https://picsum.photos/200/200" style={{ height: "40px", width: "40px", borderRadius: "50%", border: "1px solid teal" }} />
+            {/* <img src="https://picsum.photos/200/200" style={{ height: "40px", width: "40px", borderRadius: "50%", border: "1px solid teal" }} /> */}
           </div>
         </div>
 
         <div className={styles.topbar_profile_box_mobile}>
           <div className={styles.dropdown_btn} onClick={handleDropdown}>
-          <img src="https://picsum.photos/200/200" style={{ height: "40px", width: "40px", borderRadius: "50%", border: "1px solid teal" }} />
+          {/* <img src="https://picsum.photos/200/200" style={{ height: "40px", width: "40px", borderRadius: "50%", border: "1px solid teal" }} /> */}
             <RiArrowDropDownFill size={24} />
           </div>
           {

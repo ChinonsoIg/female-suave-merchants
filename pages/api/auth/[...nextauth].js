@@ -18,4 +18,4 @@ const authOptions = {
   debug: false
 }
 
-export default (req, res) => NextAuth(req, res, authOptions);
+export default NextAuth(authOptions);

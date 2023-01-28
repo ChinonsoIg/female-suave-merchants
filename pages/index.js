@@ -28,13 +28,14 @@ export default function Component({ columns, data }) {
   if (typeof window !== "undefined" && loading) return null;
 
   if (!session) {
-    return <AccessDenied />
+    console.log("acces decnied")
+    // return <AccessDenied />
   }
 
   return (
     <SharedLayout>
       Dashboard
-      <p>Welcom {session.user.name}</p>
+      <p>Welcom {"session.user.name"}</p>
     </SharedLayout>
   );
 }
