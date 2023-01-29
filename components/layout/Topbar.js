@@ -17,7 +17,8 @@ import { BsSearch } from "react-icons/bs";
 export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
   
   const { data: session, status } = useSession();
-  const loading = status === "loading";
+  // const loading = status === "loading";
+  console.log("ld: ", status, session)
 
   const handleOpen = () => {
     setOpen(!open);
@@ -42,7 +43,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
               <p>Chinonso</p>
               <p>Chinonso</p>
             </div>
-            {/* <img src="https://picsum.photos/200/200" style={{ height: "40px", width: "40px", borderRadius: "50%", border: "1px solid teal" }} /> */}
+            {/* <Image src={session?.user?.image} height={50} width={50} /> */}
           </div>
         </div>
 

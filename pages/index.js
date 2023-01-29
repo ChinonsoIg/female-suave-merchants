@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
@@ -13,26 +13,31 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Component({ columns, data }) {
+export default function Component() {
   const router = useRouter();
   // const [products, setProducts] = useState([]);
   // const [loading, setLoading] = useState(false);
-  const { session, loading } = useSession();
+  const { data: session } = useSession();
 
 
-  // console.log("products:", products);
+  console.log("loading: ", session);
 
-  if (typeof window !== "undefined" && loading) return null;
+  // if (typeof window !== "undefined" && loading) return null;
 
-  if (!session) {
-    console.log("acces decnied")
-    // return <AccessDenied />
+  if (session) {
+    return (
+      <SharedLayout>
+        Dashboard
+        <p>Welcom {session?.user?.name}</p>
+        <button
+        onClick={() => signOut() }
+        >Sign out</button>
+      </SharedLayout>
+    );
+    
   }
 
-  return (
-    <SharedLayout>
-      Dashboard
-      <p>Welcom {"session.user.name"}</p>
-    </SharedLayout>
-  );
+  console.log("acces decnied", session)
+  return <AccessDenied />
+  
 }
