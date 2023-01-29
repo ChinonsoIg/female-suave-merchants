@@ -4,25 +4,30 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { MdArrowDropDown } from 'react-icons/md';
+import { MdArrowDropDown, MdNotifications } from 'react-icons/md';
 import { RiArrowDropDownFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoIosNotificationsOutline } from "react-icons/io";
 import { BsSearch } from "react-icons/bs";
 
-// const myLoader = ({ src, width, quality }) => {
-//   return `https://example.com/${src}?w=${width}&q=${quality || 75}`
+const myLoader = ({ src }) => {
+  return src;
+}
+// const myLoader=({src})=>{
+//   return `${API}/user/photo/${blog.postedBy.username}`;
 // }
 
 export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
-  
+
   const { data: session, status } = useSession();
   // const loading = status === "loading";
-  console.log("ld: ", status, session)
+  // console.log("ld: ", status)
 
-  const handleOpen = () => {
-    setOpen(!open);
-  };
+  let name = session?.user?.name;
+  const nameArr = name.split(" ");
+
+  // const handleOpen = () => {
+  //   setOpen(!open);
+  // };
 
   return (
     <div className={styles.topbar_container}>
@@ -37,19 +42,41 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
           <BsSearch size={14} className={styles.topbar_input_icon} />
         </div>
         <div className={styles.topbar_profile_box}>
-          <IoIosNotificationsOutline size={26} color="#39CDCC" className={styles.notifications} />
+          <MdNotifications size={26} color="#39CDCC" className={styles.notifications} />
           <div className={styles.user_profile}>
             <div className={styles.user_name}>
-              <p>Chinonso</p>
-              <p>Chinonso</p>
+              <p>{nameArr[0]}</p>
+              <p>{nameArr[1]}</p>
             </div>
-            {/* <Image src={session?.user?.image} height={50} width={50} /> */}
+            <Image
+              loader={myLoader}
+              src={session?.user?.image} 
+              height={50} 
+              width={50}
+              alt="avatar"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                borderRadius: '100%'
+              }}
+            />
           </div>
         </div>
 
         <div className={styles.topbar_profile_box_mobile}>
           <div className={styles.dropdown_btn} onClick={handleDropdown}>
-          {/* <img src="https://picsum.photos/200/200" style={{ height: "40px", width: "40px", borderRadius: "50%", border: "1px solid teal" }} /> */}
+            <Image
+              loader={myLoader}
+              src={session?.user?.image} 
+              height={40} 
+              width={40}
+              alt="avatar"
+              style={{
+                maxWidth: '100%',
+                height: 'auto',
+                borderRadius: '100%'
+              }}
+            />
             <RiArrowDropDownFill size={24} />
           </div>
           {
