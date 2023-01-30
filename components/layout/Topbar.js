@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { MdArrowDropDown, MdNotifications } from 'react-icons/md';
+import { MdArrowDropDown, MdNotifications } from "react-icons/md";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsSearch } from "react-icons/bs";
@@ -39,18 +39,26 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
               <p>{nameArr[0]}</p>
               <p>{nameArr[1]}</p>
             </div>
-            <Image
-              loader={myLoader}
-              src={session?.user?.image} 
-              height={50} 
-              width={50}
-              alt="avatar"
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-                borderRadius: '100%'
-              }}
-            />
+            {
+              session?.user?.image ? (
+                <Image
+                  loader={myLoader}
+                  src={session?.user?.image}
+                  height={50}
+                  width={50}
+                  alt="avatar"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    borderRadius: "100%"
+                  }}
+                />
+              ) : (
+                <div className={styles.avatar}>
+                  {`${nameArr[0]?.slice(0, 1)}${nameArr[1]?.slice(0, 1)}`}
+                </div>
+              )
+            }
           </div>
         </div>
 
@@ -58,14 +66,14 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
           <div className={styles.dropdown_btn} onClick={handleDropdown}>
             <Image
               loader={myLoader}
-              src={session?.user?.image} 
-              height={40} 
+              src={session?.user?.image}
+              height={40}
               width={40}
               alt="avatar"
               style={{
-                maxWidth: '100%',
-                height: 'auto',
-                borderRadius: '100%'
+                maxWidth: "100%",
+                height: "auto",
+                borderRadius: "100%"
               }}
             />
             <RiArrowDropDownFill size={24} />

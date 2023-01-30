@@ -66,13 +66,25 @@ $reduxPurple: rgb(118, 74, 188);
   }
 }
 
+.avatar {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  text-transform: uppercase;
+  border-radius: 100%;
+  color: whitesmoke;
+  background-color: $primary-color;
+  display: grid;
+  place-items: center;
+}
+
 
 // Large devices (1200px and down)
 @media (max-width: 1200px) {
   %shared_divider_box {
     height: 13px;
   }
-  
+
   %shared_divider_box_content {
     font-size: 20px;
   }
@@ -83,7 +95,7 @@ $reduxPurple: rgb(118, 74, 188);
   %shared_divider_box {
     height: 12px;
   }
-  
+
   %shared_divider_box_content {
     font-size: 18px;
   }
@@ -94,7 +106,7 @@ $reduxPurple: rgb(118, 74, 188);
   %shared_divider_box {
     height: 10px;
   }
-  
+
   %shared_divider_box_content {
     font-size: 14px;
   }
