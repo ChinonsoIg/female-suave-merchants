@@ -35,7 +35,7 @@ export const Sidebar = () => {
                   {items.map((item) => {
                     const { id, title, url, icon } = item;
                     return (
-                      <Link href={url}
+                      <Link href={`${url}`}
                         className={`${styles.nav_item} ${routerPath === url ? styles.active_link : null}`}
                         key={id}>
                         {icon}

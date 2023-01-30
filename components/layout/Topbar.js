@@ -3,7 +3,7 @@ import logo from "../../public/assets/images/logo.jpg";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { MdArrowDropDown, MdNotifications } from "react-icons/md";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -18,7 +18,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
   const { data: session, status } = useSession();
 
   let name = session?.user?.name;
-  const nameArr = name.split(" ");
+  const nameArr = name?.split(" ");
 
   return (
     <div className={styles.topbar_container}>
@@ -33,11 +33,11 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
           <BsSearch size={14} className={styles.topbar_input_icon} />
         </div>
         <div className={styles.topbar_profile_box}>
-          <MdNotifications size={26} color="#39CDCC" className={styles.notifications} />
+          <MdNotifications size={26} className={styles.notifications} />
           <div className={styles.user_profile}>
             <div className={styles.user_name}>
-              <p>{nameArr[0]}</p>
-              <p>{nameArr[1]}</p>
+              <p>{nameArr && nameArr[0]}</p>
+              <p>{nameArr && nameArr[1]}</p>
             </div>
             {
               session?.user?.image ? (
@@ -55,7 +55,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
                 />
               ) : (
                 <div className={styles.avatar}>
-                  {`${nameArr[0]?.slice(0, 1)}${nameArr[1]?.slice(0, 1)}`}
+                  {`${nameArr && nameArr[0]?.slice(0, 1)}${nameArr && nameArr[1]?.slice(0, 1)}`}
                 </div>
               )
             }

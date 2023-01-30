@@ -23,7 +23,11 @@ const Home = () => {
   //   );
   // }
 
-  return <div>loading...</div>
+  return (
+    <SharedLayout>
+      <div>add product.</div>
+    </SharedLayout>
+  )
   
 }
 

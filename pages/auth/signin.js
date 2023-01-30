@@ -1,22 +1,14 @@
 import styles from "../../styles/Auth.module.scss";
-import { useState, useEffect } from "react";
-import {
-  signIn, getCsrfToken, useSession, getSession, csrfToken,
-  getProviders
-} from "next-auth/react";
+import { useState } from "react";
+import { signIn, getSession, getProviders } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
+// import { Inter } from "@next/font/google";
 import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
-
-
-import pablo_sign_in from "../../public/assets/images/pablo_sign_in.svg";
-import logo_login from "../../public/assets/images/logo_login.svg";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
-const inter = Inter({ subsets: ["latin"] });
+// const inter = Inter({ subsets: ["latin"] });
 
 const sortLogo = (credentials) => {
   switch (credentials) {
@@ -52,18 +44,17 @@ const SignIn = ({ providers }) => {
     e.preventDefault();
 
     const res = await signIn("credentials", {
-      // redirect: false,
       email: userInfo.email,
       password: userInfo.password,
       callbackUrl: "/",
     });
 
-    console.log("res signin: ", res)
+    // console.log("res signin: ", res)
   };
 
-  useEffect(() => {
-    // console.log("providers : ", providers);
-  }, [providers]);
+  // useEffect(() => {
+  //   // console.log("providers : ", providers);
+  // }, [providers]);
 
 
   return (
