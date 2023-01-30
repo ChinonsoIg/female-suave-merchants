@@ -11,23 +11,14 @@ import { BsSearch } from "react-icons/bs";
 
 const myLoader = ({ src }) => {
   return src;
-}
-// const myLoader=({src})=>{
-//   return `${API}/user/photo/${blog.postedBy.username}`;
-// }
+};
 
 export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
 
   const { data: session, status } = useSession();
-  // const loading = status === "loading";
-  // console.log("ld: ", status)
 
   let name = session?.user?.name;
-  // const nameArr = name.split(" ");
-
-  // const handleOpen = () => {
-  //   setOpen(!open);
-  // };
+  const nameArr = name.split(" ");
 
   return (
     <div className={styles.topbar_container}>
@@ -45,8 +36,8 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
           <MdNotifications size={26} color="#39CDCC" className={styles.notifications} />
           <div className={styles.user_profile}>
             <div className={styles.user_name}>
-              {/* <p>{nameArr[0]}</p>
-              <p>{nameArr[1]}</p> */}
+              <p>{nameArr[0]}</p>
+              <p>{nameArr[1]}</p>
             </div>
             <Image
               loader={myLoader}

@@ -34,30 +34,35 @@ const sortLogo = (credentials) => {
 
 const SignIn = ({ providers }) => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
-  const [show, setShow] = useState(false);
+  const [togglePassword, setTogglePassword] = useState(false);
   const router = useRouter();
 
+  const handleInputsChange = (e) => {
+    setUserInfo(() => ({
+      ...userInfo,
+      [e.target.name]: e.target.value
+    }))
+  }
 
-  const handleShow = () => {
-    setShow(!show)
+  const handleTogglePassword = () => {
+    setTogglePassword(!togglePassword)
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const res = await signIn("credentials", {redirect: false})
     const res = await signIn("credentials", {
       // redirect: false,
       email: userInfo.email,
       password: userInfo.password,
-      // callbackUrl: "/home",
+      callbackUrl: "/",
     });
 
     console.log("res signin: ", res)
   };
 
   useEffect(() => {
-    console.log("providers : ", providers);
+    // console.log("providers : ", providers);
   }, [providers]);
 
 
@@ -78,14 +83,31 @@ const SignIn = ({ providers }) => {
           </div>
           <form className={styles.login_form}>
             <div className={styles.inputs_box}>
-              <input type="email" placeholder="Email" className={styles.input_shared} />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                className={styles.input_shared}
+                onChange={handleInputsChange}
+              />
               <div className={styles.password_container}>
-                <input type={show ? "text" : "password"} placeholder="Password"></input>
-                <span onClick={handleShow}>{show ? "hide" : "show"}</span>
+                <input
+                  name="password"
+                  type={togglePassword ? "text" : "password"}
+                  placeholder="Password"
+                  onChange={handleInputsChange}
+                />
+                <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
               <a href="#/reset_password">Forgot password?</a>
             </div>
-            <button type="submit" className={styles.login_btn}>Log in</button>
+            <button
+              // type="submit"
+              className={styles.login_btn}
+              onClick={handleSubmit}
+            >
+              Log in
+            </button>
           </form>
 
           <div className={styles.divider_box}>
@@ -100,9 +122,9 @@ const SignIn = ({ providers }) => {
                 return (
                   <div key={provider.name}>
                     <button
-                       className={styles.auth_provider}
+                      className={styles.auth_provider}
                       onClick={() => signIn(provider.id)}>
-                    <span>{sortLogo(provider.id)}</span>
+                      <span>{sortLogo(provider.id)}</span>
                       Continue with {provider.name}
                     </button>
                   </div>
@@ -111,7 +133,6 @@ const SignIn = ({ providers }) => {
           </div>
         </div>
       </div>
-
 
     </>
   );
@@ -122,15 +143,13 @@ const SignIn = ({ providers }) => {
 export async function getServerSideProps(context) {
   const { req } = context;
   const session = await getSession({ req });
-
+  const providers = await getProviders(context);
 
   if (session) {
     return {
       redirect: { destination: "/" },
     };
   }
-
-  const providers = await getProviders(context);
 
   return {
     props: { providers },

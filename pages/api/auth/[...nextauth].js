@@ -8,9 +8,6 @@ import axios from "axios";
 const BASE_URL = process.env.NEXT_PUBLIC_API
 
 const authOptions = {
-  // session: {
-  //   strategy: "jwt",
-  // },
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -19,25 +16,21 @@ const authOptions = {
         password: { label: "Password", type: "password", placeholder: "******" }
       },
       async authorize(credentials, req) {
-        // let user = {};
+        console.log("req: ", req)
+        console.log("cred: ", credentials)
         const res = await fetch("http://localhost:5000/api/v1/auth/login", {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }
         })
-        const user = await res.json();
-        // user = {
-        //   name: `${arrToJson.firstName} ${arrToJson.lastName}`,
-        //   email: arrToJson.email,
-        //   image: arrToJson.image
-        // };
-  
-        // If no error and we have user data, return it
-        if (res.ok && user) {
-          return {...user}
+        const data = await res.json();
+        const { user } = data;
+
+        return {
+          ...user,
+          name: `${user.firstName} ${user.lastName}`,
         }
-        // Return null if user data could not be retrieved
-        return null
+  
       }
     }),
     GoogleProvider({
@@ -54,20 +47,27 @@ const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  // debug: false,
-  // callbacks: {
-  //   async jwt({ token }) {
-  //     token.userRole = "admin"
-  //     return token
-  //   },
-  // },
+  callbacks: {
+    async session({ session, token }) {
+      session.user = token.user;
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    }
+  },
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signout',
-    error: '/auth/error', // Error code passed in query string as ?error=
-    verifyRequest: '/auth/verify-request', // (used for check email message)
-    newUser: '/auth/new-user' // New users will be directed here on first sign in (leave the property out if not of interest)
-  }
+    error: '/auth/error',
+    verifyRequest: '/auth/verify-request',
+    newUser: '/auth/new-user'
+  },
+
+  // What's the job of this one?
   // session: {
   //   jwt: true,
   //   maxAge: 30 * 24 * 60 * 60,
