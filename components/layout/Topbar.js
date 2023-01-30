@@ -23,7 +23,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
   // console.log("ld: ", status)
 
   let name = session?.user?.name;
-  const nameArr = name.split(" ");
+  // const nameArr = name.split(" ");
 
   // const handleOpen = () => {
   //   setOpen(!open);
@@ -45,8 +45,8 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
           <MdNotifications size={26} color="#39CDCC" className={styles.notifications} />
           <div className={styles.user_profile}>
             <div className={styles.user_name}>
-              <p>{nameArr[0]}</p>
-              <p>{nameArr[1]}</p>
+              {/* <p>{nameArr[0]}</p>
+              <p>{nameArr[1]}</p> */}
             </div>
             <Image
               loader={myLoader}

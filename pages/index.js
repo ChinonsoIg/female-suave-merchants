@@ -17,10 +17,11 @@ export default function Component() {
   const router = useRouter();
   // const [products, setProducts] = useState([]);
   // const [loading, setLoading] = useState(false);
-  const { data: session, loading, status } = useSession();
+  const { data: session, status } = useSession();
+  const { data } = useSession();
 
 
-  console.log("loading: ", loading, status);
+  console.log("data: ", data);
 
   // if (typeof window !== "undefined" && loading) return null;
 

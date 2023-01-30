@@ -1,18 +1,46 @@
-import { useState } from "react";
-import { signIn, signOut, getCsrfToken, useSession } from "next-auth/react";
+import styles from "../../styles/Auth.module.scss";
+import { useState, useEffect } from "react";
+import {
+  signIn, getCsrfToken, useSession, getSession, csrfToken,
+  getProviders
+} from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import { Inter } from "@next/font/google";
-import styles from "../../styles/Auth.module.scss";
+import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
+
+
+import pablo_sign_in from "../../public/assets/images/pablo_sign_in.svg";
+import logo_login from "../../public/assets/images/logo_login.svg";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 const inter = Inter({ subsets: ["latin"] });
 
-const SignIn = () => {
+const sortLogo = (credentials) => {
+  switch (credentials) {
+    case 'facebook':
+      return <AiFillFacebook size={18} color="" />
+    case 'google':
+      return <AiFillGoogleCircle size={18} color="" />
+    case 'github':
+      return <AiFillGithub size={18} color="" />
+    default:
+      console.log(`Sorry, we are out of ${credentials}.`);
+      return null;
+  }
+}
+
+const SignIn = ({ providers }) => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
+  const [show, setShow] = useState(false);
   const router = useRouter();
+
+
+  const handleShow = () => {
+    setShow(!show)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,10 +56,10 @@ const SignIn = () => {
     console.log("res signin: ", res)
   };
 
-  {
-  }
+  useEffect(() => {
+    console.log("providers : ", providers);
+  }, [providers]);
 
-  // console.log("url: ", BASE_URL)
 
   return (
     <>
@@ -41,48 +69,75 @@ const SignIn = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.authMain}>
-        {/* <nav className={styles.authNav}>
-          <p className={inter.className}>Female Suave</p>
-        </nav> */}
-        <div className={styles.authBox}>
-          <div className={styles.authTitle}>
-            <h1 className={inter.className}>Welcome back</h1>
-            <p className={inter.className}>Login to continue</p>
+
+      <div className={styles.login}>
+        <div className={styles.login_form_box}>
+          <div className={styles.title_box}>
+            <header className={styles.login_title}>Welcome!</header>
+            <p className={styles.login_subtitle}>Enter details to login</p>
           </div>
-          <div className={styles.authInputs}>
-            <form className={styles.authInputs} onSubmit={handleSubmit}>
-              <input
-                type="email"
-                placeholder="Email"
-                value={userInfo.email}
-                onChange={({ target }) =>
-                  setUserInfo({ ...userInfo, email: target.value })
-                }
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                value={userInfo.password}
-                onChange={({ target }) =>
-                  setUserInfo({ ...userInfo, password: target.value })
-                }
-              />
-              <input type="submit" value="Login" />
-              {/* <button
-            onClick={(e) => {
-              e.preventDefault();
-              signIn("google", { callbackUrl: '', redirect: false }, { prompt: "none" });
-            }}
-          >
-            Submit
-          </button> */}
-            </form>
+          <form className={styles.login_form}>
+            <div className={styles.inputs_box}>
+              <input type="email" placeholder="Email" className={styles.input_shared} />
+              <div className={styles.password_container}>
+                <input type={show ? "text" : "password"} placeholder="Password"></input>
+                <span onClick={handleShow}>{show ? "hide" : "show"}</span>
+              </div>
+              <a href="#/reset_password">Forgot password?</a>
+            </div>
+            <button type="submit" className={styles.login_btn}>Log in</button>
+          </form>
+
+          <div className={styles.divider_box}>
+            <span className={styles.divider_box_content}>
+              or
+            </span>
+          </div>
+
+          <div className={styles.auth_providers}>
+            {providers &&
+              Object.values(providers).filter((fil) => fil.id !== "credentials").map((provider) => {
+                return (
+                  <div key={provider.name}>
+                    <button
+                       className={styles.auth_provider}
+                      onClick={() => signIn(provider.id)}>
+                    <span>{sortLogo(provider.id)}</span>
+                      Continue with {provider.name}
+                    </button>
+                  </div>
+                );
+              })}
           </div>
         </div>
-      </main>
+      </div>
+
+
     </>
   );
 }
 
+
+
+export async function getServerSideProps(context) {
+  const { req } = context;
+  const session = await getSession({ req });
+
+
+  if (session) {
+    return {
+      redirect: { destination: "/" },
+    };
+  }
+
+  const providers = await getProviders(context);
+
+  return {
+    props: { providers },
+  };
+}
+
+
+
 export default SignIn;
+
