@@ -23,7 +23,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
   return (
     <div className={styles.topbar_container}>
       <div className={styles.sidebar_toggle} onClick={toggleSidebar}>
-        <GiHamburgerMenu size={24} />
+        <GiHamburgerMenu size={24} color="rgb(77, 0, 77)" />
       </div>
       <Image src={logo} alt="logo" width={50} height={20} className="logo" />
       <div className={styles.topbar_right_container}>
@@ -64,24 +64,32 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
 
         <div className={styles.topbar_profile_box_mobile}>
           <div className={styles.dropdown_btn} onClick={handleDropdown}>
-            <Image
-              loader={myLoader}
-              src={session?.user?.image}
-              height={40}
-              width={40}
-              alt="avatar"
-              style={{
-                maxWidth: "100%",
-                height: "auto",
-                borderRadius: "100%"
-              }}
-            />
-            <RiArrowDropDownFill size={24} />
+            {
+              session?.user?.image ? (
+                <Image
+                  loader={myLoader}
+                  src={session?.user?.image}
+                  height={40}
+                  width={40}
+                  alt="avatar"
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    borderRadius: "100%"
+                  }}
+                />
+              ) : (
+                <div className={styles.avatar}>
+                  {`${nameArr && nameArr[0]?.slice(0, 1)}${nameArr && nameArr[1]?.slice(0, 1)}`}
+                </div>
+              )
+            }
+
+            <RiArrowDropDownFill size={24} color="rgb(77, 0, 77)" />
           </div>
           {
             isDropdown ? (
               <div className={styles.dropdown_content_mobile}>
-                {/* <p className={styles.topbar_box_docs}>Notifications</p> */}
                 <div className={styles.topbar_input_box_mobile}>
                   <input className={styles.topbar_input_mobile} placeholder="Search for anything" />
                   <BsSearch size={14} className={styles.topbar_input_icon_mobile} />
