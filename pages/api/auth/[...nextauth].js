@@ -24,11 +24,12 @@ const authOptions = {
           headers: { "Content-Type": "application/json" }
         })
         const data = await res.json();
-        const { user } = data;
+        const { user, token } = data;
 
         return {
           ...user,
           name: `${user.firstName} ${user.lastName}`,
+          token
         }
   
       }
