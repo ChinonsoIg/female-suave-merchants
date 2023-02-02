@@ -46,7 +46,7 @@ const AddProduct = () => {
     <SharedLayout>
       <h1>Add new product</h1>
       <form className={styles.form_container} onSubmit={handleSubmit}>
-        <div className={styles.first_box}>
+        <div className={styles.name_category_box}>
           <label htmlFor="name">
             Name
             <input type="text" name="name" placeholder="Name" onChange={handleInputsChange} />
@@ -59,7 +59,7 @@ const AddProduct = () => {
             </select>
           </label>
         </div>
-        <div className={styles.second_box}>
+        <div className={styles.price_quantity_box}>
           <label htmlFor="price">
             Price
             <input type="number" name="price" placeholder="Price" onChange={handleInputsChange} />
@@ -85,6 +85,9 @@ const AddProduct = () => {
             className={styles.switch}
             />
           </label>
+        </div>
+        <div className={styles.images_upload_box}>
+
         </div>
         <div>
           <input type="submit" />

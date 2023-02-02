@@ -5,8 +5,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+  border: 2px solid green;
 
-  .first_box, .second_box, .last_box {
+  .name_category_box, .price_quantity_box, .status_box, .images_upload_box {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column: span 2;
@@ -36,26 +37,6 @@
     }
   }
 
-  .last_box {
-
-    label {
-      flex-direction: row;
-      align-items: center;
-      // height: 20px;
-
-      .switch {
-        align-self: flex-start;
-        width: 20px;
-        height: 20px;
-      }
-      .switch:focus {
-        outline: none;
-        border: none;
-      }
-    }
-    
-  }
-
   .textarea {
     grid-column: span 2;
 
@@ -81,4 +62,30 @@
     }
 
   }
+
+  .status_box {
+
+    label {
+      flex-direction: row;
+      align-items: center;
+      border: 1px solid red;
+      // height: 20px;
+
+      .switch {
+        align-self: flex-start;
+        width: 20px;
+        height: 20px;
+      }
+      .switch:focus {
+        outline: none;
+        border: none;
+      }
+    }
+    
+  }
+
+  // .images_upload_box {
+
+  // }
+  
 }

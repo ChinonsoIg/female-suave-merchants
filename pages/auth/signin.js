@@ -136,6 +136,7 @@ export async function getServerSideProps(context) {
   const session = await getSession({ req });
   const providers = await getProviders(context);
 
+  // If sign in is successful, redirect to homepage
   if (session) {
     return {
       redirect: { destination: "/" },
@@ -147,6 +148,10 @@ export async function getServerSideProps(context) {
   };
 }
 
+
+// PR in NextAuth
+// Add success handler to getServerSideProps
+// This change adds a code that gives the user a sense of direction on what to do if the OAuth sign in is successful.
 
 
 export default SignIn;
