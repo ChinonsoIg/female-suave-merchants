@@ -5,7 +5,6 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
-  border: 2px solid green;
 
   .name_category_box, .price_quantity_box, .status_box, .images_upload_box {
     display: grid;
@@ -84,8 +83,14 @@
     
   }
 
-  // .images_upload_box {
+  .images_upload_box {
 
-  // }
+    .images_widget {
+      // float: left;
+      align-self: flex-start;
+      // border: 1px solid red;
+    }
+
+  }
   
 }

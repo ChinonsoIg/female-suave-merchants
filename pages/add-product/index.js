@@ -2,15 +2,22 @@ import styles from "../../styles/AddProduct.module.scss";
 import { useEffect, useState } from 'react'
 import { useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
+// import UploadcareImage from '@uploadcare/nextjs-loader';
+import { Widget } from "@uploadcare/react-widget";
+
 import SharedLayout from '../../components/layout/SharedLayout';
-import { redirect } from "next/dist/server/api-utils";
+
+const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY
+const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const AddProduct = () => {
   const [checked, setChecked] = useState(false);
-  const [formInputs, setFormInputs] = useState({ });
+  const [images, setImages] = useState([])
+  const [formInputs, setFormInputs] = useState({});
+  const [categories, setCategories] = useState([]);
   const router = useRouter();
 
-  const { status } = useSession({
+  const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
       // The user is not authenticated, handle it here.
@@ -25,17 +32,80 @@ const AddProduct = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let data = { ...formInputs, status: !checked ? "out of stock" : "available" }
-    console.log("ll: ", data);
+    let modifiedData = {
+      ...formInputs,
+      image: images,
+      status: !checked ? "out of stock" : "available"
+    }
+    console.log("ll: ", modifiedData);
+
+    try {
+      const res = await fetch(
+        `${BASE_URL_LOCAL}/products`, {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${session?.user?.token}`,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(modifiedData)
+      }
+      );
+
+      if (res.status !== 200) {
+        console.error("An error occured: ", res);
+        return;
+      }
+
+      const data = await res.json();
+      console.log("data: ", data)
+      // setCategories(data);
+
+    } catch (error) {
+      console.error("err: ", error);
+    }
 
   }
-  
+
   const handleCheckbox = () => {
     setChecked(!checked);
   };
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(
+          `${BASE_URL_LOCAL}/categories`, {
+          headers: {
+            "Authorization": `Bearer ${session?.user?.token}`,
+            "Access-Control-Allow-Origin": "*"
+          }
+        }
+        );
+
+        if (res.status !== 200) {
+          console.error("An error occured: ", res.statusText);
+          return;
+        }
+
+        const data = await res.json();
+        // console.log("data: ", data)
+        setCategories(data);
+
+      } catch (error) {
+        console.error("err: ", error);
+      }
+    };
+
+    fetchCategories();
+
+  }, [session])
+
+  // console.log("sess: ", session)
+
 
 
   if (status === "loading") {
@@ -51,11 +121,21 @@ const AddProduct = () => {
             Name
             <input type="text" name="name" placeholder="Name" onChange={handleInputsChange} />
           </label>
-          <label htmlFor="category">Category
-            <select name="category" id="pet-select" onChange={handleInputsChange}>
+          <label htmlFor="categoryId">Category
+            <select name="categoryId" onChange={handleInputsChange}>
               <option value="">--Choose an option--</option>
-              <option value="dog">Dog</option>
-              <option value="cat">Cat</option>
+              {
+                categories?.categories?.map((category) => {
+                  const { _id, categoryName } = category;
+
+                  return (
+
+
+                    <option key={_id} value={_id}>{categoryName}</option>
+
+                  )
+                })
+              }
             </select>
           </label>
         </div>
@@ -79,24 +159,59 @@ const AddProduct = () => {
           <label htmlFor="status">
             Status
             <input
-            type="checkbox"
-            checked={checked}
-            onChange={handleCheckbox}
-            className={styles.switch}
+              type="checkbox"
+              checked={checked}
+              onChange={handleCheckbox}
+              className={styles.switch}
             />
           </label>
         </div>
-        <div className={styles.images_upload_box}>
 
+        <div className={styles.images_upload_box}>
+          <label htmlFor='images'>Add images</label>{' '}
+          <Widget
+            publicKey={uploadCarePublicKey}
+            id='images'
+            className={styles.images_widget}
+            multiple
+            onFileSelect={async (group) => {
+              const files = await Promise.all(group.files());
+              const urls = files.map((file) => file.cdnUrl);
+              console.log("urls: ", urls);
+              setImages([...urls]);
+            }}
+            previewStep="true"
+            dataImageShrink="680x680"
+            onChange={info => console.log('Upload completed:', info)}
+          />
         </div>
         <div>
           <input type="submit" />
         </div>
       </form>
-      <p>{checked.toString()}</p>
     </SharedLayout>
   )
 
 }
+
+
+// export async function getServerSideProps(context) {
+//   const { req } = context;
+//   const session = await getServerSession({ req });
+
+//   const res = await fetch(`${BASE_URL_LOCAL}/categories`, {
+//     headers: {
+//       "Authorization": `Bearer `,
+//     },
+//     reponseType: "json",
+//   })
+//   const data = await res.json();
+//   console.log("res: ", data)
+
+//   return {
+//     props: { data },
+//   };
+// }
+
 
 export default AddProduct

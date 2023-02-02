@@ -25,7 +25,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
       <div className={styles.sidebar_toggle} onClick={toggleSidebar}>
         <GiHamburgerMenu size={24} color="rgb(77, 0, 77)" />
       </div>
-      <Image src={logo} alt="logo" width={50} height={20} className="logo" />
+      {/* <Image src={logo} alt="logo" width={50} height={20} className="logo" /> */}
       <div className={styles.topbar_right_container}>
 
         <div className={styles.topbar_input_box}>
@@ -40,19 +40,19 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
               <p>{nameArr && nameArr[1]}</p>
             </div>
             {
-              session?.user?.image ? (
-                <Image
-                  loader={myLoader}
-                  src={session?.user?.image}
-                  height={50}
-                  width={50}
-                  alt="avatar"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    borderRadius: "100%"
-                  }}
-                />
+              session?.user?.image ? ( <p>HO</p>
+                // <Image
+                //   loader={myLoader}
+                //   src={session?.user?.image}
+                //   height={50}
+                //   width={50}
+                //   alt="avatar"
+                //   style={{
+                //     maxWidth: "100%",
+                //     height: "auto",
+                //     borderRadius: "100%"
+                //   }}
+                // />
               ) : (
                 <div className={styles.avatar}>
                   {`${nameArr && nameArr[0]?.slice(0, 1)}${nameArr && nameArr[1]?.slice(0, 1)}`}
@@ -65,19 +65,19 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
         <div className={styles.topbar_profile_box_mobile}>
           <div className={styles.dropdown_btn} onClick={handleDropdown}>
             {
-              session?.user?.image ? (
-                <Image
-                  loader={myLoader}
-                  src={session?.user?.image}
-                  height={40}
-                  width={40}
-                  alt="avatar"
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    borderRadius: "100%"
-                  }}
-                />
+              session?.user?.image ? ( <p>HO</p>
+                // <Image
+                //   loader={myLoader}
+                //   src={session?.user?.image}
+                //   height={40}
+                //   width={40}
+                //   alt="avatar"
+                //   style={{
+                //     maxWidth: "100%",
+                //     height: "auto",
+                //     borderRadius: "100%"
+                //   }}
+                // />
               ) : (
                 <div className={styles.avatar}>
                   {`${nameArr && nameArr[0]?.slice(0, 1)}${nameArr && nameArr[1]?.slice(0, 1)}`}

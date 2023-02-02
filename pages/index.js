@@ -26,7 +26,7 @@ export default function Component() {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
-  const { status } = useSession({
+  const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
       // The user is not authenticated, handle it here.
@@ -78,8 +78,9 @@ export default function Component() {
     fetchUsers()
   }, [limit])
 
-  // console.log(" lim: ", limit);
-  // console.log(" data: ", data)
+  // console.log(" session: ", session);
+  // console.log("sess: ", set);
+
 
   if (status === "loading") {
     return <h1>"Loading or not authenticated..."</h1>
