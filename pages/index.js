@@ -47,10 +47,10 @@ export default function Component() {
   }
 
   const fetchUsers = async () => {
-
+    // ?limit=${limit}&page=${page}&search=${search}
     try {
       const res = await fetch(
-        `${BASE_URL}/products?limit=${limit}&page=${page}&search=${search}`, {
+        `${BASE_URL}/products`, {
           method: "GET",
         headers: {
           "Authorization": `Bearer ${session?.user?.token}`,
@@ -123,6 +123,11 @@ export default function Component() {
           <h2>Table</h2>
           <table className={styles.products_container}>
             <tbody>
+              <tr>
+                <td colSpan={7}>
+                  <input type="text" />
+                </td>
+              </tr>
               <tr>
                 <th>S/N</th>
                 <th>Name</th>
