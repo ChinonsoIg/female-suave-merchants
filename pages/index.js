@@ -2,6 +2,7 @@ import styles from "./../styles/Home.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
+// import { getServerSession } from "next-auth/next";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
@@ -9,12 +10,13 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 // import { SalesIcon } from "../utils/Icons";
+// import { authOptions } from "../pages/api/auth/[...nextauth]";
 import AccessDenied from "../components/AccessDenied";
 import SharedLayout from "../components/layout/SharedLayout";
 import { SalesIcon } from "../utils/Icons";
 import { printNums } from "../utils/functions";
 
-
+const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +26,10 @@ export default function Component() {
   const [limit, setLimit] = useState(0);
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+
 
   const { status, data: session } = useSession({
     required: true,
@@ -41,48 +46,46 @@ export default function Component() {
   }
 
   const fetchUsers = async () => {
+
     try {
       const res = await fetch(
-        `${BASE_URL_LOCAL}/products?limit=${limit}&page=${page}&search=${search}`, {
+        `${BASE_URL}/products?limit=${limit}&page=${page}&search=${search}`, {
+          method: "GET",
         headers: {
           "Authorization": `Bearer ${session?.user?.token}`,
-          "Access-Control-Allow-Origin": "*"
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
         }
-      }
-      );
+      });
 
       if (res.status !== 200) {
-        console.error("An error occured: ", res.statusText);
-        // setIsError(true);
-        // setErrorMessage(res.statusText);
-        // setIsLoading(false);
+        console.error("An error occured: ", res);
+        setIsError(true);
         return;
       }
 
       const data = await res.json();
-      // console.log("Data: ", data);
       setData(data);
-      // setIsLoading(false);
-      // setIsError(false);
+      setIsLoading(false);
+      setIsError(false);
 
     } catch (error) {
       console.error("err: ", error);
-      // setIsError(true);
-      // setErrorMessage("Check your network and try again");
-      // setIsLoading(false);
+      setIsError(true);
+      setIsLoading(false);
     }
+
   };
 
 
   useEffect(() => {
     fetchUsers()
-  }, [limit])
+  }, [limit, page, search])
 
-  // console.log(" session: ", session);
-  // console.log("sess: ", set);
+  console.log("data : ", data)
 
 
-  if (status === "loading") {
+  if (!status || status === "loading") {
     return <h1>"Loading or not authenticated..."</h1>
   }
 
@@ -151,13 +154,13 @@ export default function Component() {
           <p className={styles.items_per_page}>Showing
             <select
               className={styles.num_value}
-              value={data?.perPageCount}
+              value={data.productsPerPage}
               onChange={handleLimit}
             >
               {allNums.map((num, ind) =>
                 <option key={ind}>{num}</option>
               )}
-            </select> out of {data?.totalCount}
+            </select> out of {data.totalProducts}
             <MdOutlineKeyboardArrowDown onClick={handleLimit} size={20} color="#213F7D" className={styles.items_per_page_icon} />
           </p>
           <p>
@@ -181,21 +184,3 @@ export default function Component() {
 }
 
 
-
-// export async function getServerSideProps(context) {
-//   const { req } = context;
-//   const session = await getSession({ req });
-
-//   const res = await fetch(`${BASE_URL_LOCAL}/products`, {
-//     headers: {
-//       "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MWUxNzVmNWIzZmVjMWEyNWRiMDI4ZmYiLCJmaXJzdE5hbWUiOiJKYW5lIiwibGFzdE5hbWUiOiJEb2UiLCJyb2xlIjoic2VsbGVyIiwiaWF0IjoxNjc1MTYyMTM4LCJleHAiOjE2NzUyNDg1Mzh9.Fw6Pv6vwDJBjueDWX3fIBXi21ysgboJp7wTjDxzYRK4`,
-//     },
-//     reponsType: "json",
-//   })
-//   const data = await res.json();
-//   console.log("res: ", data)
-
-//   return {
-//     props: { data },
-//   };
-// }

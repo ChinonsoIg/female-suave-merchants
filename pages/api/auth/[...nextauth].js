@@ -6,6 +6,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL
 
 const authOptions = {
   providers: [
@@ -16,9 +17,7 @@ const authOptions = {
         password: { label: "Password", type: "password", placeholder: "******" }
       },
       async authorize(credentials, req) {
-        console.log("req: ", req)
-        console.log("cred: ", credentials)
-        const res = await fetch("http://localhost:5000/api/v1/auth/login", {
+        const res = await fetch(`${BASE_URL}/auth/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }
@@ -28,7 +27,7 @@ const authOptions = {
 
         return {
           ...user,
-          name: `${user.firstName} ${user.lastName}`,
+          // name: `${user.firstName} ${user.lastName}`,
           token
         }
   
@@ -76,5 +75,9 @@ const authOptions = {
   // },
 
 }
+
+
+// If you don't export this, server session will be null.
+export { authOptions };
 
 export default NextAuth(authOptions);

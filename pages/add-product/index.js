@@ -195,23 +195,4 @@ const AddProduct = () => {
 }
 
 
-// export async function getServerSideProps(context) {
-//   const { req } = context;
-//   const session = await getServerSession({ req });
-
-//   const res = await fetch(`${BASE_URL_LOCAL}/categories`, {
-//     headers: {
-//       "Authorization": `Bearer `,
-//     },
-//     reponseType: "json",
-//   })
-//   const data = await res.json();
-//   console.log("res: ", data)
-
-//   return {
-//     props: { data },
-//   };
-// }
-
-
 export default AddProduct
