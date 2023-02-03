@@ -15,6 +15,7 @@ import AccessDenied from "../components/AccessDenied";
 import SharedLayout from "../components/layout/SharedLayout";
 import { SalesIcon } from "../utils/Icons";
 import { printNums } from "../utils/functions";
+import Loading from "../components/Loading";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
@@ -86,7 +87,7 @@ export default function Component() {
 
 
   if (!status || status === "loading") {
-    return <h1>"Loading or not authenticated..."</h1>
+    return <Loading />
   }
 
 
