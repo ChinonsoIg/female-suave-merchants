@@ -25,14 +25,17 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Component() {
   const [data, setData] = useState({});
   const [limit, setLimit] = useState(0);
-  const [page, setPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
   const [search, setSearch] = useState("");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
 
-  const { status, data: session } = useSession({
+  const {
+    status,
+    data: session
+  } = useSession({
     required: true,
     onUnauthenticated() {
       // The user is not authenticated, handle it here.
@@ -46,16 +49,22 @@ export default function Component() {
     setLimit(value);
   }
 
+  const URL = `${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&currentPage=${currentPage}`
+
+	// const handlePageChange = (selectedObject) => {
+	// 	setCurrentPage(selectedObject.selected);
+	// 	handleFetch();
+	// };
+
   const fetchUsers = async () => {
-    // ?limit=${limit}&page=${page}&search=${search}
+    // x-www-form-urlencoded
     try {
-      const res = await fetch(
-        `${BASE_URL}/products`, {
-          method: "GET",
+      const res = await fetch(URL, {
+        method: "GET",
         headers: {
-          "Authorization": `Bearer ${session?.user?.token}`,
+          "Authorization": `Bearer ${session.user.token}`,
           "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+          "Content-Type": "application/json",
         }
       });
 
@@ -81,9 +90,9 @@ export default function Component() {
 
   useEffect(() => {
     fetchUsers()
-  }, [limit, page, search])
+  }, [search, currentPage, limit, session])
 
-  console.log("data : ", data)
+  // console.log("data : ", session.user.token)
 
 
   if (!status || status === "loading") {
