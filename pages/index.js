@@ -1,4 +1,5 @@
 import styles from "./../styles/Home.module.scss";
+// import styles from "./../styles/globals.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
@@ -23,14 +24,14 @@ const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Component() {
-  const [data, setData] = useState({});
-  const [limit, setLimit] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [search, setSearch] = useState("");
+  const [products, setProducts] = useState([]);
+  const [limit, setLimit] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [query, setQuery] = useState("");
+  const [totalProducts, setTotalProducts] = useState(0);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
 
   const {
     status,
@@ -41,41 +42,54 @@ export default function Component() {
       // The user is not authenticated, handle it here.
       router.push("/auth/signin")
     },
-  })
+  });
+  const token = session?.user?.token;
+
 
   const allNums = printNums();
   const handleLimit = (event) => {
     const value = Number(event.target.value);
     setLimit(value);
   }
+// console.log("page: ", currentPage)
 
-  const URL = `${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&currentPage=${currentPage}`
+  const handlePrevPage = () => {
+    //setCount(prevCount => prevCount + 1); 
+    // console.log("sel: me");
+    if (currentPage <= 0) {
+      return null;
+    }
+    return setCurrentPage((prevPage) => prevPage - 1)
+    // setCurrentPage(selectedObject.selected);
+    // handleFetch();
+  };
 
-	// const handlePageChange = (selectedObject) => {
-	// 	setCurrentPage(selectedObject.selected);
-	// 	handleFetch();
-	// };
+  const handleNextPage = () => {
+    if ((currentPage * limit) >= totalProducts) {
+      return;
+    }
+    setCurrentPage((prevPage) => prevPage + 1);
+    console.log("sel me 2: ", currentPage);
+  };
 
-  const fetchUsers = async () => {
+  const fetchProducts = async () => {
+    const URL = `${BASE_URL_LOCAL}/products?query=${query}&limit=${limit}&page=${currentPage}`;
     // x-www-form-urlencoded
+    
     try {
-      const res = await fetch(URL, {
+      const res = await axios.get(URL, {
         method: "GET",
         headers: {
-          "Authorization": `Bearer ${session.user.token}`,
+          "Authorization": `Bearer ${token}`,
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
         }
       });
 
-      if (res.status !== 200) {
-        console.error("An error occured: ", res);
-        setIsError(true);
-        return;
-      }
+      const { data } = res;
+      setProducts(data.products);
+      setTotalProducts(data.totalProducts);
 
-      const data = await res.json();
-      setData(data);
       setIsLoading(false);
       setIsError(false);
 
@@ -89,16 +103,21 @@ export default function Component() {
 
 
   useEffect(() => {
-    fetchUsers()
-  }, [search, currentPage, limit, session])
+    if (token) {
+      console.log("token: ", token)
+      fetchProducts();
+    } else {
+      console.log("not token : ")
+    }
 
-  // console.log("data : ", session.user.token)
+  }, [token, currentPage, limit])
+  // query, currentPage, limit, 
+  // console.log("products : ", products)
 
 
   if (!status || status === "loading") {
     return <Loading />
   }
-
 
   return (
     <SharedLayout>
@@ -146,7 +165,7 @@ export default function Component() {
                 <th>Status</th>
               </tr>
               {
-                data.products && data.products.map((item, index) => (
+                products && products.map((item, index) => (
                   <tr>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
@@ -169,19 +188,20 @@ export default function Component() {
           <p className={styles.items_per_page}>Showing
             <select
               className={styles.num_value}
-              value={data.productsPerPage}
+              defaultValue={limit}
               onChange={handleLimit}
             >
               {allNums.map((num, ind) =>
                 <option key={ind}>{num}</option>
               )}
-            </select> out of {data.totalProducts}
+            </select> out of {totalProducts}
             <MdOutlineKeyboardArrowDown onClick={handleLimit} size={20} color="#213F7D" className={styles.items_per_page_icon} />
           </p>
-          <p>
-            Paginate
-            {/* <Pagination pageCount={pageCount} handlePageClick={handlePageClick} /> */}
-          </p>
+          <div className={styles.pagination_container}>
+            <button onClick={handlePrevPage}>Prev</button>
+            <p>{currentPage}</p>
+            <button onClick={handleNextPage}>Next</button>
+          </div>
         </div>
       </section>
 
