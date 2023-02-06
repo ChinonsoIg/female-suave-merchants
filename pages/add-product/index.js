@@ -109,7 +109,7 @@ const AddProduct = () => {
 
 
   if (status === "loading") {
-    return <h1>"Loading or not authenticated..."</h1>
+    return <h1>Loading or not authenticated...</h1>
   }
 
   return (
