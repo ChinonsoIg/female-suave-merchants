@@ -15,6 +15,7 @@ import { printNums } from "../utils/functions";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
+import DataLimiter from "../components/DataLimiter";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
@@ -148,18 +149,12 @@ export default function Component() {
         />
 
         <div className={styles.data_modifier}>
-          <p className={styles.items_per_page}>Showing
-            <select
-              className={styles.num_value}
-              defaultValue={limit}
-              onChange={handleLimit}
-            >
-              {allNums.map((num, ind) =>
-                <option key={ind}>{num}</option>
-              )}
-            </select> out of {totalProducts}
-            <MdOutlineKeyboardArrowDown onClick={handleLimit} size={20} color="#213F7D" className={styles.items_per_page_icon} />
-          </p>
+          <DataLimiter
+            limit={limit}
+            handleLimit={handleLimit}
+            allNums={allNums}
+            totalProducts={totalProducts}
+          />
           <Pagination
             handlePrevPage={handlePrevPage}
             handleNextPage={handleNextPage}
