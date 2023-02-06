@@ -1,4 +1,4 @@
-import styles from "./../styles/Home.module.scss";
+import styles from "./../styles/globals.module.scss";
 
 const Table = ({
   title,

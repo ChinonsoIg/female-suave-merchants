@@ -100,10 +100,7 @@ export default function Component() {
 
   useEffect(() => {
     if (token) {
-      console.log("token: ", token)
       fetchProducts();
-    } else {
-      console.log("not token : ")
     }
 
   }, [token, currentPage, limit])
@@ -172,7 +169,6 @@ export default function Component() {
           />
         </div>
       </section>
-
 
 
       <button
