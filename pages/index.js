@@ -1,5 +1,4 @@
 import styles from "./../styles/Home.module.scss";
-// import styles from "./../styles/globals.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
@@ -9,14 +8,13 @@ import { Inter } from "@next/font/google";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
-// import { SalesIcon } from "../utils/Icons";
-// import { authOptions } from "../pages/api/auth/[...nextauth]";
 import AccessDenied from "../components/AccessDenied";
 import SharedLayout from "../components/layout/SharedLayout";
 import { SalesIcon } from "../utils/Icons";
 import { printNums } from "../utils/functions";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
+import Table from "../components/Table";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
@@ -109,8 +107,6 @@ export default function Component() {
     }
 
   }, [token, currentPage, limit])
-  // search, currentPage, limit, 
-  // console.log("search : ", search)
 
 
   if (!status || status === "loading") {
@@ -145,44 +141,14 @@ export default function Component() {
         </section> */}
 
       <section className={styles.data_table}>
-        <div>
-          <h2>Table</h2>
-          <table className={styles.products_container}>
-            <tbody>
-              <tr>
-                <td colSpan={7}>
-                  <form onSubmit={handleSearchSubmit}>
-                    <input type="search" onChange={(e) => setSearch(e.target.value)} />
-                  </form>
-                </td>
-              </tr>
-              <tr>
-                <th>S/N</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Status</th>
-              </tr>
-              {
-                products && products.map((item, index) => (
-                  <tr>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.category}</td>
-                    <td>{item.quatity}</td>
-                    <td>{item.price}</td>
-                    <td>{item.status}</td>
-                    <td>
-                      {/* <span><BsThreeDotsVertical /></span> */}
-                      <span>More...</span>
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-        </div>
+        
+        <Table
+          title="All Products"
+          category={true}
+          products={products}
+          handleSearchSubmit={handleSearchSubmit}
+          setSearch={setSearch}
+        />
 
         <div className={styles.data_modifier}>
           <p className={styles.items_per_page}>Showing
