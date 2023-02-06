@@ -3,7 +3,6 @@ import styles from "./../styles/Home.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
-// import { getServerSession } from "next-auth/next";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
@@ -17,6 +16,7 @@ import SharedLayout from "../components/layout/SharedLayout";
 import { SalesIcon } from "../utils/Icons";
 import { printNums } from "../utils/functions";
 import Loading from "../components/Loading";
+import Pagination from "../components/Pagination";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
@@ -27,7 +27,7 @@ export default function Component() {
   const [products, setProducts] = useState([]);
   const [limit, setLimit] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
-  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
   const [totalProducts, setTotalProducts] = useState(0);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -51,29 +51,28 @@ export default function Component() {
     const value = Number(event.target.value);
     setLimit(value);
   }
-// console.log("page: ", currentPage)
 
   const handlePrevPage = () => {
-    //setCount(prevCount => prevCount + 1); 
-    // console.log("sel: me");
-    if (currentPage <= 0) {
+    if (currentPage <= 1) {
       return null;
     }
     return setCurrentPage((prevPage) => prevPage - 1)
-    // setCurrentPage(selectedObject.selected);
-    // handleFetch();
   };
 
   const handleNextPage = () => {
     if ((currentPage * limit) >= totalProducts) {
-      return;
+      return null;
     }
     setCurrentPage((prevPage) => prevPage + 1);
-    console.log("sel me 2: ", currentPage);
   };
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    fetchProducts();
+  }
+
   const fetchProducts = async () => {
-    const URL = `${BASE_URL_LOCAL}/products?query=${query}&limit=${limit}&page=${currentPage}`;
+    const URL = `${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`;
     // x-www-form-urlencoded
     
     try {
@@ -101,7 +100,6 @@ export default function Component() {
 
   };
 
-
   useEffect(() => {
     if (token) {
       console.log("token: ", token)
@@ -111,8 +109,8 @@ export default function Component() {
     }
 
   }, [token, currentPage, limit])
-  // query, currentPage, limit, 
-  // console.log("products : ", products)
+  // search, currentPage, limit, 
+  // console.log("search : ", search)
 
 
   if (!status || status === "loading") {
@@ -153,7 +151,9 @@ export default function Component() {
             <tbody>
               <tr>
                 <td colSpan={7}>
-                  <input type="text" />
+                  <form onSubmit={handleSearchSubmit}>
+                    <input type="search" onChange={(e) => setSearch(e.target.value)} />
+                  </form>
                 </td>
               </tr>
               <tr>
@@ -197,11 +197,13 @@ export default function Component() {
             </select> out of {totalProducts}
             <MdOutlineKeyboardArrowDown onClick={handleLimit} size={20} color="#213F7D" className={styles.items_per_page_icon} />
           </p>
-          <div className={styles.pagination_container}>
-            <button onClick={handlePrevPage}>Prev</button>
-            <p>{currentPage}</p>
-            <button onClick={handleNextPage}>Next</button>
-          </div>
+          <Pagination
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+            currentPage={currentPage}
+            limit={limit}
+            totalProducts={totalProducts}
+          />
         </div>
       </section>
 
