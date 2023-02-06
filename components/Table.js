@@ -6,6 +6,8 @@ const Table = ({
   products,
   handleSearchSubmit,
   setSearch,
+  currentPage,
+  pageSize
 }) => {
   return (
     <div>
@@ -30,7 +32,7 @@ const Table = ({
           {
             products && products.map((item, index) => (
               <tr key={item._id}>
-                <td>{index + 1}</td>
+                <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{item.name}</td>
                 {category && <td>{item.category}</td>}
                 <td>{item.quatity}</td>

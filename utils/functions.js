@@ -13,3 +13,16 @@ export const printNums = () => {
   }
   return numArray;
 };
+
+// export const nairaSymbol = "&#8358;"
+export const nairaSymbol = () => {
+  return <span>&#8358;</span>;
+}
+
+export const createSlug = (param) => {
+  param = param.replace(/[^a-zA-Z0-9]/g, ' ');
+  param = param.replace(/  +/g, ' ');
+  param = param.replace(/\s/g, '-').toLowerCase();
+  return param;
+
+}

@@ -146,6 +146,8 @@ export default function Component() {
           products={products}
           handleSearchSubmit={handleSearchSubmit}
           setSearch={setSearch}
+          currentPage={currentPage}
+          pageSize={limit}
         />
 
         <div className={styles.data_modifier}>
