@@ -6,54 +6,54 @@ import { BsFillPersonLinesFill } from "react-icons/bs";
 import { HiViewGridAdd } from "react-icons/hi";
 
 export const navItems = [
-  {
-    _id: "1",
-    heading: "categories",
-    items: [
-      {
-        id: "101",
-        title: "ornaments",
-        url: "/ornaments",
-        icon: <DiRuby />
-      },
-      {
-        id: "102",
-        title: "home wears",
-        url: "/home-wears",
-        icon: <AiFillHome />
-      },
-      {
-        id: "103",
-        title: "dress",
-        url: "/dress",
-        icon: <GiAmpleDress />
-      },
-      {
-        id: "104",
-        title: "make-ups",
-        url: "/make-ups",
-        icon: <GiLipstick />
-      },
-      {
-        id: "105",
-        title: "sanitaries",
-        url: "/sanitaries",
-        icon: <MdSanitizer />
-      },
-      {
-        id: "106",
-        title: "underwears",
-        url: "/underwears",
-        icon: <GiUnderwear />
-      },
-      {
-        id: "107",
-        title: "foot wears",
-        url: "/foot-wears",
-        icon: <GiRunningShoe />
-      }
-    ]
-  },
+  // {
+  //   _id: "1",
+  //   heading: "categories",
+  //   items: [
+  //     {
+  //       id: "101",
+  //       title: "ornaments",
+  //       url: "/ornaments",
+  //       icon: <DiRuby />
+  //     },
+  //     {
+  //       id: "102",
+  //       title: "home wears",
+  //       url: "/home-wears",
+  //       icon: <AiFillHome />
+  //     },
+  //     {
+  //       id: "103",
+  //       title: "dress",
+  //       url: "/dress",
+  //       icon: <GiAmpleDress />
+  //     },
+  //     {
+  //       id: "104",
+  //       title: "make-ups",
+  //       url: "/make-ups",
+  //       icon: <GiLipstick />
+  //     },
+  //     {
+  //       id: "105",
+  //       title: "sanitaries",
+  //       url: "/sanitaries",
+  //       icon: <MdSanitizer />
+  //     },
+  //     {
+  //       id: "106",
+  //       title: "underwears",
+  //       url: "/underwears",
+  //       icon: <GiUnderwear />
+  //     },
+  //     {
+  //       id: "107",
+  //       title: "foot wears",
+  //       url: "/foot-wears",
+  //       icon: <GiRunningShoe />
+  //     }
+  //   ]
+  // },
   {
     _id: "2",
     heading: "settings",

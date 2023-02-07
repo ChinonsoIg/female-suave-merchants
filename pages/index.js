@@ -5,8 +5,6 @@ import { useSession, signIn, signOut, getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 import AccessDenied from "../components/AccessDenied";
 import SharedLayout from "../components/layout/SharedLayout";
