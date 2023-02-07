@@ -1,33 +1,32 @@
 import { GiUnderwear, GiAmpleDress, GiLipstick, GiRunningShoe } from "react-icons/gi";
 import { DiRuby } from "react-icons/di";
 import { AiFillHome } from "react-icons/ai";
-import { MdSanitizer, MdOutlineLogout } from "react-icons/md";
+import { MdPeople, MdOutlineLogout, MdReviews, MdAutoGraph } from "react-icons/md";
 import { BsFillPersonLinesFill } from "react-icons/bs";
-import { HiViewGridAdd } from "react-icons/hi";
 
 export const navItems = [
-  // {
-  //   _id: "1",
-  //   heading: "categories",
-  //   items: [
-  //     {
-  //       id: "101",
-  //       title: "ornaments",
-  //       url: "/ornaments",
-  //       icon: <DiRuby />
-  //     },
-  //     {
-  //       id: "102",
-  //       title: "home wears",
-  //       url: "/home-wears",
-  //       icon: <AiFillHome />
-  //     },
-  //     {
-  //       id: "103",
-  //       title: "dress",
-  //       url: "/dress",
-  //       icon: <GiAmpleDress />
-  //     },
+  {
+    _id: "1",
+    heading: "categories",
+    items: [
+      {
+        id: "101",
+        title: "customers",
+        url: "/customers",
+        icon: <MdPeople />
+      },
+      {
+        id: "102",
+        title: "sales",
+        url: "/sales",
+        icon: <MdAutoGraph />
+      },
+      {
+        id: "103",
+        title: "reviews",
+        url: "/reviews",
+        icon: <MdReviews />
+      },
   //     {
   //       id: "104",
   //       title: "make-ups",
@@ -52,8 +51,8 @@ export const navItems = [
   //       url: "/foot-wears",
   //       icon: <GiRunningShoe />
   //     }
-  //   ]
-  // },
+    ]
+  },
   {
     _id: "2",
     heading: "settings",
@@ -64,12 +63,12 @@ export const navItems = [
         url: "/profile",
         icon: <BsFillPersonLinesFill />
       },
-      {
-        id: "202",
-        title: "logout",
-        url: "/logout",
-        icon: <MdOutlineLogout />
-      },
+      // {
+      //   id: "202",
+      //   title: "logout",
+      //   url: "/logout",
+      //   icon: <MdOutlineLogout />
+      // },
       // {
       //   id: "2.3",
       //   title: "audit logs",

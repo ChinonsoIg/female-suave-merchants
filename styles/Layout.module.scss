@@ -208,6 +208,18 @@
           background-color: $primary-color_active_link;
         }
       }
+
+      .logout {
+        @extend %flex_shared;
+        position: absolute;
+        bottom: 4px;
+        // margin-top: 20px 0 10px 0;
+        padding: 0px 0px 0px 20px;
+        background-color: $lightPurple;
+        color: $darkerPurple;
+        width: 100%;
+        font-size: 24px;
+      }
     }
 
     .main {

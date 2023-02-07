@@ -2,7 +2,7 @@ import styles from "../../styles/Layout.module.scss";
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { MdAddBox } from "react-icons/md";
+import { MdAddBox, MdOutlineLogout } from "react-icons/md";
 import { AiFillDashboard } from "react-icons/ai";
 
 import { navItems } from "../../utils/NavItems";
@@ -49,6 +49,10 @@ export const Sidebar = () => {
           })
         }
       </div>
+      <Link href="/auth/logout" className={styles.logout}>
+        <MdOutlineLogout />
+        <p>Logout</p>
+      </Link>
     </>
 
   )
