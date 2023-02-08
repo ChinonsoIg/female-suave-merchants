@@ -5,6 +5,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+  // border: 2px solid red;
 
   .name_category_box, .price_quantity_box, .status_box, .images_upload_box {
     display: grid;
@@ -45,8 +46,9 @@
     grid-template-columns: 1fr;
     grid-template-rows: 2fr;
     place-items: center;
-    padding: 20px;
+    padding: 20px 0;
     border-radius: 5px;
+    width: 100%;
   }
   
 }
