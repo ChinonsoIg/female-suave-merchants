@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
 
+import useFetch from "../utils/services";
 import AccessDenied from "../components/AccessDenied";
 import SharedLayout from "../components/layout/SharedLayout";
 import { SalesIcon } from "../utils/Icons";
@@ -21,13 +22,11 @@ const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Component() {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [limit, setLimit] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [totalProducts, setTotalProducts] = useState(0);
-  const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [totalProducts, setTotalProducts] = useState(0);
   const router = useRouter();
 
   const {
@@ -42,6 +41,7 @@ export default function Component() {
   });
   const token = session?.user?.token;
 
+  const { data, isError, isLoading } = useFetch(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
 
   const allNums = printNums();
   const handleLimit = (event) => {
@@ -68,107 +68,113 @@ export default function Component() {
     fetchProducts();
   }
 
-  const fetchProducts = async () => {
-    const URL = `${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`;
-    // x-www-form-urlencoded
-    
-    try {
-      const res = await axios.get(URL, {
-        method: "GET",
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        }
-      });
+  // const fetchProducts = async () => {
+  //   const URL = `${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`;
+  //   // x-www-form-urlencoded
 
-      const { data } = res;
-      setProducts(data.products);
-      setTotalProducts(data.totalProducts);
+  //   try {
+  //     const res = await axios.get(URL, {
+  //       method: "GET",
+  //       headers: {
+  //         "Authorization": `Bearer ${token}`,
+  //         "Access-Control-Allow-Origin": "*",
+  //         "Content-Type": "application/json",
+  //       }
+  //     });
 
-      setIsLoading(false);
-      setIsError(false);
+  //     const { data } = res;
+  //     setProducts(data.products);
+  //     setTotalProducts(data.totalProducts);
 
-    } catch (error) {
-      console.error("err: ", error);
-      setIsError(true);
-      setIsLoading(false);
-    }
+  //     setIsLoading(false);
+  //     setIsError(false);
 
-  };
+  //   } catch (error) {
+  //     console.error("err: ", error);
+  //     setIsError(true);
+  //     setIsLoading(false);
+  //   }
 
-  useEffect(() => {
-    if (token) {
-      fetchProducts();
-    }
+  // };
 
-  }, [token, currentPage, limit])
+  // useEffect(() => {
+  //   if (token) {
+  //     fetchProducts();
+  //   }
+  // }, [token, currentPage, limit])
 
+  console.log("gh : 0", data)
 
-  if (!status || status === "loading") {
-    return <Loading />
-  }
+  // if (isLoading) {
+  //   return <Loading />
+  // }
 
   return (
     <SharedLayout>
-      <h1>Dashboard</h1>
-      <section className={styles.figures_grid_container}>
-        <div className={styles.figures_grid_child}>
-          <p className={styles.grid_title}>Sales</p>
-          <p className={styles.grid_number}>100</p>
-        </div>
-        <div className={styles.figures_grid_child}>
-          <p className={styles.grid_title}>Income</p>
-          <p className={styles.grid_number}>100</p>
-        </div>
-        <div className={styles.figures_grid_child}>
-          <p className={styles.grid_title}>Customers</p>
-          <p className={styles.grid_number}>100</p>
-        </div>
-        <div className={styles.figures_grid_child}>
-          <p className={styles.grid_title}>Products</p>
-          <p className={styles.grid_number}>100</p>
-        </div>
-      </section>
+      {isError && <div>Err{console.log("is errr", isError)}</div>}
+      {isLoading && <Loading />}
+      {data &&
+        <>
+          <h1>Dashboard</h1>
+          <section className={styles.figures_grid_container}>
+            <div className={styles.figures_grid_child}>
+              <p className={styles.grid_title}>Sales</p>
+              <p className={styles.grid_number}>100</p>
+            </div>
+            <div className={styles.figures_grid_child}>
+              <p className={styles.grid_title}>Income</p>
+              <p className={styles.grid_number}>100</p>
+            </div>
+            <div className={styles.figures_grid_child}>
+              <p className={styles.grid_title}>Customers</p>
+              <p className={styles.grid_number}>100</p>
+            </div>
+            <div className={styles.figures_grid_child}>
+              <p className={styles.grid_title}>Products</p>
+              <p className={styles.grid_number}>100</p>
+            </div>
+          </section>
 
-      {/* TODO:  Bar/Pie chart */}
-      {/* <section>
+          {/* TODO:  Bar/Pie chart */}
+          {/* <section>
           <h2>Bar/Pie chart</h2>
         </section> */}
 
-      <section className={styles.data_table}>
-        
-        <Table
-          title="All Products"
-          category={true}
-          products={products}
-          handleSearchSubmit={handleSearchSubmit}
-          setSearch={setSearch}
-          currentPage={currentPage}
-          pageSize={limit}
-        />
+          <section className={styles.data_table}>
 
-        <div className={styles.data_modifier}>
-          <DataLimiter
-            limit={limit}
-            handleLimit={handleLimit}
-            allNums={allNums}
-            totalProducts={totalProducts}
-          />
-          <Pagination
-            handlePrevPage={handlePrevPage}
-            handleNextPage={handleNextPage}
-            currentPage={currentPage}
-            limit={limit}
-            totalProducts={totalProducts}
-          />
-        </div>
-      </section>
+            <Table
+              title="All Products"
+              category={true}
+              products={data.products}
+              handleSearchSubmit={handleSearchSubmit}
+              setSearch={setSearch}
+              currentPage={currentPage}
+              pageSize={limit}
+            />
+
+            <div className={styles.data_modifier}>
+              <DataLimiter
+                limit={limit}
+                handleLimit={handleLimit}
+                allNums={allNums}
+                totalProducts={data.totalProducts}
+              />
+              <Pagination
+                handlePrevPage={handlePrevPage}
+                handleNextPage={handleNextPage}
+                currentPage={currentPage}
+                limit={limit}
+                totalProducts={data.totalProducts}
+              />
+            </div>
+          </section>
 
 
-      <button
-        onClick={() => signOut()}
-      >Sign out</button>
+          <button
+            onClick={() => signOut()}
+          >Sign out</button>
+        </>
+      }
     </SharedLayout>
   );
 
