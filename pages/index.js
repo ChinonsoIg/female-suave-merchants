@@ -103,7 +103,7 @@ export default function Component() {
   //   }
   // }, [token, currentPage, limit])
 
-  console.log("gh : 0", data)
+  // console.log("gh : 0", data)
 
   // if (isLoading) {
   //   return <Loading />

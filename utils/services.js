@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useSession, signIn, signOut, getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 
@@ -22,27 +22,43 @@ const useFetch = (url) => {
   const token = session?.user?.token;
 
   useEffect(() => {
-    setIsLoading(true);
-    setIsError(null)
 
-    axios.get(url, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      }
-    })
-      .then((res) => {
-        setData(res.data);
+    const controller = new AbortController();
+
+    setTimeout(() => {
+      setIsError(null);
+      setIsLoading(true);
+
+      axios.get(url, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        signal: controller.signal,
       })
-      .catch((err) => {
-        setIsError(err)
-        // check if error is authentication error and redirect to home page
-        // console.log("err: ", err)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+        .then((res) => {
+          setData(res.data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+
+          // check if error is authentication error and redirect to home page
+          // console.log("err: ", err)
+          // if (err.name === "CanceledError") {
+          //   console.log("Request aborted");
+          //   return;
+          // }
+          setIsError(err);
+          
+        })
+        .finally(() => {
+          setIsLoading(false);
+        })
+
+    }, 1000);
+
+    return () => controller.abort();
 
   }, [url, token]);
 
