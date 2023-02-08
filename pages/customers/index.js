@@ -1,12 +1,12 @@
 import React from 'react'
 import SharedLayout from '../../components/layout/SharedLayout'
 
-const Logout = () => {
+const Customers = () => {
   return (
     <SharedLayout>
-      <div>Logout</div>
+      <div>Customers</div>
     </SharedLayout>
   )
 }
 
-export default Logout
+export default Customers

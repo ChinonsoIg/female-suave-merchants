@@ -1,12 +1,12 @@
 import React from 'react'
 import SharedLayout from '../../components/layout/SharedLayout'
 
-const FootWears = () => {
+const Reviews = () => {
   return (
     <SharedLayout>
-      <div>FootWears</div>
+      <div>Reviews</div>
     </SharedLayout>
   )
 }
 
-export default FootWears
+export default Reviews

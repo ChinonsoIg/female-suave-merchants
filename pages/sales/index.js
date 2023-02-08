@@ -1,12 +1,12 @@
 import React from 'react'
 import SharedLayout from '../../components/layout/SharedLayout'
 
-const Sanitaries = () => {
+const Sales = () => {
   return (
     <SharedLayout>
-      <div>Sanitaries</div>
+      <div>Sales</div>
     </SharedLayout>
   )
 }
 
-export default Sanitaries
+export default Sales

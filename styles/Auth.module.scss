@@ -23,7 +23,7 @@
       flex-direction: column;
 
       .login_title {
-        color: $darkPurple;
+        color: $primary-color_10;
         font-size: 40px;
         font-weight: 700;
         line-height: 54px;
@@ -144,8 +144,8 @@
           height: 40px;
           border-radius: 5px;
           border: none;
-          color: $darkerPurple;
-          background-color: $lightPurple;
+          color: $primary-color_10;
+          background-color: $primary-color_90;
           cursor: pointer;
           // padding-left: 20%;
         }
@@ -169,7 +169,6 @@
       .title_box {
 
         .login_title {
-          color: $darkPurple;
           font-size: 36px;
           font-weight: 700;
           line-height: 48px;
@@ -208,7 +207,6 @@
       .title_box {
 
         .login_title {
-          color: $darkPurple;
           font-size: 30px;
           font-weight: 700;
           line-height: 36px;
@@ -245,7 +243,6 @@
       .title_box {
 
         .login_title {
-          color: $darkPurple;
           font-size: 28px;
           line-height: 36px;
         }
