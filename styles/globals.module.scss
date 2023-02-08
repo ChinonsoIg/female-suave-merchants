@@ -2,8 +2,22 @@
 //   box-sizing: border-box;
 // }  #39CDCC
 
-$primary-color: rgb(128, 0, 128);
-$primary-color_active_link: #ffe6ff;
+// rgb(128, 0, 128) primaru color purple
+
+
+$primary-color: #03a9f4;
+$primary-color_10: #012332;
+$primary-color_20: #014565;
+$primary-color_30: #026897;
+$primary-color_40: #028bca;
+$primary-color_55: #1cb5fd;
+$primary-color_80: #9adefe;
+$primary-color_85: #b3e6fe;
+$primary-color_90: #cdeffe;
+$primary-color_95: #e6f7ff;
+
+
+$primary-color_active_link: $primary-color_95;
 $background-color: #FBFBFB;
 
 $white: rgb(255, 255, 255);
@@ -21,8 +35,8 @@ $reduxPurple: rgb(118, 74, 188);
   font-weight: 400;
   line-height: 19px;
   padding: 0 16px;
-  color: $darkerPurple;
-  border: 1px solid $lightPurple;
+  color: $primary-color_10;
+  border: 1px solid grey;
   outline: none;
   box-sizing: border-box;
 
@@ -48,7 +62,7 @@ $reduxPurple: rgb(118, 74, 188);
   font-weight: 600;
   background-color: #FFFFFF;
   padding: 0 10px;
-  color: $darkerPurple;
+  color: $primary-color_10;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
 }
@@ -84,7 +98,7 @@ $reduxPurple: rgb(118, 74, 188);
   padding: 30px 30px 39px 30px;
   border-radius: 4px;
   background-color: $white;
-  border: 1px solid $lightPurple;
+  border: 1px solid $primary-color_90;
   box-shadow: 0 20px 3px, 5px rgba(0, 0, 0, 0.06);
   font-weight: 400;
   font-size: 14px;
@@ -102,12 +116,12 @@ $reduxPurple: rgb(118, 74, 188);
             border-radius: 5px;
             margin-bottom: 20px;
             outline: none;
-            border: 1px solid $lightPurple;
+            border: 1px solid grey;
           }
 
           input:focus {
             border: none;
-            outline: 1px solid $darkPurple;
+            outline: 1px solid $primary-color_20;
           }
         }
       }
@@ -122,7 +136,7 @@ $reduxPurple: rgb(118, 74, 188);
         font-weight: 600;
         font-size: 12px;
         line-height: 14px;
-        color: $darkerPurple;
+        color: $primary-color_10;
         font-family: "Montserat", sans-serif;
 
         .table_header_flex {
@@ -252,7 +266,7 @@ $reduxPurple: rgb(118, 74, 188);
       }
 
       td {
-        border-bottom: 1px solid $lighterPurple;
+        border-bottom: 1px solid $primary-color_95;
         height: 60px;
       }
 
@@ -321,7 +335,7 @@ $reduxPurple: rgb(118, 74, 188);
   }
 
   .pageNumber {
-    color: $darkPurple;
+    color: $primary-color_20;
     font-size: 18px;
     font-weight: 600;
   }
@@ -390,7 +404,7 @@ $reduxPurple: rgb(118, 74, 188);
     padding-left: 5px;
     border-radius: 5px;
     outline: none;
-    border: 1px solid $lightPurple;
+    border: 1px solid grey;
   }
 
   input:focus,
@@ -405,7 +419,7 @@ $reduxPurple: rgb(118, 74, 188);
     padding-left: 5px;
     border-radius: 5px;
     outline: none;
-    border: 1px solid $lightPurple;
+    border: 1px solid grey;
   }
 
   textarea:focus {
@@ -417,11 +431,13 @@ $reduxPurple: rgb(118, 74, 188);
 
 .btn_fill {
   color: $white;
-  background-color: $reduxPurple;
+  background-color: $primary-color;
   padding: 10px;
   border-radius: 5px;
+  font-size: 18px;
   width: 100%;
   max-width: 150px;
+  border: none;
 }
 
 

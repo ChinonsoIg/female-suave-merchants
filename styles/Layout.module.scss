@@ -11,7 +11,7 @@
     gap: 10px;
     font-size: 16px;
     font-weight: 500;
-    color: $darkPurple;
+    color: $primary-color_20;
     text-decoration: none;
   }
   %flex_shared:hover {
@@ -62,7 +62,7 @@
           padding: 0 16px;
           box-sizing: border-box;
           outline: none;
-          border: 1px solid $lightPurple;
+          border: 1px solid grey;
         }
 
         .topbar_input:focus {
@@ -77,8 +77,8 @@
           padding: 13px 25px;
           border-radius: 0 8px 8px 0;
           cursor: pointer;
-          color: $darkerPurple;
-          background-color: $lightPurple;
+          color: $white;
+          background-color: $primary-color;
         }
       }
 
@@ -174,7 +174,7 @@
           font-size: 12px;
           font-weight: 400;
           line-height: 14px;
-          color: $lightPurple;
+          color: grey;
           padding-left: 20px;
           font-family: 'Roboto', sans-serif;
           letter-spacing: 2px;
@@ -215,8 +215,8 @@
         bottom: 4px;
         // margin-top: 20px 0 10px 0;
         padding: 0px 0px 0px 20px;
-        background-color: $lightPurple;
-        color: $darkerPurple;
+        background-color: $primary-color_90;
+        color: $primary-color_10;
         width: 100%;
         font-size: 24px;
       }
@@ -424,7 +424,7 @@
                 font-size: 14px;
                 padding: 0 8px;
                 outline: none;
-                border: 1px solid $lightPurple;
+                border: 1px solid grey;
               }
 
               .topbar_input_mobile:focus {
@@ -438,7 +438,8 @@
                 right: -18.5px;
                 padding: 11.5px 15px;
                 border-radius: 0 5px 5px 0;
-                background-color: $lightPurple;
+                background-color: $primary-color;
+                color: $white;
                 cursor: pointer;
                 // border: 2px solid red;
               }
