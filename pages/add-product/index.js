@@ -1,10 +1,11 @@
 import styles from "../../styles/AddProduct.module.scss";
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Widget } from "@uploadcare/react-widget";
 
+import { useFetchWithoutToken } from "../../utils/services";
 import SharedLayout from "../../components/layout/SharedLayout";
 import Loading from "../../components/Loading";
 import { FormInputs, FormTextArea } from "../../components/Form";
@@ -17,7 +18,6 @@ const AddProduct = () => {
   const [checked, setChecked] = useState(false);
   const [images, setImages] = useState([])
   const [formInputs, setFormInputs] = useState({});
-  const [categories, setCategories] = useState([]);
   const router = useRouter();
 
   const { status, data: session } = useSession({
@@ -28,6 +28,8 @@ const AddProduct = () => {
     },
   });
   const token = session?.user?.token;
+
+  const { data } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
 
   const handleInputsChange = (e) => {
     setFormInputs(() => ({
@@ -70,39 +72,6 @@ const AddProduct = () => {
     setChecked(!checked);
   };
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch(
-          `${BASE_URL_LOCAL}/categories`, {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Access-Control-Allow-Origin": "*"
-          }
-        }
-        );
-
-        if (res.status !== 200) {
-          console.error("An error occured: ", res.statusText);
-          return;
-        }
-
-        const data = await res.json();
-        // console.log("data: ", data)
-        setCategories(data);
-
-      } catch (error) {
-        console.error("err: ", error);
-      }
-    };
-
-    fetchCategories();
-
-  }, [token])
-
-  // console.log("form inputs : ", formInputs)
-
-
 
   if (status === "authenticated") {
     return (
@@ -122,7 +91,7 @@ const AddProduct = () => {
               <select name="categoryId" onChange={handleInputsChange}>
                 <option value="">--Choose an option--</option>
                 {
-                  categories?.categories?.map((category) => {
+                  data?.categories?.map((category) => {
                     const { _id, categoryName } = category;
                     return (
                       <option key={_id} value={_id}>{categoryName}</option>

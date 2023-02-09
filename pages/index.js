@@ -6,8 +6,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
 
-import useFetch from "../utils/services";
-import AccessDenied from "../components/AccessDenied";
+import { useFetchWithToken } from "../utils/services";
 import SharedLayout from "../components/layout/SharedLayout";
 import { SalesIcon } from "../utils/Icons";
 import { printNums } from "../utils/functions";
@@ -22,26 +21,24 @@ const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Component() {
-  // const [products, setProducts] = useState([]);
   const [limit, setLimit] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  // const [totalProducts, setTotalProducts] = useState(0);
   const router = useRouter();
 
-  const {
-    status,
-    data: session
-  } = useSession({
-    required: true,
-    onUnauthenticated() {
-      // The user is not authenticated, handle it here.
-      router.push("/auth/signin")
-    },
-  });
-  const token = session?.user?.token;
+  // const {
+  //   status,
+  //   data: session
+  // } = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     // The user is not authenticated, handle it here.
+  //     router.push("/auth/signin")
+  //   },
+  // });
+  // const token = session?.user?.token;
 
-  const { data, isError, isLoading } = useFetch(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
+  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
 
   const allNums = printNums();
   const handleLimit = (event) => {
@@ -67,47 +64,6 @@ export default function Component() {
     e.preventDefault();
     fetchProducts();
   }
-
-  // const fetchProducts = async () => {
-  //   const URL = `${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`;
-  //   // x-www-form-urlencoded
-
-  //   try {
-  //     const res = await axios.get(URL, {
-  //       method: "GET",
-  //       headers: {
-  //         "Authorization": `Bearer ${token}`,
-  //         "Access-Control-Allow-Origin": "*",
-  //         "Content-Type": "application/json",
-  //       }
-  //     });
-
-  //     const { data } = res;
-  //     setProducts(data.products);
-  //     setTotalProducts(data.totalProducts);
-
-  //     setIsLoading(false);
-  //     setIsError(false);
-
-  //   } catch (error) {
-  //     console.error("err: ", error);
-  //     setIsError(true);
-  //     setIsLoading(false);
-  //   }
-
-  // };
-
-  // useEffect(() => {
-  //   if (token) {
-  //     fetchProducts();
-  //   }
-  // }, [token, currentPage, limit])
-
-  // console.log("gh : 0", data)
-
-  // if (isLoading) {
-  //   return <Loading />
-  // }
 
   return (
     <SharedLayout>
