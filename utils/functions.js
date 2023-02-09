@@ -15,7 +15,7 @@ export const printNums = () => {
 };
 
 // export const nairaSymbol = "&#8358;"
-export const nairaSymbol = () => {
+export const NairaSymbol = () => {
   return <span>&#8358;</span>;
 }
 

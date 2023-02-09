@@ -9,7 +9,7 @@ import { useFetchWithoutToken } from "../../utils/services";
 import SharedLayout from "../../components/layout/SharedLayout";
 import Loading from "../../components/Loading";
 import { FormInputs, FormTextArea } from "../../components/Form";
-import { nairaSymbol } from "../../utils/functions";
+import { NairaSymbol } from "../../utils/functions";
 
 const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;

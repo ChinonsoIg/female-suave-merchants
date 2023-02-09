@@ -36,7 +36,6 @@ const SharedLayout = ({ children }) => {
           className={styles.main}
         >
           {children}
-          <Footer />
         </main>
       </div>
 
