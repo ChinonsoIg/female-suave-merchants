@@ -2,6 +2,7 @@ import styles from "./../styles/Home.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSession, signIn, signOut, getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt"
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
@@ -14,9 +15,11 @@ import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import Table from "../components/Table";
 import DataLimiter from "../components/DataLimiter";
+import AccessDenied from "../components/AccessDenied";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+const secret = process.env.NEXTAUTH_SECRET
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +27,11 @@ export default function Component() {
   const [limit, setLimit] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [data, setData] = useState([]);
   const router = useRouter();
+
+  // const token = await getToken({ req, secret });
+  // console.log("token : ", token)
 
   // const {
   //   status,
@@ -38,7 +45,7 @@ export default function Component() {
   // });
   // const token = session?.user?.token;
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
+  // const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
 
   const allNums = printNums();
   const handleLimit = (event) => {
@@ -65,75 +72,68 @@ export default function Component() {
     fetchProducts();
   }
 
+  // return (
+  //   <SharedLayout>
+  //     <h1>Dashboard</h1>
+  //     <section className={styles.figures_grid_container}>
+  //       <div className={styles.figures_grid_child}>
+  //         <p className={styles.grid_title}>Sales</p>
+  //         <p className={styles.grid_number}>100</p>
+  //       </div>
+  //       <div className={styles.figures_grid_child}>
+  //         <p className={styles.grid_title}>Income</p>
+  //         <p className={styles.grid_number}>100</p>
+  //       </div>
+  //       <div className={styles.figures_grid_child}>
+  //         <p className={styles.grid_title}>Customers</p>
+  //         <p className={styles.grid_number}>100</p>
+  //       </div>
+  //       <div className={styles.figures_grid_child}>
+  //         <p className={styles.grid_title}>Products</p>
+  //         <p className={styles.grid_number}>100</p>
+  //       </div>
+  //     </section>
+
+  //     <section className={styles.data_table}>
+
+  //       <Table
+  //         title="All Products"
+  //         category={true}
+  //         products={data?.products}
+  //         handleSearchSubmit={handleSearchSubmit}
+  //         setSearch={setSearch}
+  //         currentPage={currentPage}
+  //         pageSize={limit}
+  //       />
+
+  //       <div className={styles.data_modifier}>
+  //         <DataLimiter
+  //           limit={limit}
+  //           handleLimit={handleLimit}
+  //           allNums={allNums}
+  //           totalProducts={data?.totalProducts}
+  //         />
+  //         <Pagination
+  //           handlePrevPage={handlePrevPage}
+  //           handleNextPage={handleNextPage}
+  //           currentPage={currentPage}
+  //           limit={limit}
+  //           totalProducts={data?.totalProducts}
+  //         />
+  //       </div>
+  //     </section>
+
+
+  //     <button
+  //       onClick={() => signOut()}
+  //     >Sign out</button>
+  //   </SharedLayout>
+
+  // );
+
   return (
-    <SharedLayout>
-      {isError && <div>Err{console.log("is errr", isError)}</div>}
-      {isLoading && <Loading />}
-      {data &&
-        <>
-          <h1>Dashboard</h1>
-          <section className={styles.figures_grid_container}>
-            <div className={styles.figures_grid_child}>
-              <p className={styles.grid_title}>Sales</p>
-              <p className={styles.grid_number}>100</p>
-            </div>
-            <div className={styles.figures_grid_child}>
-              <p className={styles.grid_title}>Income</p>
-              <p className={styles.grid_number}>100</p>
-            </div>
-            <div className={styles.figures_grid_child}>
-              <p className={styles.grid_title}>Customers</p>
-              <p className={styles.grid_number}>100</p>
-            </div>
-            <div className={styles.figures_grid_child}>
-              <p className={styles.grid_title}>Products</p>
-              <p className={styles.grid_number}>100</p>
-            </div>
-          </section>
-
-          {/* TODO:  Bar/Pie chart */}
-          {/* <section>
-          <h2>Bar/Pie chart</h2>
-        </section> */}
-
-          <section className={styles.data_table}>
-
-            <Table
-              title="All Products"
-              category={true}
-              products={data.products}
-              handleSearchSubmit={handleSearchSubmit}
-              setSearch={setSearch}
-              currentPage={currentPage}
-              pageSize={limit}
-            />
-
-            <div className={styles.data_modifier}>
-              <DataLimiter
-                limit={limit}
-                handleLimit={handleLimit}
-                allNums={allNums}
-                totalProducts={data.totalProducts}
-              />
-              <Pagination
-                handlePrevPage={handlePrevPage}
-                handleNextPage={handleNextPage}
-                currentPage={currentPage}
-                limit={limit}
-                totalProducts={data.totalProducts}
-              />
-            </div>
-          </section>
-
-
-          <button
-            onClick={() => signOut()}
-          >Sign out</button>
-        </>
-      }
-    </SharedLayout>
-  );
-
+    <div>Home div</div>
+  )
 
 
 

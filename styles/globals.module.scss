@@ -1,8 +1,7 @@
 // * {
 //   box-sizing: border-box;
-// }  #39CDCC
-
-// rgb(128, 0, 128) primaru color purple
+// }  
+//  Dark blue bg #0B2239
 
 
 $primary-color: #03a9f4;
@@ -16,19 +15,13 @@ $primary-color_85: #b3e6fe;
 $primary-color_90: #cdeffe;
 $primary-color_95: hsl(199, 100%, 95%);
 
-
 $primary-color_active_link: $primary-color_95;
 $primary-color_active_text: #222222;
 $primary-color_inactive_text: #607D8B;
 $background-color: #FBFBFB;
-
 $white: rgb(255, 255, 255);
-// $lighterPurple: rgba(118, 74, 188, 0.2);
-// $lightPurple: rgba(118, 74, 188, 0.3);
-// $darkPurple: rgb(77, 0, 77);
-// $darkerPurple: rgb(26, 0, 26);
-// $reduxPurple: rgb(118, 74, 188);
-
+// npx create-next-app@latest my-project --typescript --eslint
+// cd my-project
 
 %input-shared {
   height: 40px;
@@ -195,6 +188,7 @@ $white: rgb(255, 255, 255);
                   border-radius: 8px;
                   border: 1px solid #213F7D;
                   padding: 0 20px;
+                  border: 3px solid red;
                 }
               }
 

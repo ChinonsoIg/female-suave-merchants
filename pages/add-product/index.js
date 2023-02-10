@@ -29,7 +29,7 @@ const AddProduct = () => {
   });
   const token = session?.user?.token;
 
-  const { data } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
+  // const { data: categories } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
 
   const handleInputsChange = (e) => {
     setFormInputs(() => ({
@@ -71,7 +71,7 @@ const AddProduct = () => {
   const handleCheckbox = () => {
     setChecked(!checked);
   };
-
+console.log("ses: ", session)
 
   if (status === "authenticated") {
     return (
@@ -88,17 +88,18 @@ const AddProduct = () => {
               onChange={handleInputsChange}
             />
             <label htmlFor="categoryId" className={styles.label}>Category
-              <select name="categoryId" onChange={handleInputsChange}>
+            <input type="tex" placeholder="select" />
+              {/* <select name="categoryId" onChange={handleInputsChange}>
                 <option value="">--Choose an option--</option>
                 {
-                  data?.categories?.map((category) => {
+                  categories?.map((category) => {
                     const { _id, categoryName } = category;
                     return (
                       <option key={_id} value={_id}>{categoryName}</option>
                     )
                   })
                 }
-              </select>
+              </select> */}
             </label>
           </div>
           <div className={styles.price_quantity_box}>

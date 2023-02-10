@@ -2,6 +2,7 @@ import styles from "../../styles/Layout.module.scss";
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { signOut } from "next-auth/react"
 import { MdAddBox, MdOutlineLogout } from "react-icons/md";
 import { AiFillDashboard } from "react-icons/ai";
 
@@ -49,7 +50,14 @@ export const Sidebar = () => {
           })
         }
       </div>
-      <Link href="/auth/logout" className={styles.logout}>
+      <Link
+        href="/auth/signin"
+        className={styles.logout}
+        onClick={(e) => {
+          e.preventDefault()
+          signOut()
+        }}
+      >
         <MdOutlineLogout />
         <p>Logout</p>
       </Link>

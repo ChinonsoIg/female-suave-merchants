@@ -22,9 +22,9 @@ const SharedLayout = ({ children }) => {
       className={styles.container}
     >
       <Topbar
-      toggleSidebar={toggleSidebar}
-      handleDropdown={handleDropdown}
-      isDropdown={isDropdown}
+        toggleSidebar={toggleSidebar}
+        handleDropdown={handleDropdown}
+        isDropdown={isDropdown}
       />
       <div
         className={styles.layout}

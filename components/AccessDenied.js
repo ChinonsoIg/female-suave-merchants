@@ -6,11 +6,12 @@ export default function AccessDenied() {
     <>
       <h1>Access Denied</h1>
       <p>You must be signed in to view this page</p>
+      <button>
+        <Link href="/auth/signin">Sign in</Link>
+      </button>
       <button
-        onClick={(e) => {
-          e.preventDefault()
-          signIn()
-        }}> Sign in</button>
+            onClick={() => signOut()}
+          >Sign out</button>
     </>
   )
 }
