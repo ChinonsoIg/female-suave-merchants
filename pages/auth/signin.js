@@ -1,14 +1,16 @@
 import styles from "../../styles/Auth.module.scss";
 import { useState } from "react";
 import { signIn, getProviders } from "next-auth/react";
-import { getServerSession } from "next-auth/next";
+
 import Head from "next/head";
 import { useRouter } from "next/router";
 // import { Inter } from "@next/font/google";
 import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
-import { authOptions } from "../../pages/api/auth/[...nextauth]";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API;
+// import { getServerSession } from "next-auth/next";
+// import { authOptions } from "../../pages/api/auth/[...nextauth]";
+
+const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -51,7 +53,7 @@ const SignIn = ({ providers }) => {
       callbackUrl: "/",
     });
 
-    // console.log("res signin: ", res)
+    console.log("res signin: ", res)
   };
 
   // useEffect(() => {
@@ -133,21 +135,21 @@ const SignIn = ({ providers }) => {
 
 
 
-export async function getServerSideProps(context) {
-  const session = await getServerSession(context.req, context.res, authOptions);
+// export async function getServerSideProps(context) {
+//   const session = await getServerSession(context.req, context.res, authOptions);
 
-  // If sign in is successful, redirect to homepage
-  if (session) {
-    return {
-      redirect: { destination: "/" },
-    };
-  }
+//   // If sign in is successful, redirect to homepage
+//   if (session) {
+//     return {
+//       redirect: { destination: "/" },
+//     };
+//   }
 
-  const providers = await getProviders(context);
-  return {
-    props: { providers },
-  };
-}
+//   const providers = await getProviders(context);
+//   return {
+//     props: { providers },
+//   };
+// }
 
 
 // PR in NextAuth

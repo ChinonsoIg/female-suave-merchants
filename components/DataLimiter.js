@@ -25,7 +25,6 @@ const DataLimiter = ({
         )}
       </select> out of {totalProducts}
       <MdOutlineKeyboardArrowDown
-        onClick={handleLimit}
         size={20}
         color="#213F7D"
         className={styles.items_per_page_icon}

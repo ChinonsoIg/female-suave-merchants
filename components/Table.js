@@ -35,7 +35,7 @@ const Table = ({
                 <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{item.name}</td>
                 {category && <td>{item.category}</td>}
-                <td>{item.quatity}</td>
+                <td>{item.quantity}</td>
                 <td>{item.price}</td>
                 <td>{item.status}</td>
                 <td>
