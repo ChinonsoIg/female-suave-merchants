@@ -8,16 +8,17 @@ const useFetchWithToken = (url) => {
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { data: session, status } = useSession()
 
-  const {
-    data: session
-  } = useSession({
-    required: true,
-    onUnauthenticated() {
-      // The user is not authenticated, handle it here.
-      router.push("/auth/signin")
-    },
-  });
+  // const {
+  //   data: session
+  // } = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     // The user is not authenticated, handle it here.
+  //     router.push("/auth/signin")
+  //   },
+  // });
   const token = session?.user?.token;
 
   useEffect(() => {
@@ -60,6 +61,8 @@ const useFetchWithToken = (url) => {
     return () => controller.abort();
 
   }, [url, token]);
+
+  console.log("token s: ", session)
 
   return { data, isLoading, isError };
 

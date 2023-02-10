@@ -9,6 +9,10 @@ const Pagination = ({
   totalProducts
 }) => {
 
+  if (!totalProducts) {
+    return null;
+  }
+
   return (
     <div className={styles.pagination_container}>
       <button

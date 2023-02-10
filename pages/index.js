@@ -27,25 +27,25 @@ export default function Component() {
   const [limit, setLimit] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const router = useRouter();
 
   // const token = await getToken({ req, secret });
-  // console.log("token : ", token)
 
-  // const {
-  //   status,
-  //   data: session
-  // } = useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     // The user is not authenticated, handle it here.
-  //     router.push("/auth/signin")
-  //   },
-  // });
+
+  const {
+    status,
+    data: session
+  } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // The user is not authenticated, handle it here.
+      router.push("/auth/signin")
+    },
+  });
   // const token = session?.user?.token;
 
-  // const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
+  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
 
   const allNums = printNums();
   const handleLimit = (event) => {
@@ -71,69 +71,71 @@ export default function Component() {
     e.preventDefault();
     fetchProducts();
   }
+  console.log("data : ", data)
 
-  // return (
-  //   <SharedLayout>
-  //     <h1>Dashboard</h1>
-  //     <section className={styles.figures_grid_container}>
-  //       <div className={styles.figures_grid_child}>
-  //         <p className={styles.grid_title}>Sales</p>
-  //         <p className={styles.grid_number}>100</p>
-  //       </div>
-  //       <div className={styles.figures_grid_child}>
-  //         <p className={styles.grid_title}>Income</p>
-  //         <p className={styles.grid_number}>100</p>
-  //       </div>
-  //       <div className={styles.figures_grid_child}>
-  //         <p className={styles.grid_title}>Customers</p>
-  //         <p className={styles.grid_number}>100</p>
-  //       </div>
-  //       <div className={styles.figures_grid_child}>
-  //         <p className={styles.grid_title}>Products</p>
-  //         <p className={styles.grid_number}>100</p>
-  //       </div>
-  //     </section>
+  if (status === "authenticated") {
+    return (
+      <SharedLayout>
+        <h1>Dashboard</h1>
+        <section className={styles.figures_grid_container}>
+          <div className={styles.figures_grid_child}>
+            <p className={styles.grid_title}>Sales</p>
+            <p className={styles.grid_number}>100</p>
+          </div>
+          <div className={styles.figures_grid_child}>
+            <p className={styles.grid_title}>Income</p>
+            <p className={styles.grid_number}>100</p>
+          </div>
+          <div className={styles.figures_grid_child}>
+            <p className={styles.grid_title}>Customers</p>
+            <p className={styles.grid_number}>100</p>
+          </div>
+          <div className={styles.figures_grid_child}>
+            <p className={styles.grid_title}>Products</p>
+            <p className={styles.grid_number}>100</p>
+          </div>
+        </section>
 
-  //     <section className={styles.data_table}>
+        <section className={styles.data_table}>
 
-  //       <Table
-  //         title="All Products"
-  //         category={true}
-  //         products={data?.products}
-  //         handleSearchSubmit={handleSearchSubmit}
-  //         setSearch={setSearch}
-  //         currentPage={currentPage}
-  //         pageSize={limit}
-  //       />
+          <Table
+            title="All Products"
+            category={true}
+            products={data?.products}
+            handleSearchSubmit={handleSearchSubmit}
+            setSearch={setSearch}
+            currentPage={currentPage}
+            pageSize={limit}
+          />
 
-  //       <div className={styles.data_modifier}>
-  //         <DataLimiter
-  //           limit={limit}
-  //           handleLimit={handleLimit}
-  //           allNums={allNums}
-  //           totalProducts={data?.totalProducts}
-  //         />
-  //         <Pagination
-  //           handlePrevPage={handlePrevPage}
-  //           handleNextPage={handleNextPage}
-  //           currentPage={currentPage}
-  //           limit={limit}
-  //           totalProducts={data?.totalProducts}
-  //         />
-  //       </div>
-  //     </section>
+          <div className={styles.data_modifier}>
+            <DataLimiter
+            limit={limit}
+            handleLimit={handleLimit}
+            allNums={allNums}
+            totalProducts={data?.totalProducts}
+          />
+          <Pagination
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+            currentPage={currentPage}
+            limit={limit}
+            totalProducts={data?.totalProducts}
+          />
+          </div>
+        </section>
 
 
-  //     <button
-  //       onClick={() => signOut()}
-  //     >Sign out</button>
-  //   </SharedLayout>
+        <button
+          onClick={() => signOut()}
+        >Sign out</button>
+      </SharedLayout>
 
-  // );
+    );
+  }
 
-  return (
-    <div>Home div</div>
-  )
+
+  return <Loading />
 
 
 

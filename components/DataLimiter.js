@@ -8,6 +8,11 @@ const DataLimiter = ({
   allNums,
   totalProducts,
 }) => {
+
+  if (!totalProducts) {
+    return null;
+  }
+  
   return (
     <p className={styles.items_per_page}>Showing
       <select
