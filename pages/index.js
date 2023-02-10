@@ -1,10 +1,8 @@
 import styles from "./../styles/Home.module.scss";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useSession, signIn, signOut, getSession } from "next-auth/react";
-import { getToken } from "next-auth/jwt"
+import { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { Inter } from "@next/font/google";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
@@ -19,7 +17,6 @@ import AccessDenied from "../components/AccessDenied";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
-const secret = process.env.NEXTAUTH_SECRET
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,7 +24,6 @@ export default function Component() {
   const [limit, setLimit] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  // const [data, setData] = useState([]);
   const router = useRouter();
 
   // const token = await getToken({ req, secret });
