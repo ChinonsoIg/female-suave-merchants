@@ -62,8 +62,6 @@ const useFetchWithToken = (url) => {
 
   }, [url, token]);
 
-  console.log("token s: ", session)
-
   return { data, isLoading, isError };
 
 }

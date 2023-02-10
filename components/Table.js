@@ -9,6 +9,14 @@ const Table = ({
   currentPage,
   pageSize
 }) => {
+
+  
+  const findCategory = (id) => {
+    const found = category?.find(element => element._id == id)?.categoryName;
+
+    return found;
+  }
+
   return (
     <div>
       <h2>{title}</h2>
@@ -24,7 +32,7 @@ const Table = ({
           <tr>
             <th>S/N</th>
             <th>Name</th>
-            {category && <th>Category</th>}
+            <th>Category</th>
             <th>Quantity</th>
             <th>Price</th>
             <th>Status</th>
@@ -34,7 +42,7 @@ const Table = ({
               <tr key={item._id}>
                 <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{item.name}</td>
-                {category && <td>{item.category}</td>}
+                <td>{findCategory(item.categoryId)}</td>
                 <td>{item.quantity}</td>
                 <td>{item.price}</td>
                 <td>{item.status}</td>

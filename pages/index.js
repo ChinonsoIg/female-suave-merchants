@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { Inter } from "@next/font/google";
 
-import { useFetchWithToken } from "../utils/services";
+import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
 import SharedLayout from "../components/layout/SharedLayout";
 import { SalesIcon } from "../utils/Icons";
 import { printNums } from "../utils/functions";
@@ -47,6 +47,8 @@ export default function Component() {
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
 
+  const { data: category } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
+
   const allNums = printNums();
   const handleLimit = (event) => {
     const value = Number(event.target.value);
@@ -71,7 +73,8 @@ export default function Component() {
     e.preventDefault();
     fetchProducts();
   }
-  console.log("data : ", data)
+
+  // console.log("data : ", category)
 
   if (status === "authenticated") {
     return (
@@ -100,7 +103,7 @@ export default function Component() {
 
           <Table
             title="All Products"
-            category={true}
+            category={category?.categories}
             products={data?.products}
             handleSearchSubmit={handleSearchSubmit}
             setSearch={setSearch}
