@@ -1,3 +1,6 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
+
 import styles from "./../styles/globals.module.scss";
 
 const Table = ({
@@ -9,13 +12,15 @@ const Table = ({
   currentPage,
   pageSize
 }) => {
+  const router = useRouter();
+  console.log("s: ", router)
 
-  
   const findCategory = (id) => {
     const found = category?.find(element => element._id == id)?.categoryName;
-
     return found;
   }
+
+
 
   return (
     <div>
@@ -36,6 +41,10 @@ const Table = ({
             <th>Quantity</th>
             <th>Price</th>
             <th>Status</th>
+            {/* {
+              router.pathname === "/" ? null :
+                <td>Tag</td>
+            } */}
           </tr>
           {
             products && products.map((item, index) => (
@@ -46,9 +55,12 @@ const Table = ({
                 <td>{item.quantity}</td>
                 <td>{item.price}</td>
                 <td>{item.status}</td>
-                <td>
-                  <span>More...</span>
-                </td>
+                {/* {
+                  router.pathname === "/" ? null :
+                    <td>
+                      <span><Link href={`${router.pathname}/${item._id}`}>More...</Link> </span>
+                    </td>
+                } */}
               </tr>
             ))
           }

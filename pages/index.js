@@ -63,7 +63,7 @@ export default function Component() {
   };
 
   const handleNextPage = () => {
-    if ((currentPage * limit) >= totalProducts) {
+    if ((currentPage * limit) >= data.totalProducts) {
       return null;
     }
     setCurrentPage((prevPage) => prevPage + 1);
@@ -100,7 +100,6 @@ export default function Component() {
         </section>
 
         <section className={styles.data_table}>
-
           <Table
             title="All Products"
             category={category?.categories}
