@@ -11,7 +11,7 @@ import { SalesIcon } from "../utils/Icons";
 import { printNums } from "../utils/functions";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
-import Table from "../components/Table";
+import { TableProduct } from "../components/Table";
 import DataLimiter from "../components/DataLimiter";
 import AccessDenied from "../components/AccessDenied";
 
@@ -26,8 +26,6 @@ export default function Component() {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
-  // const token = await getToken({ req, secret });
-
 
   const {
     status,
@@ -35,11 +33,9 @@ export default function Component() {
   } = useSession({
     required: true,
     onUnauthenticated() {
-      // The user is not authenticated, handle it here.
       router.push("/auth/signin")
     },
   });
-  // const token = session?.user?.token;
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
 
@@ -96,7 +92,7 @@ export default function Component() {
         </section>
 
         <section className={styles.data_table}>
-          <Table
+          <TableProduct
             title="All Products"
             category={category?.categories}
             products={data?.products}

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 import styles from "./../styles/globals.module.scss";
 
-const Table = ({
+const TableProduct = ({
   title,
   category,
   products,
@@ -19,7 +19,6 @@ const Table = ({
     const found = category?.find(element => element._id == id)?.categoryName;
     return found;
   }
-
 
 
   return (
@@ -70,4 +69,66 @@ const Table = ({
   )
 }
 
-export default Table;
+
+const Table = ({
+  title,
+  headers,
+  orders,
+  handleSearchSubmit,
+  setSearch,
+  currentPage,
+  pageSize
+}) => {
+  const router = useRouter();
+  console.log("cas: ", orders)
+
+  const findCategory = (id) => {
+    const found = category?.find(element => element._id == id)?.categoryName;
+    return found;
+  }
+
+
+  return (
+    <div>
+      <h2>{title}</h2>
+      <table className={styles.products_container}>
+        <tbody>
+          <tr>
+            <td colSpan={7}>
+              <form onSubmit={handleSearchSubmit}>
+                <input type="search" onChange={(e) => setSearch(e.target.value)} />
+              </form>
+            </td>
+          </tr>
+          <tr>
+          <th>S/N</th>
+            {
+              headers.map((header, ind) => (
+                <>
+                
+                <th key={ind}>{header.name}</th>
+                </>
+              ))
+            }
+          </tr>
+          {
+            orders && orders.map((item, index) => (
+              <tr key={item._id}>
+                <td>{index + 1 + (currentPage - 1) * pageSize}</td>
+                <td>{item.customerId}</td>
+                <td>{item.shippingFee}</td>
+                <td>{item.status}</td>
+                <td>{item.subtotal}</td>
+                <td>{item.total}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+
+
+export { TableProduct, Table };
