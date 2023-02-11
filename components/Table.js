@@ -13,7 +13,6 @@ const TableProduct = ({
   pageSize
 }) => {
   const router = useRouter();
-  console.log("s: ", router)
 
   const findCategory = (id) => {
     const found = category?.find(element => element._id == id)?.categoryName;
@@ -104,10 +103,7 @@ const Table = ({
           <th>S/N</th>
             {
               headers.map((header, ind) => (
-                <>
-                
                 <th key={ind}>{header.name}</th>
-                </>
               ))
             }
           </tr>
@@ -120,6 +116,9 @@ const Table = ({
                 <td>{item.status}</td>
                 <td>{item.subtotal}</td>
                 <td>{item.total}</td>
+                <td>
+                <Link href={`${router.pathname}/${item._id}`}>More...</Link>
+                </td>
               </tr>
             ))
           }
