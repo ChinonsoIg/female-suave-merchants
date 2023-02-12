@@ -25,6 +25,11 @@ const authOptions = {
         const data = await res.json();
         const { user, token } = data;
 
+        // If you omit this, the login will go no matter the password. However, the user will be empty obj
+        if (!user) {
+          return null
+        }
+
         return {
           ...user,
           // name: `${user.firstName} ${user.lastName}`,

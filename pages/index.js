@@ -66,7 +66,7 @@ export default function Component() {
     fetchProducts();
   }
 
-  // console.log("data : ", category)
+  console.log("data : ", session)
 
   if (status === "authenticated") {
     return (

@@ -7,8 +7,8 @@ import { useRouter } from "next/router";
 // import { Inter } from "@next/font/google";
 import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
 
-// import { getServerSession } from "next-auth/next";
-// import { authOptions } from "../../pages/api/auth/[...nextauth]";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "../../pages/api/auth/[...nextauth]";
 
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
@@ -135,21 +135,21 @@ const SignIn = ({ providers }) => {
 
 
 
-// export async function getServerSideProps(context) {
-//   const session = await getServerSession(context.req, context.res, authOptions);
+export async function getServerSideProps(context) {
+  const session = await getServerSession(context.req, context.res, authOptions);
 
-//   // If sign in is successful, redirect to homepage
-//   if (session) {
-//     return {
-//       redirect: { destination: "/" },
-//     };
-//   }
+  // If sign in is successful, redirect to homepage
+  if (session) {
+    return {
+      redirect: { destination: "/", permanent: false },
+    };
+  }
 
-//   const providers = await getProviders(context);
-//   return {
-//     props: { providers },
-//   };
-// }
+  const providers = await getProviders(context);
+  return {
+    props: { providers },
+  };
+}
 
 
 // PR in NextAuth

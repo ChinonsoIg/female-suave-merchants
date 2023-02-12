@@ -3,6 +3,7 @@ import React from 'react'
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { MdOutlineKeyboardBackspace } from "react-icons/md"
 
 import { useFetchWithoutToken, useFetchWithToken } from "../../utils/services";
 import SharedLayout from '../../components/layout/SharedLayout';
@@ -37,6 +38,10 @@ const Sale = () => {
 
     return (
       <SharedLayout>
+        <button>
+          <MdOutlineKeyboardBackspace />
+        Back
+        </button>
         <h1>Sale Item</h1>
         <section className={styles.sales_heading}>
           <div>
@@ -66,8 +71,8 @@ const Sale = () => {
                       <Image 
                         loader={myLoader} 
                         src={item.image} 
-                        height={60} 
-                        width={60}
+                        height={100} 
+                        width={100}
                         alt="product "
                       />
                     </td>
@@ -96,7 +101,7 @@ const Sale = () => {
     )
   }
 
-
 }
+
 
 export default Sale
