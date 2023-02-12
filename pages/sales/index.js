@@ -61,7 +61,7 @@ const Sales = () => {
     fetchProducts();
   }
 
-  console.log("sales : ", data)
+  // console.log("sales : ", data)
   const headers = [
     // { sn: "S/N" }, 
     { name: "Customer", id: "cusomerId" },

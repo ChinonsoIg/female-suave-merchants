@@ -8,7 +8,7 @@ const useFetchWithToken = (url) => {
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { data: session, status } = useSession()
+  const { data: session, status } = useSession();
 
   // const {
   //   data: session
@@ -40,6 +40,7 @@ const useFetchWithToken = (url) => {
         .then((res) => {
           setData(res.data);
           setIsLoading(false);
+
         })
         .catch((err) => {
 
@@ -49,6 +50,7 @@ const useFetchWithToken = (url) => {
           //   console.log("Request aborted");
           //   return;
           // }
+
           setIsError(err);
           
         })
