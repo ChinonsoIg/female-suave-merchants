@@ -3,11 +3,10 @@ import React from 'react'
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
-import { useFetchWithoutToken, useFetchWithToken } from "../../utils/services";
-import SharedLayout from '../../components/layout/SharedLayout';
-import { BackButton } from "../../components/Buttons";
+import { useFetchWithoutToken, useFetchWithToken } from "../../../utils/services";
+import SharedLayout from '../../../components/layout/SharedLayout';
+import { BackButton } from "../../../components/Buttons";
 
 
 const myLoader = ({ src, width, quality }) => {

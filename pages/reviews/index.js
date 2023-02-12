@@ -4,7 +4,7 @@ import SharedLayout from '../../components/layout/SharedLayout'
 const Reviews = () => {
   return (
     <SharedLayout>
-      <div>Reviews</div>
+      <div>All  Reviews</div>
     </SharedLayout>
   )
 }
