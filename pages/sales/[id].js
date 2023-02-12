@@ -3,10 +3,11 @@ import React from 'react'
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { MdOutlineKeyboardBackspace } from "react-icons/md"
+import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../../utils/services";
 import SharedLayout from '../../components/layout/SharedLayout';
+import { BackButton } from "../../components/Buttons";
 
 
 const myLoader = ({ src, width, quality }) => {
@@ -19,6 +20,8 @@ const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 const Sale = () => {
   const router = useRouter();
   const routeId = router.query.id;
+  const splitPath = router.asPath.split("/");
+  const currentPath = splitPath[1]
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders/${routeId}`)
 
@@ -38,10 +41,7 @@ const Sale = () => {
 
     return (
       <SharedLayout>
-        <button>
-          <MdOutlineKeyboardBackspace />
-        Back
-        </button>
+        <BackButton currentPath={currentPath} />
         <h1>Sale Item</h1>
         <section className={styles.sales_heading}>
           <div>

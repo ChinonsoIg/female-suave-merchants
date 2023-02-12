@@ -69,7 +69,7 @@ const Sales = () => {
     { name: "Status", id: "status" },
     { name: "Subtotal", id: "subtotal" },
     { name: "Total", id: "total" },
-  ]
+  ];
 
   return (
     <SharedLayout>

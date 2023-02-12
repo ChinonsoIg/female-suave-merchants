@@ -436,6 +436,17 @@ $white: rgb(255, 255, 255);
   border: none;
 }
 
+.btn_back {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  font-family: monospace;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 
 
 
