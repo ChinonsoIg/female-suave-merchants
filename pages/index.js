@@ -1,5 +1,4 @@
 import styles from "./../styles/Home.module.scss";
-import Image from "next/image";
 import { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -7,13 +6,12 @@ import { Inter } from "@next/font/google";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
 import SharedLayout from "../components/layout/SharedLayout";
-import { SalesIcon } from "../utils/Icons";
 import { printNums } from "../utils/functions";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { TableProduct } from "../components/Table";
 import DataLimiter from "../components/DataLimiter";
-import AccessDenied from "../components/AccessDenied";
+// import AccessDenied from "../components/AccessDenied";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
@@ -66,7 +64,7 @@ export default function Component() {
     fetchProducts();
   }
 
-  console.log("data : ", session)
+  // console.log("data : ", session)
 
   if (status === "authenticated") {
     return (

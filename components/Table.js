@@ -79,7 +79,7 @@ const Table = ({
   pageSize
 }) => {
   const router = useRouter();
-  console.log("cas: ", orders)
+  // console.log("cas: ", orders)
 
   const findCategory = (id) => {
     const found = category?.find(element => element._id == id)?.categoryName;
