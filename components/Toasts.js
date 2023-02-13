@@ -2,8 +2,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const customToast = (type, message, position) => {
-  // console.log("Props: ", props)
-  // const {message, type} = props
 
   toast(message, {
     type,
@@ -14,7 +12,7 @@ const customToast = (type, message, position) => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: "dark",
     });
 }
 

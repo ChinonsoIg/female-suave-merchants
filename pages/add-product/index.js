@@ -13,7 +13,6 @@ import { useFetchWithoutToken, postWithToken } from "../../utils/services";
 import SharedLayout from "../../components/layout/SharedLayout";
 import Loading from "../../components/Loading";
 import { FormInputs, FormTextArea } from "../../components/Form";
-import { NairaSymbol } from "../../utils/functions";
 
 const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
@@ -66,18 +65,18 @@ const AddProduct = () => {
       })
       .catch((error) => {
         console.log("err: ", error);
-        let errTex = error?.response?.statusText ? error?.response?.statusText : "An error occured!"
+        let errTex = error?.response?.data?.message ? error?.response?.data?.message : "An error occured!"
         customToast("error", errTex, "top-center")
       })
       .finally(() => {
-        setIsBtnLoading(false)
+        setTimeout(() => {
+          setIsBtnLoading(false)
+        }, 4800);
       })
 
   }
 
   
-// "Please provide product description,Please provide product quantity,Please provide product price,Please provide product category,Please provide product name"
-
   const handleCheckbox = () => {
     setChecked(!checked);
   };
@@ -171,7 +170,7 @@ const AddProduct = () => {
             />
           </div>
           <div>
-            <input type="submit" value={!isBtnLoading ? "Submit" : "Submitting"} className={styles.btn_fill} />
+            <input type="submit" value={!isBtnLoading ? "Submit" : "Submitting"} className={!isBtnLoading ? styles.btn_fill : styles.btn_loading} />
           </div>
         </form>
       </SharedLayout>

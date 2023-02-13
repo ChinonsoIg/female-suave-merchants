@@ -438,6 +438,18 @@ $white: rgb(255, 255, 255);
   border: none;
 }
 
+.btn_loading {
+  color: $white;
+  background-color: $primary-color_80;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  width: 100%;
+  max-width: 150px;
+  border: none;
+  cursor: not-allowed;
+}
+
 .btn_back {
   display: flex;
   align-items: center;
