@@ -9,7 +9,7 @@ import SharedLayout from "../components/layout/SharedLayout";
 import { printNums } from "../utils/functions";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
-import { TableProduct } from "../components/Table";
+import { ProductTable } from "../components/Table";
 import DataLimiter from "../components/DataLimiter";
 // import AccessDenied from "../components/AccessDenied";
 
@@ -19,7 +19,7 @@ const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Component() {
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const router = useRouter();
@@ -90,8 +90,8 @@ export default function Component() {
         </section>
 
         <section className={styles.data_table}>
-          <TableProduct
-            title="All Products"
+          <ProductTable
+            title="Products"
             category={category?.categories}
             products={data?.products}
             handleSearchSubmit={handleSearchSubmit}

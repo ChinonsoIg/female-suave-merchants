@@ -8,15 +8,16 @@ import { Inter } from "@next/font/google";
 import { useFetchWithoutToken, useFetchWithToken } from "../../utils/services";
 import SharedLayout from '../../components/layout/SharedLayout'
 import { printNums } from "../../utils/functions";
-import { Table } from "../../components/Table";
+import { SalesTable } from "../../components/Table";
 import DataLimiter from "../../components/DataLimiter";
 import Pagination from "../../components/Pagination";
+import Loading from "../../components/Loading";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const Sales = () => {
-  const [limit, setLimit] = useState(3);
+  const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const router = useRouter();
@@ -32,9 +33,9 @@ const Sales = () => {
     },
   });
   
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders?search=${search}&limit=${limit}&page=${currentPage}`)
+  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders?search=${search}&limit=${limit}&page=${currentPage}`);
+  const { data: customers } = useFetchWithToken(`${BASE_URL_LOCAL}/customers`);
 
-  // const { data: category } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
 
   const allNums = printNums();
   const handleLimit = (event) => {
@@ -61,7 +62,8 @@ const Sales = () => {
     fetchProducts();
   }
 
-  // console.log("sales : ", data)
+  console.log("customers : ", customers)
+
   const headers = [
     // { sn: "S/N" }, 
     { name: "Customer", id: "cusomerId" },
@@ -71,39 +73,47 @@ const Sales = () => {
     { name: "Total", id: "total" },
   ];
 
-  return (
-    <SharedLayout>
-      <h1>Dashboard</h1>
 
-      <section className={styles.data_table}>
-          <Table
-            title="All Orders"
-            headers={headers}
-            orders={data?.orders}
-            handleSearchSubmit={handleSearchSubmit}
-            setSearch={setSearch}
-            currentPage={currentPage}
-            pageSize={limit}
-          />
+  if (status === "authenticated") {
+    return (
+      <SharedLayout>
+        <h1>Sales</h1>
+  
+        <section className={styles.data_table}>
+            <SalesTable
+              title="All Sales"
+              headers={headers}
+              orders={data?.orders}
+              handleSearchSubmit={handleSearchSubmit}
+              setSearch={setSearch}
+              currentPage={currentPage}
+              pageSize={limit}
+              customers={customers?.customers}
+            />
+  
+            <div className={styles.data_modifier}>
+              <DataLimiter
+              limit={limit}
+              handleLimit={handleLimit}
+              allNums={allNums}
+              totalProducts={data?.totalOrders}
+            />
+            <Pagination
+              handlePrevPage={handlePrevPage}
+              handleNextPage={handleNextPage}
+              currentPage={currentPage}
+              limit={limit}
+              totalProducts={data?.totalOrders}
+            />
+            </div>
+          </section>
+      </SharedLayout>
+    )
+  }
 
-          <div className={styles.data_modifier}>
-            <DataLimiter
-            limit={limit}
-            handleLimit={handleLimit}
-            allNums={allNums}
-            totalProducts={data?.totalOrders}
-          />
-          <Pagination
-            handlePrevPage={handlePrevPage}
-            handleNextPage={handleNextPage}
-            currentPage={currentPage}
-            limit={limit}
-            totalProducts={data?.totalOrders}
-          />
-          </div>
-        </section>
-    </SharedLayout>
-  )
+  return <Loading />
+
+
 }
 
 export default Sales

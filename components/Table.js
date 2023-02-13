@@ -1,9 +1,8 @@
+import styles from "./../styles/globals.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import styles from "./../styles/globals.module.scss";
-
-const TableProduct = ({
+const ProductTable = ({
   title,
   category,
   products,
@@ -37,7 +36,7 @@ const TableProduct = ({
             <th>Name</th>
             <th>Category</th>
             <th>Quantity</th>
-            <th>Price</th>
+            <th>Price (&#8358;)</th>
             <th>Status</th>
             {/* {
               router.pathname === "/" ? null :
@@ -69,10 +68,11 @@ const TableProduct = ({
 }
 
 
-const Table = ({
+const SalesTable = ({
   title,
   headers,
   orders,
+  customers,
   handleSearchSubmit,
   setSearch,
   currentPage,
@@ -81,8 +81,9 @@ const Table = ({
   const router = useRouter();
   // console.log("cas: ", orders)
 
-  const findCategory = (id) => {
-    const found = category?.find(element => element._id == id)?.categoryName;
+
+  const findCustomer = (id) => {
+    const found = customers?.find(element => element._id == id)?.name;
     return found;
   }
 
@@ -111,7 +112,7 @@ const Table = ({
             orders && orders.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1 + (currentPage - 1) * pageSize}</td>
-                <td>{item.customerId}</td>
+                <td>{findCustomer(item.customerId)}</td>
                 <td>{item.shippingFee}</td>
                 <td>{item.status}</td>
                 <td>{item.subtotal}</td>
@@ -130,4 +131,4 @@ const Table = ({
 
 
 
-export { TableProduct, Table };
+export { ProductTable, SalesTable };

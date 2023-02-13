@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import { useFetchWithToken } from "../../../utils/services";
+import { useFetchWithoutToken, useFetchWithToken } from "../../../utils/services";
 import SharedLayout from '../../../components/layout/SharedLayout';
 import { BackButton } from "../../../components/Buttons";
 
@@ -23,6 +23,7 @@ const Sale = () => {
   const currentPath = splitPath[1]
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders/${routeId}`)
+  const { data: customers } = useFetchWithToken(`${BASE_URL_LOCAL}/customers`)
 
   const {
     status,
@@ -35,6 +36,12 @@ const Sale = () => {
     },
   });
 
+  const findCustomer = (id) => {
+    const found = customers?.customers?.find(element => element._id == id)?.name;
+    return found;
+  }
+
+console.log("cus: ", customers)
 
   if (status === "authenticated") {
 
@@ -45,7 +52,7 @@ const Sale = () => {
         <section className={styles.sales_heading}>
           <div>
             <p>Customer:</p>
-            <p>{data?.order?.customerId}</p>
+            <p>{findCustomer(data?.order?.customerId)}</p>
           </div>
           <div>
             <p>Status:</p>
@@ -59,7 +66,7 @@ const Sale = () => {
                 <th>S/N</th>
                 <th>Image</th>
                 <th>Name</th>
-                <th>Price</th>
+                <th>Price (&#8358;)</th>
                 <th>Quantity</th>
               </tr>
               {
@@ -85,15 +92,15 @@ const Sale = () => {
           </table>
           <div className={styles.table_sub_component}>
             <p>Shipping fee</p>
-            <p>{data?.order?.shippingFee}</p>
+            <p>&#8358; {data?.order?.shippingFee}</p>
           </div>
           <div className={styles.table_sub_component}>
             <p>Subtotal</p>
-            <p>{data?.order?.subtotal}</p>
+            <p>&#8358; {data?.order?.subtotal}</p>
           </div>
           <div className={styles.table_sub_component}>
             <p>Total</p>
-            <p>{data?.order?.total}</p>
+            <p>&#8358; {data?.order?.total}</p>
           </div>
         </section>
       </SharedLayout>
