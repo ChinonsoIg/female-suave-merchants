@@ -4,8 +4,12 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import { Widget } from "@uploadcare/react-widget";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import { useFetchWithoutToken } from "../../utils/services";
+
+import { customToast } from "../../components/Toasts";
+import { useFetchWithoutToken, postWithToken } from "../../utils/services";
 import SharedLayout from "../../components/layout/SharedLayout";
 import Loading from "../../components/Loading";
 import { FormInputs, FormTextArea } from "../../components/Form";
@@ -18,6 +22,7 @@ const AddProduct = () => {
   const [checked, setChecked] = useState(false);
   const [images, setImages] = useState([])
   const [formInputs, setFormInputs] = useState({});
+  const [isBtnLoading, setIsBtnLoading] = useState(false)
   const router = useRouter();
 
   const { status, data: session } = useSession({
@@ -29,8 +34,8 @@ const AddProduct = () => {
   });
   const token = session?.user?.token;
 
-  const { data } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
-  
+  const { data: categories } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`);
+
   const handleInputsChange = (e) => {
     setFormInputs(() => ({
       ...formInputs,
@@ -40,6 +45,7 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsBtnLoading(true);
 
     let modifiedData = {
       ...formInputs,
@@ -47,26 +53,30 @@ const AddProduct = () => {
       status: !checked ? "out of stock" : "available"
     }
 
-    try {
-      const res = await axios.post(
-        `${BASE_URL_LOCAL}/products`,
-        modifiedData,
-        {
-          headers: {
-          "Authorization": `Bearer ${token}`,
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-        },
+    axios.post(`${BASE_URL_LOCAL}/products`, modifiedData, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       }
-      );
-
-      setFormInputs({})
-
-    } catch (error) {
-      console.error("err: ", error);
-    }
+    })
+      .then((res) => {
+        console.log("res", res);
+        let resText = res?.statusText ? res?.statusText : "Product created."
+        customToast("success", resText, "top-right")
+      })
+      .catch((error) => {
+        console.log("err: ", error);
+        let errTex = error?.response?.statusText ? error?.response?.statusText : "An error occured!"
+        customToast("error", errTex, "top-center")
+      })
+      .finally(() => {
+        setIsBtnLoading(false)
+      })
 
   }
+
+  
+// "Please provide product description,Please provide product quantity,Please provide product price,Please provide product category,Please provide product name"
 
   const handleCheckbox = () => {
     setChecked(!checked);
@@ -76,6 +86,8 @@ const AddProduct = () => {
     return (
       <SharedLayout>
         <h1>Add new product</h1>
+        <ToastContainer />
+
         <form className={styles.form_container} onSubmit={handleSubmit}>
           <div className={styles.name_category_box}>
             <FormInputs
@@ -91,7 +103,7 @@ const AddProduct = () => {
               <select name="categoryId" onChange={handleInputsChange}>
                 <option value="">--Choose an option--</option>
                 {
-                  data?.categories?.map((category) => {
+                  categories?.categories?.map((category) => {
                     const { _id, categoryName } = category;
                     return (
                       <option key={_id} value={_id}>{categoryName}</option>
@@ -159,7 +171,7 @@ const AddProduct = () => {
             />
           </div>
           <div>
-            <input type="submit" className={styles.btn_fill} />
+            <input type="submit" value={!isBtnLoading ? "Submit" : "Submitting"} className={styles.btn_fill} />
           </div>
         </form>
       </SharedLayout>

@@ -10,15 +10,6 @@ const useFetchWithToken = (url) => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  // const {
-  //   data: session
-  // } = useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     // The user is not authenticated, handle it here.
-  //     router.push("/auth/signin")
-  //   },
-  // });
   const token = session?.user?.token;
 
   useEffect(() => {
@@ -52,7 +43,7 @@ const useFetchWithToken = (url) => {
           // }
 
           setIsError(err);
-          
+
         })
         .finally(() => {
           setIsLoading(false);
@@ -114,7 +105,7 @@ const useFetchWithoutToken = (url) => {
           //   return;
           // }
           setIsError(err);
-          
+
         })
         .finally(() => {
           setIsLoading(false);
@@ -130,4 +121,59 @@ const useFetchWithoutToken = (url) => {
 
 }
 
-export { useFetchWithToken, useFetchWithoutToken };
+
+const postWithToken = (url, data) => {
+  // const [data, setData] = useState(null);
+  const [isError, setIsError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  const token = session?.user?.token;
+
+  useEffect(() => {
+
+    const controller = new AbortController();
+    setIsError(null);
+    setIsLoading(true);
+
+    axios.post(url, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+      },
+      signal: controller.signal,
+    })
+      .then((res) => {
+        setData(res.data);
+        setIsLoading(false);
+        console.log("res: ", res)
+
+      })
+      .catch((err) => {
+
+        // check if error is authentication error and redirect to home page
+        // console.log("err: ", err)
+        // if (err.name === "CanceledError") {
+        //   console.log("Request aborted");
+        //   return;
+        // }
+        console.log("err: ", err)
+        setIsError(err);
+
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+
+
+    return () => controller.abort();
+
+  }, [url, token]);
+
+  return { data, isLoading, isError };
+
+}
+
+export { useFetchWithToken, useFetchWithoutToken, postWithToken };

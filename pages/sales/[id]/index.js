@@ -1,10 +1,10 @@
-import styles from "../../styles/Sales.module.scss";
+import styles from "../../../styles/Sales.module.scss";
 import React from 'react'
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import { useFetchWithoutToken, useFetchWithToken } from "../../../utils/services";
+import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from '../../../components/layout/SharedLayout';
 import { BackButton } from "../../../components/Buttons";
 
