@@ -19,7 +19,7 @@ const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Component() {
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const router = useRouter();
@@ -35,11 +35,12 @@ export default function Component() {
     },
   });
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`)
+  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?limit=${limit}`)
 
-  const { data: category } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
+  const { data: categories } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
 
   const allNums = printNums();
+
   const handleLimit = (event) => {
     const value = Number(event.target.value);
     setLimit(value);
@@ -63,8 +64,6 @@ export default function Component() {
     e.preventDefault();
     fetchProducts();
   }
-
-  // console.log("data : ", session)
 
   if (status === "authenticated") {
     return (
@@ -91,11 +90,12 @@ export default function Component() {
 
         <section className={styles.data_table}>
           <ProductTable
-            title="Products"
-            category={category?.categories}
+            title="Recent Products"
+            categories={categories?.categories}
             products={data?.products}
             handleSearchSubmit={handleSearchSubmit}
             setSearch={setSearch}
+            search={search}
             currentPage={currentPage}
             pageSize={limit}
           />

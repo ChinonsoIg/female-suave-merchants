@@ -1,6 +1,6 @@
 import styles from "../../styles/Home.module.scss";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Inter } from "@next/font/google";
@@ -62,8 +62,6 @@ const Sales = () => {
     fetchProducts();
   }
 
-  console.log("customers : ", customers)
-
   const headers = [
     // { sn: "S/N" }, 
     { name: "Customer", id: "cusomerId" },
@@ -72,6 +70,10 @@ const Sales = () => {
     { name: "Subtotal", id: "subtotal" },
     { name: "Total", id: "total" },
   ];
+
+
+  // console.log("lim : ", limit)
+  
 
 
   if (status === "authenticated") {

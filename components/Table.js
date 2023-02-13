@@ -4,17 +4,19 @@ import { useRouter } from "next/router";
 
 const ProductTable = ({
   title,
-  category,
+  categories,
   products,
   handleSearchSubmit,
   setSearch,
   currentPage,
-  pageSize
+  pageSize,
+  isSearch,
+  linkToMore
 }) => {
   const router = useRouter();
 
   const findCategory = (id) => {
-    const found = category?.find(element => element._id == id)?.categoryName;
+    const found = categories?.find(element => element._id == id)?.categoryName;
     return found;
   }
 
@@ -24,40 +26,40 @@ const ProductTable = ({
       <h2>{title}</h2>
       <table className={styles.products_container}>
         <tbody>
-          <tr>
-            <td colSpan={7}>
-              <form onSubmit={handleSearchSubmit}>
-                <input type="search" onChange={(e) => setSearch(e.target.value)} />
-              </form>
-            </td>
-          </tr>
+          {isSearch && (
+            <tr>
+              <td colSpan={7}>
+                <form onSubmit={handleSearchSubmit}>
+                  <input type="search" onChange={(e) => setSearch(e.target.value)} />
+                </form>
+              </td>
+            </tr>
+          )}
           <tr>
             <th>S/N</th>
             <th>Name</th>
-            <th>Category</th>
+            { categories && <th>Category</th> }
             <th>Quantity</th>
             <th>Price (&#8358;)</th>
             <th>Status</th>
-            {/* {
-              router.pathname === "/" ? null :
-                <td>Tag</td>
-            } */}
+            { linkToMore && <td></td> }
           </tr>
           {
             products && products.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{item.name}</td>
-                <td>{findCategory(item.categoryId)}</td>
+                { categories && <td>{findCategory(item.categoryId)}</td>}
                 <td>{item.quantity}</td>
                 <td>{item.price}</td>
                 <td>{item.status}</td>
-                {/* {
-                  router.pathname === "/" ? null :
+                {
+                  linkToMore && (
                     <td>
-                      <span><Link href={`${router.pathname}/${item._id}`}>More...</Link> </span>
+                      <Link href={`${router.pathname}/${item._id}`} className={styles.link_to_more}>More...</Link>
                     </td>
-                } */}
+                  )
+                }
               </tr>
             ))
           }
@@ -101,7 +103,7 @@ const SalesTable = ({
             </td>
           </tr>
           <tr>
-          <th>S/N</th>
+            <th>S/N</th>
             {
               headers.map((header, ind) => (
                 <th key={ind}>{header.name}</th>
@@ -118,7 +120,7 @@ const SalesTable = ({
                 <td>{item.subtotal}</td>
                 <td>{item.total}</td>
                 <td>
-                <Link href={`${router.pathname}/${item._id}`}>More...</Link>
+                  <Link href={`${router.pathname}/${item._id}`}>More...</Link>
                 </td>
               </tr>
             ))
