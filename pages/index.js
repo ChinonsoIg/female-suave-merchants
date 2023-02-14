@@ -1,8 +1,9 @@
 import styles from "./../styles/Home.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Inter } from "@next/font/google";
+import axios from "axios";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
 import SharedLayout from "../components/layout/SharedLayout";
@@ -64,6 +65,27 @@ export default function Component() {
     e.preventDefault();
     fetchProducts();
   }
+
+  useEffect(() => {
+
+    // const controller = new AbortController();
+      fetch("http://localhost:3035", {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "tex/plain",
+        },
+      })
+        .then((res) => {
+          console.log("res: ", res)
+        })
+        .catch((err) => {
+          console.log("err: ", err)
+        })
+
+
+    // return () => controller.abort();
+
+  }, []);
 
   if (status === "authenticated") {
     return (
