@@ -27,12 +27,12 @@ export const navItems = [
         url: "/reviews",
         icon: <MdReviews />
       },
-      {
-        id: "104",
-        title: "customers",
-        url: "/customers",
-        icon: <MdPeople />
-      },
+      // {
+      //   id: "104",
+      //   title: "customers",
+      //   url: "/customers",
+      //   icon: <MdPeople />
+      // },
     ]
   },
   {
