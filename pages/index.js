@@ -66,6 +66,7 @@ export default function Component() {
     fetchProducts();
   }
 
+  // console.log("session: ", data)
   
   if (status === "authenticated") {
     return (

@@ -1,5 +1,6 @@
 import styles from "../../styles/Auth.module.scss";
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -8,15 +9,15 @@ import { customToast } from "../../components/Toasts";
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SignUp = () => {
-  const [userInfo, setUserInfo] = useState({ 
+  const [userInfo, setUserInfo] = useState({
     firstName: "",
     lastName: "",
-    email: "", 
+    email: "",
     address: "",
-    password: "" 
+    password: ""
   });
   const [togglePassword, setTogglePassword] = useState(false);
-  const [isError, setIsError] = useState(false);
+  // const [isError, setIsError] = useState(false);
   const router = useRouter();
 
   const handleInputsChange = (e) => {
@@ -39,19 +40,21 @@ const SignUp = () => {
       headers: { "Content-Type": "application/json" }
     })
     const data = await res.json();
-    console.log("reg: ", data.status)
+    console.log("reg: ", data)
 
-    if (data.status !== 200) {
-      let msg = data.message;
-      customToast("error", "msg", "top-center");
-      return;
+    if (data.user) {
+
+      customToast("success", "Registration successfle", "top-right")
+      setTimeout(() => {
+        router.push("/auth/signin")
+      }, 1000);
+
+    } else {
+
+      let msg = data?.message;
+      return customToast("error", msg, "top-center");
     }
 
-    let msg = data.message;
-    customToast("success", msg, "top-right")
-    setTimeout(() => {
-      router.push("/auth/signin")
-    }, 1000);
   };
 
   return (
@@ -64,14 +67,15 @@ const SignUp = () => {
       </Head>
       <div className={styles.auth}>
         <div className={styles.auth_form_box}>
+          <ToastContainer />
           <div className={styles.title_box}>
             <header className={styles.auth_title}>Welcome!</header>
             <p className={styles.auth_subtitle}>Enter details to register</p>
           </div>
           <form className={styles.auth_form}>
-            
+
             <div className={styles.inputs_box}>
-            <input
+              <input
                 type="text"
                 name="firstName"
                 placeholder="First name"

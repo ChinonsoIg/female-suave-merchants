@@ -38,18 +38,22 @@ const ProductTable = ({
           <tr>
             <th>S/N</th>
             <th>Name</th>
-            { categories && <th>Category</th> }
+            {categories && <th>Category</th>}
             <th>Quantity</th>
             <th>Price (&#8358;)</th>
             <th>Status</th>
-            { linkToMore && <td></td> }
+            {linkToMore && <td></td>}
           </tr>
+          {products?.length === 0 ? 
+            <tr><td colSpan={6} style={{textAlign: "center"}}>No data</td></tr> : 
+            null
+          }
           {
             products && products.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{item.name}</td>
-                { categories && <td>{findCategory(item.categoryId)}</td>}
+                {categories && <td>{findCategory(item.categoryId)}</td>}
                 <td>{item.quantity}</td>
                 <td>{item.price}</td>
                 <td>{item.status}</td>
