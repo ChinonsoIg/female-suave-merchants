@@ -2,9 +2,9 @@ import styles from "../styles/globals.module.scss";
 import { useRouter } from "next/router";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 
-const Button = () => {
+const ButtonPrimary = ({ click }) => {
   return (
-    <div>Button</div>
+    <button className={styles.btn_fill} onClick={click}>Button</button>
   )
 }
 
@@ -24,4 +24,4 @@ const BackButton = ({ currentPath }) => {
 }
 
 
-export { Button, BackButton }
+export { ButtonPrimary, BackButton }
