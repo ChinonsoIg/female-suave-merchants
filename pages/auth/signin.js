@@ -65,13 +65,13 @@ const SignIn = ({ providers }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className={styles.login}>
-        <div className={styles.login_form_box}>
+      <div className={styles.auth}>
+        <div className={styles.auth_form_box}>
           <div className={styles.title_box}>
-            <header className={styles.login_title}>Welcome!</header>
-            <p className={styles.login_subtitle}>Enter details to login</p>
+            <header className={styles.auth_title}>Welcome!</header>
+            <p className={styles.auth_subtitle}>Enter details to login</p>
           </div>
-          <form className={styles.login_form}>
+          <form className={styles.auth_form}>
             <div className={styles.inputs_box}>
               <input
                 type="email"
@@ -89,8 +89,10 @@ const SignIn = ({ providers }) => {
                 />
                 <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
-              <a href="#/reset_password">Forgot password?</a>
-              <p>Don't have an account? <a href="/auth/signup">Register</a></p>
+              <div>
+                <a href="#/reset_password">Forgot password?</a>
+                <p>Don't have an account? <a href="/auth/signup">Register</a></p>
+              </div>
             </div>
             <button
               // type="submit"
