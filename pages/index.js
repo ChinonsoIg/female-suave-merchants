@@ -66,27 +66,7 @@ export default function Component() {
     fetchProducts();
   }
 
-  useEffect(() => {
-
-    // const controller = new AbortController();
-      fetch("http://localhost:3035", {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "tex/plain",
-        },
-      })
-        .then((res) => {
-          console.log("res: ", res)
-        })
-        .catch((err) => {
-          console.log("err: ", err)
-        })
-
-
-    // return () => controller.abort();
-
-  }, []);
-
+  
   if (status === "authenticated") {
     return (
       <SharedLayout>

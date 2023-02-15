@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import { useFetchWithoutToken, useFetchWithToken } from "../../../utils/services";
+import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from '../../../components/layout/SharedLayout';
 import { BackButton } from "../../../components/Buttons";
 
@@ -41,7 +41,7 @@ const Sale = () => {
     return found;
   }
 
-console.log("cus: ", customers)
+// console.log("cus: ", customers)
 
   if (status === "authenticated") {
 
@@ -79,7 +79,7 @@ console.log("cus: ", customers)
                         src={item.image} 
                         height={100} 
                         width={100}
-                        alt="product "
+                        alt={item.name}
                       />
                     </td>
                     <td>{item.name}</td>

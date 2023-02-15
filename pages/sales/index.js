@@ -1,7 +1,7 @@
 import styles from "../../styles/Home.module.scss";
 import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Inter } from "@next/font/google";
 
