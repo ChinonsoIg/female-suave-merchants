@@ -4,7 +4,6 @@ import { signIn, getProviders } from "next-auth/react";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
-// import { Inter } from "@next/font/google";
 import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
 
 import { getServerSession } from "next-auth/next";
@@ -56,10 +55,6 @@ const SignIn = ({ providers }) => {
     console.log("res signin: ", res)
   };
 
-  // useEffect(() => {
-  //   // console.log("providers : ", providers);
-  // }, [providers]);
-
 
   return (
     <>
@@ -95,6 +90,7 @@ const SignIn = ({ providers }) => {
                 <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
               <a href="#/reset_password">Forgot password?</a>
+              <p>Don't have an account? <a href="/auth/signup">Register</a></p>
             </div>
             <button
               // type="submit"
