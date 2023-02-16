@@ -53,16 +53,16 @@ const authOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async session({ session, token }) {
-      session.user = token.user;
-      return session;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.user = user;
+    async jwt({ token, account }) {
+      if (account) {
+        token.accessToken = account.access_token;
       }
       return token;
-    }
+    },
+    async session({ session, token, user }) {
+      session.accessToken = token.accessToken;
+      return session;
+    },
   },
   pages: {
     signIn: '/auth/signin',

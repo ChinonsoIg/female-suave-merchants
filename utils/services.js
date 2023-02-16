@@ -11,6 +11,8 @@ const useFetchWithToken = (url) => {
   const { data: session, status } = useSession();
 
   const token = session?.user?.token;
+  // const token = session?.accessToken;
+
 
   useEffect(() => {
 

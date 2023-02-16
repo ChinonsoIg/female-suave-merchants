@@ -2,7 +2,6 @@ import styles from "./../styles/Home.module.scss";
 import { useState, useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { Inter } from "@next/font/google";
 import axios from "axios";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
@@ -13,11 +12,11 @@ import Pagination from "../components/Pagination";
 import { ProductTable } from "../components/Table";
 import DataLimiter from "../components/DataLimiter";
 // import AccessDenied from "../components/AccessDenied";
+// Editor pwd: 0DHYS0J6mWt3p!U4hC2vG7*h
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Component() {
   const [limit, setLimit] = useState(10);
@@ -66,8 +65,8 @@ export default function Component() {
     fetchProducts();
   }
 
-  // console.log("session: ", data)
-  
+  // console.log("session: ", data);
+
   if (status === "authenticated") {
     return (
       <SharedLayout>
