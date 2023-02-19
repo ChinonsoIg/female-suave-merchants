@@ -5,6 +5,7 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 40px;
   // margin-bottom: 50px;/
+  // border: 1px solid red;
 
   .figures_grid_child {
     background-color: $white;
@@ -29,7 +30,7 @@
 
     .grid_number {
       font-weight: 600;
-      font-size: 40px;
+      font-size: 20px;
       font-variant-numeric: tabular-nums;
       font-family: "Mulish", sans-serif;
       color: $primary-color_10;

@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
 import SharedLayout from "../components/layout/SharedLayout";
-import { printNums } from "../utils/functions";
+import { addComma, printNums } from "../utils/functions";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { ProductTable } from "../components/Table";
@@ -41,6 +41,10 @@ export default function Component() {
 
   const { data: sales } = useFetchWithToken(`${BASE_URL_LOCAL}/orders`);
 
+  const totalIncome = sales?.orders?.reduce((acc, obj) => {
+    return acc + obj?.total;
+  }, 0)
+
   const allNums = printNums();
 
   const handleLimit = (event) => {
@@ -67,7 +71,7 @@ export default function Component() {
     fetchProducts();
   }
 
-  console.log("session: ", session);
+  console.log("session: ", sales);
 
   if (status === "authenticated") {
     return (
@@ -76,11 +80,11 @@ export default function Component() {
         <section className={styles.figures_grid_container}>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Sales</p>
-            <p className={styles.grid_number}>100</p>
+            <p className={styles.grid_number}>{sales?.totalOrders}</p>
           </div>
           <div className={styles.figures_grid_child}>
-            <p className={styles.grid_title}>Income</p>
-            <p className={styles.grid_number}>100</p>
+            <p className={styles.grid_title}>Income (&#8358;)</p>
+            <p className={styles.grid_number}>{addComma(totalIncome)}</p>
           </div>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Customers</p>
