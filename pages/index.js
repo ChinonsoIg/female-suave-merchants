@@ -24,7 +24,6 @@ export default function Component() {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
-
   const {
     status,
     data: session
@@ -34,6 +33,8 @@ export default function Component() {
       router.push("/auth/signin")
     },
   });
+
+  const allNums = printNums();
 
   const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?limit=${limit}`)
 
@@ -45,7 +46,12 @@ export default function Component() {
     return acc + obj?.total;
   }, 0)
 
-  const allNums = printNums();
+
+  // let uniqueItems = [...new Set(items)];
+  const customerIds = sales?.orders?.map((order) => order.customerId);
+  const uniqueICustomers = new Set(customerIds)?.size
+  
+  
 
   const handleLimit = (event) => {
     const value = Number(event.target.value);
@@ -71,7 +77,7 @@ export default function Component() {
     fetchProducts();
   }
 
-  console.log("session: ", sales);
+  // console.log("session: ", products);
 
   if (status === "authenticated") {
     return (
@@ -88,11 +94,11 @@ export default function Component() {
           </div>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Customers</p>
-            <p className={styles.grid_number}>100</p>
+            <p className={styles.grid_number}>{uniqueICustomers}</p>
           </div>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Products</p>
-            <p className={styles.grid_number}>100</p>
+            <p className={styles.grid_number}>{products?.totalProducts}</p>
           </div>
         </section>
 
@@ -134,10 +140,7 @@ export default function Component() {
     );
   }
 
-
   return <Loading />
-
-
 
 }
 
