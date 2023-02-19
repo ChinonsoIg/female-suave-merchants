@@ -35,7 +35,7 @@ const authOptions = {
           // name: `${user.firstName} ${user.lastName}`,
           token
         }
-  
+
       }
     }),
     GoogleProvider({
@@ -52,18 +52,35 @@ const authOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    jwt: true,
+    maxAge: 24 * 60 * 60,
+    // updateAge: 24 * 60 * 60,
+  },
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, user }) {
       if (account) {
         token.accessToken = account.access_token;
+      }
+      if (user) {
+        token.user = user;
       }
       return token;
     },
     async session({ session, token, user }) {
-      session.accessToken = token.accessToken;
+      if (token.accessToken) {
+        session.user = token.user
+        session.user.token = token.accessToken;
+        return session;
+      }
+
+      session.user = token.user
+      // session.user.token = token.accessToken;
       return session;
     },
+
   },
+
   pages: {
     signIn: '/auth/signin',
     signOut: '/auth/signout',

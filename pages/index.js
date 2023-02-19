@@ -35,9 +35,11 @@ export default function Component() {
     },
   });
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?limit=${limit}`)
+  const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?limit=${limit}`)
 
-  const { data: categories } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`)
+  const { data: categories } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`);
+
+  const { data: sales } = useFetchWithToken(`${BASE_URL_LOCAL}/orders`);
 
   const allNums = printNums();
 
@@ -54,7 +56,7 @@ export default function Component() {
   };
 
   const handleNextPage = () => {
-    if ((currentPage * limit) >= data.totalProducts) {
+    if ((currentPage * limit) >= products.totalProducts) {
       return null;
     }
     setCurrentPage((prevPage) => prevPage + 1);
@@ -65,7 +67,7 @@ export default function Component() {
     fetchProducts();
   }
 
-  // console.log("session: ", data);
+  console.log("session: ", session);
 
   if (status === "authenticated") {
     return (
@@ -94,7 +96,7 @@ export default function Component() {
           <ProductTable
             title="Recent Products"
             categories={categories?.categories}
-            products={data?.products}
+            products={products?.products}
             handleSearchSubmit={handleSearchSubmit}
             setSearch={setSearch}
             search={search}
@@ -107,14 +109,14 @@ export default function Component() {
             limit={limit}
             handleLimit={handleLimit}
             allNums={allNums}
-            totalProducts={data?.totalProducts}
+            totalProducts={products?.totalProducts}
           />
           <Pagination
             handlePrevPage={handlePrevPage}
             handleNextPage={handleNextPage}
             currentPage={currentPage}
             limit={limit}
-            totalProducts={data?.totalProducts}
+            totalProducts={products?.totalProducts}
           />
           </div>
         </section>
