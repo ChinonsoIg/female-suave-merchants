@@ -1,9 +1,10 @@
 import styles from "../../styles/Auth.module.scss";
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
-
+import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { ToastContainer } from "react-toastify";
+
 import { customToast } from "../../components/Toasts";
 
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
@@ -35,7 +36,7 @@ const SignUp = () => {
     e.preventDefault();
 
     const res = await fetch(`${BASE_URL_LOCAL}/auth/register`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(userInfo),
       headers: { "Content-Type": "application/json" }
     })
@@ -112,7 +113,7 @@ const SignUp = () => {
                 />
                 <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
-              <p>Have an acccount already? <a href="/auth/signin">Log In</a></p>
+              <p>Have an acccount already? <Link href="/auth/signin">Log In</Link></p>
             </div>
             <button
               // type="submit"

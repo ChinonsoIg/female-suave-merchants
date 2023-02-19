@@ -15,11 +15,11 @@ const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const sortLogo = (credentials) => {
   switch (credentials) {
-    case 'facebook':
+    case "facebook":
       return <AiFillFacebook size={18} color="" />
-    case 'google':
+    case "google":
       return <AiFillGoogleCircle size={18} color="" />
-    case 'github':
+    case "github":
       return <AiFillGithub size={18} color="" />
     default:
       console.log(`Sorry, we are out of ${credentials}.`);
@@ -91,7 +91,7 @@ const SignIn = ({ providers }) => {
               </div>
               <div>
                 <a href="#/reset_password">Forgot password?</a>
-                <p>Don't have an account? <a href="/auth/signup">Register</a></p>
+                <p>Don&apos;t have an account? <a href="/auth/signup">Register</a></p>
               </div>
             </div>
             <button
