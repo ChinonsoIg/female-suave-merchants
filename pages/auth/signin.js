@@ -8,6 +8,7 @@ import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
+import Link from "next/link";
 
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
@@ -90,8 +91,8 @@ const SignIn = ({ providers }) => {
                 <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
               <div>
-                <a href="#/reset_password">Forgot password?</a>
-                <p>Don&apos;t have an account? <a href="/auth/signup">Register</a></p>
+                <Link href="#/reset_password">Forgot password?</Link>
+                <p>Don&apos;t have an account? <Link href="/auth/signup">Register</Link></p>
               </div>
             </div>
             <button
