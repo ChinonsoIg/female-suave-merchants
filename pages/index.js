@@ -15,7 +15,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 
-export default function Component() {
+export default function Home() {
   const [limit, setLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -83,7 +83,7 @@ export default function Component() {
             <p className={styles.grid_number}>{sales?.totalOrders}</p>
           </div>
           <div className={styles.figures_grid_child}>
-            <p className={styles.grid_title}>Income (&#8358;)</p>
+            <p data-testid="income" className={styles.grid_title}>Income (&#8358;)</p>
             <p className={styles.grid_number}>{addComma(totalIncome)}</p>
           </div>
           <div className={styles.figures_grid_child}>

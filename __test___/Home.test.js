@@ -1,18 +1,19 @@
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
+import { within } from "@testing-library/dom";
 
 import "@testing-library/jest-dom";
 import "@testing-library/jest-dom/extend-expect";
 
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import {useSession} from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import mockRouter from "next-router-mock";
 import { MemoryRouterProvider } from "next-router-mock/MemoryRouterProvider";
 
 
-import Component from "../pages";
+import Home from "../pages";
 
 
 jest.mock("next-auth/react", () => {
@@ -25,7 +26,7 @@ jest.mock("next-auth/react", () => {
     __esModule: true,
     ...originalModule,
     useSession: jest.fn(() => {
-      return {data: mockSession, status: 'authenticated'}  // return type is [] in v3 but changed to {} in v4
+      return { data: mockSession, status: 'authenticated' }  // return type is [] in v3 but changed to {} in v4
     }),
   };
 });
@@ -35,10 +36,10 @@ jest.mock('next/router', () => ({
 }))
 
 
-describe("component", () => {
-  it("renders Dashboard on Component", () => {
+describe("Home", () => {
+  it("renders Dashboard on Home", () => {
 
-    const { getByTestId } = render(<Component />);
+    const { getByTestId } = render(<Home />);
     const headerEl = getByTestId("header");
 
     expect(headerEl.textContent).toBe("Dashboard");
@@ -46,13 +47,41 @@ describe("component", () => {
   });
 
 
-  it("renders Dashboard on Component", () => {
+  it("renders Recent Products on Home", () => {
 
-    const { getByTestId } = render(<Component />);
-    const headerEl = getByTestId("header");
+    render(<Home />);
+    expect(screen.getByText('Recent Products')).toBeInTheDocument();
+  });
 
-    expect(headerEl.textContent).toBe("Dashboard");
 
+  it("renders Sales on Home", () => {
+
+    render(<Home />);
+    expect(screen.getByText('Sales')).toBeInTheDocument();
+  });
+
+
+  it("renders Income on Home", () => {
+
+    render(<Home />);
+    // expect(screen.getByText('Income')).toBeInTheDocument();
+
+    const { getByText } = within(screen.getByTestId('income'))
+    expect(getByText(/Income/)).toBeInTheDocument();
+  });
+
+
+  it("renders Customers on Home", () => {
+
+    render(<Home />);
+    expect(screen.getByText('Customers')).toBeInTheDocument();
+  });
+
+
+  it("renders Products on Home", () => {
+
+    render(<Home />);
+    expect(screen.getByText('Products')).toBeInTheDocument();
   });
 
 });
