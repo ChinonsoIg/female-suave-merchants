@@ -11,7 +11,7 @@ import { navItems } from "../../utils/NavItems";
 
 export const Sidebar = () => {
   const router = useRouter();
-  const routerPath = router.asPath;
+  const routerPath = router?.asPath;
 
   // console.log("as path", router)
 
@@ -37,7 +37,7 @@ export const Sidebar = () => {
                     const { id, title, url, icon } = item;
                     return (
                       <Link href={`${url}`}
-                        className={`${styles.nav_item} ${routerPath.includes(url) ? styles.active_link : null}`}
+                        className={`${styles.nav_item} ${routerPath?.includes(url) ? styles.active_link : null}`}
                         key={id}>
                         {icon}
                         <p>{title}</p>

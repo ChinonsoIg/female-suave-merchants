@@ -45,7 +45,7 @@ export default function Component() {
 
   const customerIds = sales?.orders?.map((order) => order.customerId);
   const uniqueCustomers = new Set(customerIds)?.size
-  
+
 
   const handleLimit = (event) => {
     const value = Number(event.target.value);
@@ -76,7 +76,7 @@ export default function Component() {
   if (status === "authenticated") {
     return (
       <SharedLayout>
-        <h1>Dashboard</h1>
+        <h1 data-testid="header">Dashboard</h1>
         <section className={styles.figures_grid_container}>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Sales</p>
@@ -110,18 +110,18 @@ export default function Component() {
 
           <div className={styles.data_modifier}>
             <DataLimiter
-            limit={limit}
-            handleLimit={handleLimit}
-            allNums={allNums}
-            totalProducts={products?.totalProducts}
-          />
-          <Pagination
-            handlePrevPage={handlePrevPage}
-            handleNextPage={handleNextPage}
-            currentPage={currentPage}
-            limit={limit}
-            totalProducts={products?.totalProducts}
-          />
+              limit={limit}
+              handleLimit={handleLimit}
+              allNums={allNums}
+              totalProducts={products?.totalProducts}
+            />
+            <Pagination
+              handlePrevPage={handlePrevPage}
+              handleNextPage={handleNextPage}
+              currentPage={currentPage}
+              limit={limit}
+              totalProducts={products?.totalProducts}
+            />
           </div>
         </section>
 
