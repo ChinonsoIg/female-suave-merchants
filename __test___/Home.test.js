@@ -38,7 +38,6 @@ jest.mock('next/router', () => ({
 
 describe("Home", () => {
   it("renders Dashboard on Home", () => {
-
     const { getByTestId } = render(<Home />);
     const headerEl = getByTestId("header");
 
@@ -48,21 +47,18 @@ describe("Home", () => {
 
 
   it("renders Recent Products on Home", () => {
-
     render(<Home />);
     expect(screen.getByText('Recent Products')).toBeInTheDocument();
   });
 
 
   it("renders Sales on Home", () => {
-
     render(<Home />);
     expect(screen.getByText('Sales')).toBeInTheDocument();
   });
 
 
   it("renders Income on Home", () => {
-
     render(<Home />);
     // expect(screen.getByText('Income')).toBeInTheDocument();
 
@@ -72,14 +68,12 @@ describe("Home", () => {
 
 
   it("renders Customers on Home", () => {
-
     render(<Home />);
     expect(screen.getByText('Customers')).toBeInTheDocument();
   });
 
 
   it("renders Products on Home", () => {
-
     render(<Home />);
     expect(screen.getByText('Products')).toBeInTheDocument();
   });
