@@ -18,7 +18,7 @@ const useFetchWithToken = (url) => {
 
     const controller = new AbortController();
 
-    setTimeout(() => {
+    // setTimeout(() => {
       setIsError(null);
       setIsLoading(true);
 
@@ -37,6 +37,9 @@ const useFetchWithToken = (url) => {
         })
         .catch((err) => {
 
+          // if (axios.isCancel(err)) {
+          //   console.log('Request canceled', err.message);
+          // }
           // check if error is authentication error and redirect to home page
           // console.log("err: ", err)
           // if (err.name === "CanceledError") {
@@ -51,7 +54,7 @@ const useFetchWithToken = (url) => {
           setIsLoading(false);
         })
 
-    }, 1000);
+    // }, 1000);
 
     return () => controller.abort();
 
@@ -83,7 +86,7 @@ const useFetchWithoutToken = (url) => {
 
     const controller = new AbortController();
 
-    setTimeout(() => {
+    // setTimeout(() => {
       setIsError(null);
       setIsLoading(true);
 
@@ -113,7 +116,7 @@ const useFetchWithoutToken = (url) => {
           setIsLoading(false);
         })
 
-    }, 1000);
+    // }, 1000);
 
     return () => controller.abort();
 

@@ -1,6 +1,7 @@
 import styles from "./../styles/globals.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { addComma } from "../utils/functions";
 
 const ProductTable = ({
   title,
@@ -119,10 +120,10 @@ const SalesTable = ({
               <tr key={item._id}>
                 <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{findCustomer(item.customerId)}</td>
-                <td>{item.shippingFee}</td>
                 <td>{item.status}</td>
-                <td>{item.subtotal}</td>
-                <td>{item.total}</td>
+                <td>{addComma(item.shippingFee)}</td>
+                <td>{addComma(item.subtotal)}</td>
+                <td>{addComma(item.total)}</td>
                 <td>
                   <Link href={`${router.pathname}/${item._id}`}>More...</Link>
                 </td>

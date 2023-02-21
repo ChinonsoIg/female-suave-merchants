@@ -15,7 +15,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 
-export default function Component() {
+export default function Home() {
   const [limit, setLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
@@ -45,7 +45,7 @@ export default function Component() {
 
   const customerIds = sales?.orders?.map((order) => order.customerId);
   const uniqueCustomers = new Set(customerIds)?.size
-  
+
 
   const handleLimit = (event) => {
     const value = Number(event.target.value);
@@ -76,14 +76,14 @@ export default function Component() {
   if (status === "authenticated") {
     return (
       <SharedLayout>
-        <h1>Dashboard</h1>
+        <h1 data-testid="header">Dashboard</h1>
         <section className={styles.figures_grid_container}>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Sales</p>
             <p className={styles.grid_number}>{sales?.totalOrders}</p>
           </div>
           <div className={styles.figures_grid_child}>
-            <p className={styles.grid_title}>Income (&#8358;)</p>
+            <p data-testid="income" className={styles.grid_title}>Income (&#8358;)</p>
             <p className={styles.grid_number}>{addComma(totalIncome)}</p>
           </div>
           <div className={styles.figures_grid_child}>
@@ -110,18 +110,18 @@ export default function Component() {
 
           <div className={styles.data_modifier}>
             <DataLimiter
-            limit={limit}
-            handleLimit={handleLimit}
-            allNums={allNums}
-            totalProducts={products?.totalProducts}
-          />
-          <Pagination
-            handlePrevPage={handlePrevPage}
-            handleNextPage={handleNextPage}
-            currentPage={currentPage}
-            limit={limit}
-            totalProducts={products?.totalProducts}
-          />
+              limit={limit}
+              handleLimit={handleLimit}
+              allNums={allNums}
+              totalProducts={products?.totalProducts}
+            />
+            <Pagination
+              handlePrevPage={handlePrevPage}
+              handleNextPage={handleNextPage}
+              currentPage={currentPage}
+              limit={limit}
+              totalProducts={products?.totalProducts}
+            />
           </div>
         </section>
 

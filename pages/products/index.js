@@ -22,6 +22,7 @@ const Products = () => {
 
   const {
     status,
+    data: session
   } = useSession({
     required: true,
     onUnauthenticated() {
@@ -58,10 +59,15 @@ const Products = () => {
     // fetchData();
   }
 
+
+  // console.log("session: ", session)
+  // console.log("data: ", data)
+
+
   if (status === "authenticated") {
     return (
       <SharedLayout>
-        <h1>All Products</h1>
+        <h1 data-testid="header">All Products</h1>
         <section className={styles.data_table}>
             <ProductTable
               title="Product Table"
