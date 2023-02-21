@@ -32,7 +32,7 @@ const Sales = () => {
       router.push("/auth/signin")
     },
   });
-  
+
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders?search=${search}&limit=${limit}&page=${currentPage}`);
   const { data: customers } = useFetchWithToken(`${BASE_URL_LOCAL}/customers`);
 
@@ -65,36 +65,36 @@ const Sales = () => {
   const headers = [
     // { sn: "S/N" }, 
     { name: "Customer", id: "cusomerId" },
-    { name: "Shipping Fee", id: "shippingFee" },
     { name: "Status", id: "status" },
-    { name: "Subtotal", id: "subtotal" },
-    { name: "Total", id: "total" },
+    { name: "Shipping Fee (₦)", id: "shippingFee" },
+    { name: "Subtotal (₦)", id: "subtotal" },
+    { name: "Total (₦)", id: "total" },
   ];
 
 
   // console.log("lim : ", limit)
-  
+
 
 
   if (status === "authenticated") {
     return (
       <SharedLayout>
-        <h1>Sales</h1>
-  
+        <h1 data-testid="header">Sales</h1>
+
         <section className={styles.data_table}>
-            <SalesTable
-              title="All Sales"
-              headers={headers}
-              orders={data?.orders}
-              handleSearchSubmit={handleSearchSubmit}
-              setSearch={setSearch}
-              currentPage={currentPage}
-              pageSize={limit}
-              customers={customers?.customers}
-            />
-  
-            <div className={styles.data_modifier}>
-              <DataLimiter
+          <SalesTable
+            title="All Sales"
+            headers={headers}
+            orders={data?.orders}
+            handleSearchSubmit={handleSearchSubmit}
+            setSearch={setSearch}
+            currentPage={currentPage}
+            pageSize={limit}
+            customers={customers?.customers}
+          />
+
+          <div className={styles.data_modifier}>
+            <DataLimiter
               limit={limit}
               handleLimit={handleLimit}
               allNums={allNums}
@@ -107,8 +107,8 @@ const Sales = () => {
               limit={limit}
               totalProducts={data?.totalOrders}
             />
-            </div>
-          </section>
+          </div>
+        </section>
       </SharedLayout>
     )
   }
