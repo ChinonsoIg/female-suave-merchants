@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from '../../../components/layout/SharedLayout';
 import { BackButton } from "../../../components/Buttons";
+import { addComma } from "../../../utils/functions";
 
 
 const myLoader = ({ src, width, quality }) => {
@@ -16,13 +17,13 @@ const myLoader = ({ src, width, quality }) => {
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
-const Sale = () => {
+const SingleSale = () => {
   const router = useRouter();
   const routeId = router.query.id;
   const splitPath = router.asPath.split("/");
   const currentPath = splitPath[1]
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders/${routeId}`)
+  const { data: orders, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders/${routeId}`)
   const { data: customers } = useFetchWithToken(`${BASE_URL_LOCAL}/customers`)
 
   const {
@@ -41,22 +42,22 @@ const Sale = () => {
     return found;
   }
 
-// console.log("cus: ", customers)
+console.log("sess: ", session)
 
   if (status === "authenticated") {
 
     return (
       <SharedLayout>
         <BackButton currentPath={currentPath} />
-        <h1>Sale Item</h1>
+        <h1 data-testid="header">Sale Item</h1>
         <section className={styles.sales_heading}>
           <div>
-            <p>Customer:</p>
-            <p>{findCustomer(data?.order?.customerId)}</p>
+            <p data-testid="customer">Customer:</p>
+            <p>{findCustomer(orders?.order?.customerId)}</p>
           </div>
           <div>
-            <p>Status:</p>
-            <p>{data?.order?.status}</p>
+            <p data-testid="status">Status:</p>
+            <p>{orders?.order?.status}</p>
           </div>
         </section>
         <section>
@@ -70,7 +71,7 @@ const Sale = () => {
                 <th>Quantity</th>
               </tr>
               {
-                data?.order?.orderItems.map((item, index) => (
+                orders?.order?.orderItems.map((item, index) => (
                   <tr key={item._id}>
                     <td>{index + 1}</td>
                     <td>
@@ -83,7 +84,7 @@ const Sale = () => {
                       />
                     </td>
                     <td>{item.name}</td>
-                    <td>{item.price}</td>
+                    <td>{addComma(item.price)}</td>
                     <td>{item.quantity}</td>
                   </tr>
                 ))
@@ -92,15 +93,15 @@ const Sale = () => {
           </table>
           <div className={styles.table_sub_component}>
             <p>Shipping fee</p>
-            <p>&#8358; {data?.order?.shippingFee}</p>
+            <p>&#8358; {addComma(orders?.order?.shippingFee)}</p>
           </div>
           <div className={styles.table_sub_component}>
             <p>Subtotal</p>
-            <p>&#8358; {data?.order?.subtotal}</p>
+            <p>&#8358; {addComma(orders?.order?.subtotal)}</p>
           </div>
           <div className={styles.table_sub_component}>
             <p>Total</p>
-            <p>&#8358; {data?.order?.total}</p>
+            <p>&#8358; {addComma(orders?.order?.total)}</p>
           </div>
         </section>
       </SharedLayout>
@@ -110,4 +111,4 @@ const Sale = () => {
 }
 
 
-export default Sale
+export default SingleSale
