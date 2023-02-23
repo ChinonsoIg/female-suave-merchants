@@ -81,6 +81,7 @@ const AddProduct = () => {
     setChecked(!checked);
   };
 
+
   if (status === "authenticated") {
     return (
       <SharedLayout>
@@ -170,7 +171,12 @@ const AddProduct = () => {
             />
           </div>
           <div>
-            <input type="submit" value={!isBtnLoading ? "Submit" : "Submitting"} className={!isBtnLoading ? styles.btn_fill : styles.btn_loading} />
+            <input
+              type="submit" 
+              value={!isBtnLoading ? "Submit" : "Submitting"} 
+              className={!isBtnLoading ? styles.btn_fill : styles.btn_loading} 
+              role="button"
+            />
           </div>
         </form>
       </SharedLayout>
