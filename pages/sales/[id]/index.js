@@ -19,9 +19,9 @@ const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SingleSale = () => {
   const router = useRouter();
-  const routeId = router.query.id;
-  const splitPath = router.asPath.split("/");
-  const currentPath = splitPath[1]
+  const routeId = router?.query?.id;
+  const splitPath = router?.asPath?.split("/");
+  const currentPath = splitPath ? splitPath[1] : null
 
   const { data: orders, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders/${routeId}`)
   const { data: customers } = useFetchWithToken(`${BASE_URL_LOCAL}/customers`)
@@ -42,21 +42,21 @@ const SingleSale = () => {
     return found;
   }
 
-console.log("sess: ", session)
+  // console.log("sess: ", session)
 
   if (status === "authenticated") {
 
     return (
       <SharedLayout>
         <BackButton currentPath={currentPath} />
-        <h1 data-testid="header">Sale Item</h1>
+        <h1 data-testid="single-sale-header">Sale Item</h1>
         <section className={styles.sales_heading}>
           <div>
-            <p data-testid="customer">Customer:</p>
+            <p data-testid="single-sale-customer">Customer</p>
             <p>{findCustomer(orders?.order?.customerId)}</p>
           </div>
           <div>
-            <p data-testid="status">Status:</p>
+            <p data-testid="single-sale-status">Status</p>
             <p>{orders?.order?.status}</p>
           </div>
         </section>

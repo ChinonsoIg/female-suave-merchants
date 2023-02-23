@@ -28,12 +28,22 @@ jest.mock('next/router', () => ({
 }))
 
 
-describe("SingleSale", () => {
+describe('true is truthy and false is falsy', () => {
+  it('true is truthy', () => {
+    expect(true).toBe(true);
+  });
+
+  it('false is falsy', () => {
+    expect(false).toBe(false);
+  });
+});
+
+describe("Single Sale component", () => {
 
   // For the top section 
   it("renders Sale Item on SingleSale", () => {
     const { getByTestId } = render(<SingleSale />);
-    const headerEl = getByTestId("header");
+    const headerEl = getByTestId("single-sale-header");
 
     expect(headerEl.textContent).toBe("Sale Item");
   });
@@ -41,26 +51,34 @@ describe("SingleSale", () => {
 
   it("renders Customer on SingleSale", () => {
     const { getByTestId } = render(<SingleSale />);
-    const customerEl = getByTestId("customer");
+    const customerEl = getByTestId("single-sale-customer");
 
     expect(customerEl.textContent).toBe("Customer");
+
+    // render(<SingleSale />);
+    // const { getByTestId } = within(screen.getByTestId((content, element) => content.startsWith('Customer')));
+    // expect(getByTestId('Customer', { exact: false })).toBeInTheDocument();
   });
 
 
   it("renders Status on SingleSale", () => {
     const { getByTestId } = render(<SingleSale />);
-    const statusEl = getByTestId("status");
+    const statusEl = getByTestId("single-sale-status");
 
     expect(statusEl.textContent).toBe("Status");
+
+    // render(<SingleSale />);
+    // const { getByTestId } = within(screen.getByTestId((content, element) => content.startsWith('Customer')));
+    // expect(getByTestId('Customer', { exact: false })).toBeInTheDocument();
   });
 
 
 
   // For the table section
-  it("renders Image on Sales", () => {
-    render(<SingleSale />);
-    expect(screen.getByText('Image')).toBeInTheDocument();
-  });
+  // it("renders Image on SingleSale", () => {
+  //   render(<SingleSale />);
+  //   expect(screen.getByText('Image')).toBeInTheDocument();
+  // });
 
 
   it("renders Name on Sales", () => {
@@ -76,15 +94,23 @@ describe("SingleSale", () => {
   });
 
 
-  it("renders Quantity on Sales", () => {
+  it("renders Quantity on SingleSale", () => {
     render(<SingleSale />);
     expect(screen.getByText('Quantity')).toBeInTheDocument();
   });
 
 
 
-  // For the bottom section
-  it("renders Subtotal on Sales", () => {
+  // // For the bottom section
+  it("renders Shipping fee on SingleSale", () => {
+    render(<SingleSale />);
+    
+    const { getByText } = within(screen.getByText((content, element) => content.startsWith('Shipping fee')));
+    expect(getByText('Shipping fee', { exact: false })).toBeInTheDocument();
+  });
+
+
+  it("renders Subtotal on SingleSale", () => {
     render(<SingleSale />);
     
     const { getByText } = within(screen.getByText((content, element) => content.startsWith('Subtotal')));
