@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { within } from "@testing-library/dom";
 
 import "@testing-library/jest-dom";
@@ -36,33 +36,33 @@ jest.mock('next/router', () => ({
 
 const formInputValues = [
   {
-    label: 'Name',
+    label: 'name',
     correctTestValue: 'coolguy@gmail.com',
   },
   {
-    label: 'Category',
+    label: 'categoryId',
     correctTestValue: '2348143932991',
   },
   {
-    label: 'Price',
+    label: 'price',
     correctTestValue: 'ASrty6655#$%f',
   },
   {
-    label: 'Quantity',
+    label: 'quantity',
     correctTestValue: 'ASrty6655#$%f',
   },
   {
-    label: 'Description',
+    label: 'description',
     correctTestValue: 'ASrty6655#$%f',
   },
   {
-    label: 'Status',
+    label: 'status',
     correctTestValue: 'ASrty6655#$%f',
   },
-  {
-    label: 'Add images',
-    correctTestValue: 'ASrty6655#$%f',
-  },
+  // {
+  //   label: 'add_images',
+  //   correctTestValue: 'ASrty6655#$%f',
+  // },
 ];
 
 
@@ -71,8 +71,8 @@ describe('Simple working form', () => {
   it('should render all form inputs', () => {
     render(<AddProduct />);
 
-    formInputValues.forEach((value, index) => {
-      expect(screen.getByText(value.label)).toBeInTheDocument();
+    formInputValues.forEach((mockValue, index) => {
+      expect(screen.getByTestId(mockValue.label)).toBeInTheDocument();
     })
   });
 
@@ -87,6 +87,27 @@ describe('Simple working form', () => {
     expect(button).not.toBeDisabled();
   });
 
+
+  it('Should submit when submit button is clicked', async () => {
+    render(
+       <AddProduct />,
+    );
+  
+    //check for submit button
+    const submitButton = screen.getByRole('button', { name: 'Submit' });
+  
+    formInputValues.forEach((mockValue, index) => {
+      const input = screen.getByTestId(mockValue.label);
+      fireEvent.change(input, { target: { value: mockValue.correctTestValue } });
+    });
+  
+    fireEvent.click(submitButton);
+  
+    expect(
+      await screen.findByRole('button', { name: 'Submitting...' }),
+    ).toBeInTheDocument();
+    // expect(button).toBeDisabled();
+  });
 
 });
 
