@@ -162,7 +162,7 @@ const AddProduct = () => {
               onFileSelect={async (group) => {
                 const files = await Promise.all(group.files());
                 const urls = files.map((file) => file.cdnUrl);
-                console.log("urls: ", urls);
+                // console.log("urls: ", urls);
                 setImages([...urls]);
               }}
               previewStep="true"

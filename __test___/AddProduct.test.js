@@ -65,18 +65,19 @@ const formInputValues = [
   },
 ];
 
-describe('Simple working form', () => {
-  // it('should render all form inputs', () => {
-  //   render(<AddProduct />);
 
-  //   formInputValues.forEach((value, index) => {
-  //     console.log("label: ", value.label)
-  //     // expect(screen.getByLabelText(value.label)).toBeInTheDocument
-  //   })
-  // });
+describe('Simple working form', () => {
+
+  it('should render all form inputs', () => {
+    render(<AddProduct />);
+
+    formInputValues.forEach((value, index) => {
+      expect(screen.getByText(value.label)).toBeInTheDocument();
+    })
+  });
 
   
-  it('Should render submit button', async () => {
+  it('should render submit button', async () => {
     render(<AddProduct />);
   
     //check for submit button
@@ -88,3 +89,5 @@ describe('Simple working form', () => {
 
 
 });
+
+
