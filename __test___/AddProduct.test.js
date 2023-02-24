@@ -106,7 +106,6 @@ describe('Simple working form', () => {
     expect(
       await screen.findByRole('button', { name: 'Submitting...' }),
     ).toBeInTheDocument();
-    // expect(button).toBeDisabled();
   });
 
 });
