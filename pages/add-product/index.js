@@ -76,10 +76,10 @@ const AddProduct = () => {
 
   }
 
-  
   const handleCheckbox = () => {
     setChecked(!checked);
   };
+
 
   if (status === "authenticated") {
     return (
@@ -96,10 +96,15 @@ const AddProduct = () => {
               name="name"
               placeholder="Name"
               onChange={handleInputsChange}
+              data_testid="name"
             />
             <label htmlFor="categoryId" className={styles.label}>
               Category
-              <select name="categoryId" onChange={handleInputsChange}>
+              <select
+                name="categoryId"
+                onChange={handleInputsChange}
+                data-testid="categoryId"
+              >
                 <option value="">--Choose an option--</option>
                 {
                   categories?.categories?.map((category) => {
@@ -120,6 +125,7 @@ const AddProduct = () => {
               name="price"
               placeholder="Price"
               onChange={handleInputsChange}
+              data_testid="price"
             />
             <FormInputs
               htmlFor="quantity"
@@ -128,6 +134,7 @@ const AddProduct = () => {
               name="quantity"
               placeholder="Quantity"
               onChange={handleInputsChange}
+              data_testid="quantity"
             />
           </div>
           <div className={styles.textarea}>
@@ -138,6 +145,7 @@ const AddProduct = () => {
               name="description"
               placeholder="Description"
               onChange={handleInputsChange}
+              data_testid="description"
             />
           </div>
           <div className={styles.last_box}>
@@ -148,6 +156,7 @@ const AddProduct = () => {
                 checked={checked}
                 onChange={handleCheckbox}
                 className={styles.switch}
+                data-testid="status"
               />
             </label>
           </div>
@@ -161,7 +170,7 @@ const AddProduct = () => {
               onFileSelect={async (group) => {
                 const files = await Promise.all(group.files());
                 const urls = files.map((file) => file.cdnUrl);
-                console.log("urls: ", urls);
+                // console.log("urls: ", urls);
                 setImages([...urls]);
               }}
               previewStep="true"
@@ -170,7 +179,12 @@ const AddProduct = () => {
             />
           </div>
           <div>
-            <input type="submit" value={!isBtnLoading ? "Submit" : "Submitting"} className={!isBtnLoading ? styles.btn_fill : styles.btn_loading} />
+            <input
+              type="submit" 
+              value={!isBtnLoading ? "Submit" : "Submitting..."} 
+              className={!isBtnLoading ? styles.btn_fill : styles.btn_loading} 
+              role="button"
+            />
           </div>
         </form>
       </SharedLayout>

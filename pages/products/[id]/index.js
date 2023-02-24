@@ -1,13 +1,13 @@
 import styles from "../../../styles/Products.module.scss";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+// import { useState } from "react";
 import Image from "next/image";
 
 import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from "../../../components/layout/SharedLayout";
-import { ButtonPrimary } from "../../../components/Buttons";
-import Link from "next/link";
+// import { ButtonPrimary } from "../../../components/Buttons";
+// import Link from "next/link";
 import Loading from "../../../components/Loading";
 
 const myLoader = ({ src, width, quality }) => {
@@ -17,9 +17,9 @@ const myLoader = ({ src, width, quality }) => {
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
-const Product = () => {
+const SingleProduct = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { id } = router?.query || {};
 
   const {
     status,
@@ -32,13 +32,13 @@ const Product = () => {
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products/${id}`);
 
-  console.log("id: ", data);
+  // console.log("id: ", data);
 
 
   if (status === "authenticated") {
     return (
       <SharedLayout>
-        <h1>Single Product</h1>
+        <h1 data-testid="single-product-header">Single Product</h1>
         <section className={styles.product_details}>
           <div className={styles.image_container}>
             {data && data.product.image.map((img, ind) => (
@@ -56,7 +56,7 @@ const Product = () => {
   
           <h3>Name: {data?.product?.name}</h3>
           <p>Category: {data?.product?.category}</p>
-          <p>{data?.product?.description}</p>
+          <p>Description: {data?.product?.description}</p>
           <p>Price: {data?.product?.price}</p>
           <p>Quantity: {data?.product?.quantity}</p>
           <p>Status: {data?.product?.status}</p>
@@ -80,4 +80,4 @@ const Product = () => {
   
 }
 
-export default Product;
+export default SingleProduct;
