@@ -3,12 +3,12 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 // import { useState } from "react";
 import Image from "next/image";
+import { BsArrowLeft } from "react-icons/bs"
 
 import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from "../../../components/layout/SharedLayout";
-// import { ButtonPrimary } from "../../../components/Buttons";
-// import Link from "next/link";
 import Loading from "../../../components/Loading";
+import { BackButton } from "../../../components/Buttons";
 
 const myLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
@@ -20,6 +20,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 const SingleProduct = () => {
   const router = useRouter();
   const { id } = router?.query || {};
+  const splitPath = router?.asPath?.split("/");
+  const currentPath = splitPath ? splitPath[1] : null
 
   const {
     status,
@@ -38,6 +40,7 @@ const SingleProduct = () => {
   if (status === "authenticated") {
     return (
       <SharedLayout>
+        <BackButton currentPath={currentPath} />
         <h1 data-testid="single-product-header">Single Product</h1>
         <section className={styles.product_details}>
           <div className={styles.image_container}>
