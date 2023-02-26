@@ -5,8 +5,8 @@ import GithubProvider from "next-auth/providers/github"
 import FacebookProvider from "next-auth/providers/facebook";
 import axios from "axios";
 
-// const BASE_URL = process.env.NEXT_PUBLIC_API
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL
+const BASE_URL = process.env.NEXT_PUBLIC_API
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL
 
 const authOptions = {
   providers: [
@@ -17,7 +17,7 @@ const authOptions = {
         password: { label: "Password", type: "password", placeholder: "******" }
       },
       async authorize(credentials, req) {
-        const res = await fetch(`${BASE_URL_LOCAL}/auth/login`, {
+        const res = await fetch(`${BASE_URL}/auth/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }

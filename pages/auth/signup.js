@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 
 import { customToast } from "../../components/Toasts";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API;
 const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SignUp = () => {
@@ -35,7 +36,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(`${BASE_URL_LOCAL}/auth/register`, {
+    const res = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
       body: JSON.stringify(userInfo),
       headers: { "Content-Type": "application/json" }

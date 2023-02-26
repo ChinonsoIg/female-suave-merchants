@@ -10,7 +10,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import Link from "next/link";
 
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 // const inter = Inter({ subsets: ["latin"] });
 

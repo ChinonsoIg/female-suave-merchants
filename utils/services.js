@@ -86,7 +86,6 @@ const useFetchWithoutToken = (url) => {
 
     const controller = new AbortController();
 
-    // setTimeout(() => {
       setIsError(null);
       setIsLoading(true);
 
@@ -100,15 +99,10 @@ const useFetchWithoutToken = (url) => {
         .then((res) => {
           setData(res.data);
           setIsLoading(false);
+          console.log("res data: ", res.data)
         })
         .catch((err) => {
-
-          // check if error is authentication error and redirect to home page
-          // console.log("err: ", err)
-          // if (err.name === "CanceledError") {
-          //   console.log("Request aborted");
-          //   return;
-          // }
+          console.log("err: ", err)
           setIsError(err);
 
         })
@@ -116,11 +110,10 @@ const useFetchWithoutToken = (url) => {
           setIsLoading(false);
         })
 
-    // }, 1000);
 
     return () => controller.abort();
 
-  }, [url, token]);
+  }, [url]);
 
   return { data, isLoading, isError };
 

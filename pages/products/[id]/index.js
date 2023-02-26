@@ -15,7 +15,7 @@ const myLoader = ({ src, width, quality }) => {
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SingleProduct = () => {
   const router = useRouter();
@@ -30,7 +30,7 @@ const SingleProduct = () => {
     },
   });
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products/${id}`);
+  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/${id}`);
 
   // console.log("id: ", data);
 

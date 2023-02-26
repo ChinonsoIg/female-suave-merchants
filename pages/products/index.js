@@ -12,7 +12,7 @@ import { printNums } from "../../utils/functions";
 import Loading from "../../components/Loading";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const Products = () => {
   const [limit, setLimit] = useState(10);
@@ -30,8 +30,8 @@ const Products = () => {
     },
   });
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?search=${search}&limit=${limit}&page=${currentPage}`);
-  // const { data: customers } = useFetchWithToken(`${BASE_URL_LOCAL}/customers`);
+  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products?search=${search}&limit=${limit}&page=${currentPage}`);
+  // const { data: customers } = useFetchWithToken(`${BASE_URL}/customers`);
 
   const allNums = printNums();
 
