@@ -1,6 +1,6 @@
 import styles from "./../styles/Home.module.scss";
 import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
@@ -125,10 +125,6 @@ export default function Home() {
           </div>
         </section>
 
-
-        <button
-          onClick={() => signOut()}
-        >Sign out</button>
       </SharedLayout>
 
     );

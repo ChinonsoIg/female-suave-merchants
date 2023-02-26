@@ -120,7 +120,7 @@ const useFetchWithoutToken = (url) => {
 
     return () => controller.abort();
 
-  }, [url, token]);
+  }, [url]);
 
   return { data, isLoading, isError };
 
