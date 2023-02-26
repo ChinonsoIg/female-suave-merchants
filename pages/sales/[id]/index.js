@@ -15,7 +15,7 @@ const myLoader = ({ src, width, quality }) => {
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SingleSale = () => {
   const router = useRouter();
@@ -23,8 +23,8 @@ const SingleSale = () => {
   const splitPath = router?.asPath?.split("/");
   const currentPath = splitPath ? splitPath[1] : null
 
-  const { data: orders, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/orders/${routeId}`)
-  const { data: customers } = useFetchWithToken(`${BASE_URL_LOCAL}/customers`)
+  const { data: orders, isError, isLoading } = useFetchWithToken(`${BASE_URL}/orders/${routeId}`)
+  const { data: customers } = useFetchWithToken(`${BASE_URL}/customers`)
 
   const {
     status,

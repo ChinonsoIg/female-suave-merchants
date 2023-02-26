@@ -10,7 +10,8 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import Link from "next/link";
 
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_LOCAL;
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -104,7 +105,7 @@ const SignIn = ({ providers }) => {
             </button>
           </form>
 
-          <div className={styles.divider_box}>
+          {/* <div className={styles.divider_box}>
             <span className={styles.divider_box_content}>
               or
             </span>
@@ -125,6 +126,7 @@ const SignIn = ({ providers }) => {
                 );
               })}
           </div>
+           */}
         </div>
       </div>
 
