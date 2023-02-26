@@ -125,10 +125,6 @@ export default function Home() {
           </div>
         </section>
 
-
-        <button
-          onClick={() => signOut()}
-        >Sign out</button>
       </SharedLayout>
 
     );

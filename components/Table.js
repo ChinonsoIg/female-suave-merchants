@@ -86,8 +86,6 @@ const SalesTable = ({
   pageSize
 }) => {
   const router = useRouter();
-  // console.log("cas: ", orders)
-
 
   const findCustomer = (id) => {
     const found = customers?.find(element => element._id == id)?.name;
