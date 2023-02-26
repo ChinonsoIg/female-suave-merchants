@@ -12,7 +12,7 @@ import { ProductTable } from "../components/Table";
 import DataLimiter from "../components/DataLimiter";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 
 export default function Home() {
@@ -33,11 +33,11 @@ export default function Home() {
 
   const allNums = printNums();
 
-  const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL_LOCAL}/products?limit=${limit}`)
+  const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products?limit=${limit}`)
 
-  const { data: categories } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`);
+  const { data: categories } = useFetchWithoutToken(`${BASE_URL}/categories`);
 
-  const { data: sales } = useFetchWithToken(`${BASE_URL_LOCAL}/orders`);
+  const { data: sales } = useFetchWithToken(`${BASE_URL}/orders`);
 
   const totalIncome = sales?.orders?.reduce((acc, obj) => {
     return acc + obj?.total;

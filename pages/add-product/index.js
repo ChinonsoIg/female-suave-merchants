@@ -14,8 +14,9 @@ import SharedLayout from "../../components/layout/SharedLayout";
 import Loading from "../../components/Loading";
 import { FormInputs, FormTextArea } from "../../components/Form";
 
-const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY;
+const BASE_URL = process.env.NEXT_PUBLIC_API;
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const AddProduct = () => {
   const [checked, setChecked] = useState(false);
@@ -33,7 +34,7 @@ const AddProduct = () => {
   });
   const token = session?.user?.token;
 
-  const { data: categories } = useFetchWithoutToken(`${BASE_URL_LOCAL}/categories`);
+  const { data: categories } = useFetchWithoutToken(`${BASE_URL}/categories`);
 
   const handleInputsChange = (e) => {
     setFormInputs(() => ({
@@ -52,7 +53,7 @@ const AddProduct = () => {
       status: !checked ? "out of stock" : "available"
     }
 
-    axios.post(`${BASE_URL_LOCAL}/products`, modifiedData, {
+    axios.post(`${BASE_URL}/products`, modifiedData, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
