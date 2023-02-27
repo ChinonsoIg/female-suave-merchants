@@ -1,5 +1,6 @@
 @import "globals.module.scss";
 
+// Profile
 .profile_container {
   // border: 1px solid red;
   display: grid;
@@ -26,5 +27,18 @@
     .profile_content {
       padding: 0 10px;
     }
+  }
+}
+
+// Edit profile
+.edit_profile_form {
+  display: grid;
+  gap: 30px;
+
+  .edit_profile_input_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 20px;
   }
 }

@@ -12,7 +12,6 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 // const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const Profile = () => {
-  const [profile, setProfile] = useState("");
   const router = useRouter();
 
   const {
