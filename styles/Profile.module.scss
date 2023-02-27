@@ -17,6 +17,12 @@
       margin: auto 0;
     }
 
+    .profile_content_header_addressbook {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .profile_content {
       padding: 0 10px;
     }
