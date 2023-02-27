@@ -64,6 +64,59 @@ const useFetchWithToken = (url) => {
 
 }
 
+const useFetchUser = (url) => {
+  const [data, setData] = useState(null);
+  const [isError, setIsError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const {
+    data: session
+  } = useSession({
+    required: true,
+    onUnauthenticated() {
+      // The user is not authenticated, handle it here.
+      router.push("/auth/signin")
+    },
+  });
+  const token = session?.user?.token;
+
+  useEffect(() => {
+
+    const controller = new AbortController();
+
+      setIsError(null);
+      setIsLoading(true);
+
+      axios.get(url, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        signal: controller.signal,
+      })
+        .then((res) => {
+          setData(res.data);
+          setIsLoading(false);
+          // console.log("res data: ", res.data)
+        })
+        .catch((err) => {
+          // console.log("err: ", err)
+          setIsError(err);
+
+        })
+        .finally(() => {
+          setIsLoading(false);
+        })
+
+
+    return () => controller.abort();
+
+  }, [url]);
+
+  return { data, isLoading, isError };
+
+}
 
 const useFetchWithoutToken = (url) => {
   const [data, setData] = useState(null);
@@ -99,10 +152,10 @@ const useFetchWithoutToken = (url) => {
         .then((res) => {
           setData(res.data);
           setIsLoading(false);
-          console.log("res data: ", res.data)
+          // console.log("res data: ", res.data)
         })
         .catch((err) => {
-          console.log("err: ", err)
+          // console.log("err: ", err)
           setIsError(err);
 
         })

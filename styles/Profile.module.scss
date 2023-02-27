@@ -1,0 +1,24 @@
+@import "globals.module.scss";
+
+.profile_container {
+  // border: 1px solid red;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  grid-template-rows: 1fr;
+  gap: 20px;
+
+  .profile_box {
+    border: 1px solid $grey;
+    border-radius: 5px;
+
+    .profile_content_header {
+      border-bottom: 1px solid $grey;
+      padding: 10px;
+      margin: auto 0;
+    }
+
+    .profile_content {
+      padding: 0 10px;
+    }
+  }
+}
