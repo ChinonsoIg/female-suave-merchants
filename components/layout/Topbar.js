@@ -1,5 +1,5 @@
 import styles from "../../styles/Layout.module.scss";
-import logo from "../../public/assets/images/logo.jpg";
+import logo from "../../public/assets/images/logo.png";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,6 +8,10 @@ import { MdArrowDropDown, MdNotifications } from "react-icons/md";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsSearch } from "react-icons/bs";
+
+const logoLoader = ({ src }) => {
+  return src;
+};
 
 const myLoader = ({ src }) => {
   return src;
@@ -25,8 +29,17 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
       <div className={styles.sidebar_toggle} onClick={toggleSidebar}>
         <GiHamburgerMenu size={24} color="rgb(77, 0, 77)" />
       </div>
-      <p>LOGO</p>
-      {/* <Image src={logo} alt="logo" width={50} height={20} className="logo" /> */}
+      <Image
+        loader={logoLoader}
+        src={logo}
+        height={50}
+        width={100}
+        alt="avatar"
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+        }}
+      />
       <div className={styles.topbar_right_container}>
 
         <div className={styles.topbar_input_box}>
@@ -37,8 +50,8 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
           <MdNotifications size={26} className={styles.notifications} />
           <div className={styles.user_profile}>
             <div className={styles.user_name}>
-              <p>{nameArr && nameArr[0]}</p>
-              <p>{nameArr && nameArr[1]}</p>
+              <p>{0}</p>
+              <p>{1}</p>
             </div>
             {
               session?.user?.image ? (
