@@ -91,7 +91,7 @@ const EditProfile = () => {
     return (
       <SharedLayout>
         <BackButton currentPath={currentPath} />
-        <h1>Edit Profile</h1>
+        <h1 className={styles.edit_profile_page_title}>Edit Profile</h1>
         <ToastContainer />
         <form
           className={styles.edit_profile_form}

@@ -33,7 +33,7 @@ const Profile = () => {
 
   return (
     <SharedLayout>
-      <h1>Profile Overview</h1>
+      <h1 className={styles.page_title}>Profile Overview</h1>
       <section className={styles.profile_container}>
         <article className={styles.profile_box}>
           <h3 className={styles.profile_content_header}>Account Details</h3>

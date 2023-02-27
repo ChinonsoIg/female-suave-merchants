@@ -42,3 +42,94 @@
     gap: 20px;
   }
 }
+
+
+// Large devices (768px and down)
+@media (max-width: 768px) {
+
+  .page_title {
+    font-size: 24px;
+  }
+
+  .profile_container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+
+    .profile_box {
+
+      .profile_content_header {
+        border-bottom: 1px solid $grey;
+        padding: 10px;
+        margin: auto 0;
+      }
+
+      .profile_content_header_addressbook {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .profile_content {
+        padding: 0 10px;
+      }
+    }
+  }
+
+
+  // Edit profile
+  .edit_profile_page_title {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+
+}
+
+
+// Large devices (576px and down)
+@media (max-width: 576px) {
+
+  .page_title {
+    font-size: 18px;
+  }
+
+  .profile_container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+
+    .profile_box {
+
+      .profile_content_header {
+        font-size: 14px;
+      }
+
+      .profile_content_header_addressbook {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .profile_content {
+        padding: 0 10px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  
+  // Edit profile
+  .edit_profile_page_title {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  .edit_profile_form {
+
+    .edit_profile_input_container {
+      grid-template-columns: 1fr;
+      font-size: 14px;
+    }
+  }
+
+
+}
