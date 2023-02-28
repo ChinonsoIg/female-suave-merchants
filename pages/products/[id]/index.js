@@ -3,13 +3,17 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Image from "next/image";
-import { BsArrowLeft } from "react-icons/bs"
+import { BsArrowLeft } from "react-icons/bs";
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from "../../../components/layout/SharedLayout";
 import Loading from "../../../components/Loading";
 import { BackButton } from "../../../components/Buttons";
 import FormModal from "../../../components/Modal";
+import { customToast } from "../../../components/Toasts";
 
 const myLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
@@ -19,6 +23,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 // const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SingleProduct = () => {
+  const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const { id } = router?.query || {};
@@ -27,17 +32,47 @@ const SingleProduct = () => {
 
   const {
     status,
+    data: session
   } = useSession({
     required: true,
     onUnauthenticated() {
       router.push("/auth/signin")
     },
   });
+  const token = session?.user?.token;
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/${id}`);
 
-  console.log("data: ", data);
 
+
+  const handleDelete = (productId) => {
+    console.log("pro id: ", productId);
+    // setIsBtnLoading(true);
+
+    axios.delete(`${BASE_URL}/products/${productId}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => {
+        console.log("res", res);
+        let resText = res?.statusText ? res?.statusText : "Product updated successfully."
+        customToast("success", resText, "top-right")
+      })
+      .catch((error) => {
+        console.log("err: ", error);
+        let errTex = error?.response?.data?.message ? error?.response?.data?.message : "An error occured!"
+        customToast("error", errTex, "top-center")
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsBtnLoading(false);
+          router.back();
+        }, 4800);
+      })
+
+  }
 
   if (status === "authenticated") {
     return (
@@ -57,6 +92,7 @@ const SingleProduct = () => {
       />
       <SharedLayout>
         <BackButton currentPath={currentPath} />
+        <ToastContainer />
         <h1 data-testid="single-product-header">Single Product</h1>
         <section className={styles.product_details}>
           <div className={styles.image_container}>
@@ -85,7 +121,12 @@ const SingleProduct = () => {
           <button onClick={() => setOpenModal(true)} className={styles.btn_fill}>
             Edit
           </button>
-          <button onClick={() => handleDelete(data?.product?._id)} className={styles.btn_danger}>Delete</button>
+          <button
+            onClick={() => handleDelete(data?.product?._id)}
+            className={!isBtnLoading ? styles.btn_danger : styles.btn_danger_loading}
+          >
+            {!isBtnLoading ? "Delete" : "Deleting..."}
+          </button>
         </section>
   
       </SharedLayout>

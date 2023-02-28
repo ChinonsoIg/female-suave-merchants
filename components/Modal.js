@@ -13,7 +13,7 @@ import { useFetchWithoutToken } from "../utils/services";
 
 const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const FormModal = ({ open, onClose, productId, name, categoryId, description, price, quantity, status, prevImages }) => {
   const [formInputs, setFormInputs] = useState({});
@@ -55,10 +55,10 @@ const FormModal = ({ open, onClose, productId, name, categoryId, description, pr
       status: !checked ? "out of stock" : "available"
     };
 
-    console.log("jg: ", modifiedData)
+    // console.log("jg: ", modifiedData)
     // onClose();
 
-    axios.patch(`${BASE_URL_LOCAL}/products/${productId}`, modifiedData, {
+    axios.patch(`${BASE_URL}/products/${productId}`, modifiedData, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
@@ -98,6 +98,7 @@ const FormModal = ({ open, onClose, productId, name, categoryId, description, pr
           <h4 className={styles.modal_header_title}>Edit Product</h4>
           <button onClick={onClose} className={styles.modal_close_btn}>x</button>
         </div>
+        <ToastContainer />
         <form className={styles.form_container}
           onSubmit={handleSubmit}
         >
@@ -116,7 +117,7 @@ const FormModal = ({ open, onClose, productId, name, categoryId, description, pr
               Category
               <select
                 name="categoryId"
-                // defaultValue={category}
+                defaultValue={categoryId}
                 onChange={handleInputsChange}
                 data-testid="categoryId"
               >
@@ -128,7 +129,7 @@ const FormModal = ({ open, onClose, productId, name, categoryId, description, pr
                       <option
                         key={_id}
                         value={_id}
-                        selected={_id == categoryId}
+                        // selected={_id == categoryId}
                       >
                         {categoryName}
                       </option>

@@ -466,6 +466,19 @@ $red: #b30000;
   cursor: not-allowed;
 }
 
+.btn_danger_loading {
+  color: $white;
+  background-color: $red;
+  opacity: 0.3;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  width: 100%;
+  max-width: 150px;
+  border: none;
+  cursor: not-allowed;
+}
+
 .btn_back {
   display: flex;
   align-items: center;
