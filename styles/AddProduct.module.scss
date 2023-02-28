@@ -52,3 +52,61 @@
   }
   
 }
+
+
+
+// Mobile devices (576px and down)
+@media (max-width: 576px) {
+  .form_container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    // border: 2px solid red;
+  
+    .name_category_box, .price_quantity_box, .status_box, .images_upload_box {
+      display: grid;
+      grid-template-columns: 1fr;
+      // grid-column: span 2;
+      // gap: 50px;
+      // width: 100%;
+    }
+  
+    .textarea {
+      grid-column: span 2;
+    }
+  
+    .status_box {
+  
+      label {
+        flex-direction: row;
+        align-items: center;
+        border: 1px solid red;
+        // height: 20px;
+  
+        .switch {
+          align-self: flex-start;
+          width: 20px;
+          height: 20px;
+        }
+        .switch:focus {
+          outline: none;
+          border: none;
+        }
+      }
+      
+    }
+  
+    .images_upload_box {
+      border: 1px solid grey;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr;
+      place-items: center;
+      padding: 20px 0;
+      border-radius: 5px;
+      width: 100%;
+    }
+    
+  }
+  
+}
