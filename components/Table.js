@@ -24,7 +24,7 @@ const ProductTable = ({
 
   return (
     <div>
-      <h2>{title}</h2>
+      <h2 className={styles.table_data_title}>{title}</h2>
       <table className={styles.products_container}>
         <tbody>
           {isSearch && (
@@ -71,7 +71,7 @@ const ProductTable = ({
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
 
@@ -94,7 +94,7 @@ const SalesTable = ({
 
 
   return (
-    <div>
+    <div className={styles.products_wrapper}>
       <h2>{title}</h2>
       <table className={styles.products_container}>
         <tbody>

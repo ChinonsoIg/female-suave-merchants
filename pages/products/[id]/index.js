@@ -46,8 +46,7 @@ const SingleProduct = () => {
 
 
   const handleDelete = (productId) => {
-    console.log("pro id: ", productId);
-    // setIsBtnLoading(true);
+    setIsBtnLoading(true);
 
     axios.delete(`${BASE_URL}/products/${productId}`, {
       headers: {
@@ -93,7 +92,7 @@ const SingleProduct = () => {
       <SharedLayout>
         <BackButton currentPath={currentPath} />
         <ToastContainer />
-        <h1 data-testid="single-product-header">Single Product</h1>
+        <h1 className={styles.single_product_title} data-testid="single-product-header">Single Product</h1>
         <section className={styles.product_details}>
           <div className={styles.image_container}>
             {data && data.product.image.map((img, ind) => (

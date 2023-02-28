@@ -67,22 +67,22 @@ const Products = () => {
   if (status === "authenticated") {
     return (
       <SharedLayout>
-        <h1 data-testid="header">All Products</h1>
+        <h1 className={styles.products_title} data-testid="header">All Products</h1>
         <section className={styles.data_table}>
-            <ProductTable
-              title="Product Table"
-              products={data?.products}
-              search={search}
-              setSearch={setSearch}
-              handleSearchSubmit={handleSearchSubmit}
-              currentPage={currentPage}
-              pageSize={limit}
-              isSearch={true}
-              linkToMore={true}
-            />
-  
-            <div className={styles.data_modifier}>
-              <DataLimiter
+          <ProductTable
+            title="Product Table"
+            products={data?.products}
+            search={search}
+            setSearch={setSearch}
+            handleSearchSubmit={handleSearchSubmit}
+            currentPage={currentPage}
+            pageSize={limit}
+            isSearch={true}
+            linkToMore={true}
+          />
+
+          <div className={styles.data_modifier}>
+            <DataLimiter
               limit={limit}
               handleLimit={handleLimit}
               allNums={allNums}
@@ -95,8 +95,8 @@ const Products = () => {
               limit={limit}
               totalProducts={data?.totalProducts}
             />
-            </div>
-          </section>
+          </div>
+        </section>
       </SharedLayout>
     )
   }
