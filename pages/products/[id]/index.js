@@ -53,6 +53,7 @@ const SingleProduct = () => {
         price={data?.product?.price}
         quantity={data?.product?.quantity}
         status={data?.product?.status}
+        prevImages={data?.product?.image}
       />
       <SharedLayout>
         <BackButton currentPath={currentPath} />

@@ -13,9 +13,9 @@ import { useFetchWithoutToken } from "../utils/services";
 
 const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
+const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
-const FormModal = ({ open, onClose, productId, name, categoryId, description, price, quantity, status }) => {
+const FormModal = ({ open, onClose, productId, name, categoryId, description, price, quantity, status, prevImages }) => {
   const [formInputs, setFormInputs] = useState({});
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const [checked, setChecked] = useState(false);
@@ -51,14 +51,14 @@ const FormModal = ({ open, onClose, productId, name, categoryId, description, pr
       price: formInputs.price ? formInputs.price : price,
       quantity: formInputs.quantity ? formInputs.quantity : quantity,
       // status: formInputs.status ? formInputs.status : status,
-      image: images.length === 0 ? null : images,
+      image: [...prevImages, ...images],
       status: !checked ? "out of stock" : "available"
     };
 
-    // console.log("jg: ", modifiedData)
+    console.log("jg: ", modifiedData)
     // onClose();
 
-    axios.patch(`${BASE_URL}/products/${productId}`, modifiedData, {
+    axios.patch(`${BASE_URL_LOCAL}/products/${productId}`, modifiedData, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
