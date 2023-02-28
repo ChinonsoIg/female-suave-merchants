@@ -1,45 +1,48 @@
 import styles from "../../styles/Layout.module.scss";
-import logo from "../../public/assets/images/logo.png";
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
+import { Lobster } from "@next/font/google";
 import { useSession } from "next-auth/react";
-import { MdArrowDropDown, MdNotifications } from "react-icons/md";
+import { MdNotifications } from "react-icons/md";
 import { RiArrowDropDownFill } from "react-icons/ri";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsSearch } from "react-icons/bs";
 
-const logoLoader = ({ src }) => {
-  return src;
-};
 
 const myLoader = ({ src }) => {
   return src;
 };
 
+const lobster = Lobster({
+  weight: '400',
+  display: 'swap',
+  subsets: ['latin'],
+});
+
+
+
 export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
 
   const { data: session, status } = useSession();
 
-  let name = session?.user?.name;
-  const nameArr = name?.split(" ");
+  const firstName = session?.user?.firstName;
+  const lastName = session?.user?.lastName;
+
+  const firstNameFallback = firstName.slice(0,1)
+  const lastNameFallback = lastName.slice(0,1)
+
+  console.log(firstNameFallback, lastNameFallback)
+
 
   return (
     <div className={styles.topbar_container}>
       <div className={styles.sidebar_toggle} onClick={toggleSidebar}>
-        <GiHamburgerMenu size={24} color="rgb(77, 0, 77)" />
+        <GiHamburgerMenu size={24} color="#026897" />
       </div>
-      <Image
-        loader={logoLoader}
-        src={logo}
-        height={50}
-        width={100}
-        alt="avatar"
-        style={{
-          maxWidth: "100%",
-          height: "auto",
-        }}
-      />
+      <h1 className={lobster.className}>
+        <span className={styles.logo_font_one}>FEMALE</span>{" "}
+        <span className={styles.logo_font_two}>SUAVE</span>
+      </h1>
       <div className={styles.topbar_right_container}>
 
         <div className={styles.topbar_input_box}>
@@ -50,8 +53,8 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
           <MdNotifications size={26} className={styles.notifications} />
           <div className={styles.user_profile}>
             <div className={styles.user_name}>
-              <p>{0}</p>
-              <p>{1}</p>
+              <p>{firstName}</p>
+              <p>{lastName}</p>
             </div>
             {
               session?.user?.image ? (
@@ -69,7 +72,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
                 />
               ) : (
                 <div className={styles.avatar}>
-                  {10}
+                  {`${firstNameFallback}${lastNameFallback}`}
                 </div>
               )
             }
@@ -94,12 +97,12 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
                 />
               ) : (
                 <div className={styles.avatar}>
-                  {10}
+                  {`${firstNameFallback}${lastNameFallback}`}
                 </div>
               )
             }
 
-            <RiArrowDropDownFill size={24} color="rgb(77, 0, 77)" />
+            <RiArrowDropDownFill size={24} color="#026897" />
           </div>
           {
             isDropdown ? (
