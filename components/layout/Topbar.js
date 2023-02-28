@@ -31,7 +31,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
   const firstNameFallback = firstName.slice(0,1)
   const lastNameFallback = lastName.slice(0,1)
 
-  console.log(firstNameFallback, lastNameFallback)
+  // console.log(firstNameFallback, lastNameFallback)
 
 
   return (
