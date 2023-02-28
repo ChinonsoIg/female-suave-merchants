@@ -21,6 +21,7 @@ $primary-color_inactive_text: #607D8B;
 $background-color: #FBFBFB;
 $white: rgb(255, 255, 255);
 $grey: #ededed;
+$red: #b30000;
 // npx create-next-app@latest my-project --typescript --eslint
 // cd my-project
 
@@ -191,7 +192,7 @@ $grey: #ededed;
                   border-radius: 8px;
                   border: 1px solid #213F7D;
                   padding: 0 20px;
-                  border: 3px solid red;
+                  border: 3px solid $red;
                 }
               }
 
@@ -438,17 +439,19 @@ $grey: #ededed;
   width: 100%;
   max-width: 150px;
   border: none;
+  cursor: pointer;
 }
 
 .btn_danger {
   color: $white;
-  background-color: red;
+  background-color: $red;
   padding: 10px;
   border-radius: 5px;
   font-size: 18px;
   width: 100%;
   max-width: 150px;
   border: none;
+  cursor: pointer;
 }
 
 .btn_loading {
@@ -480,6 +483,54 @@ $grey: #ededed;
   color: $primary-color;
 }
 
+
+
+// For Modal component
+.modal_wrapper {
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: grid;
+  place-content: center;
+
+  .modal_container {
+    background-color: $white;
+    width: 100%;
+    max-width: 1000px;
+    padding: 20px 30px;
+    margin: 50px auto;
+    border-radius: 5px;
+    overflow-y: scroll;
+    font-family: 'Montserrat', sans-serif;
+
+    .modal_header_section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .modal_header_title {
+        color: $primary-color_40;
+      }
+
+      .modal_close_btn {
+        color: $red;
+        font-weight: 400;
+        font-size: 20px;
+        // padding: 5px;
+        height: 25px;
+        width: 25px;
+        display: grid;
+        place-content: center;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        // background: none;
+      }
+    }
+  }
+}
 
 
 

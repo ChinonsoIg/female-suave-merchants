@@ -1,7 +1,7 @@
 import styles from "../../../styles/Products.module.scss";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-// import { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { BsArrowLeft } from "react-icons/bs"
 
@@ -9,6 +9,7 @@ import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from "../../../components/layout/SharedLayout";
 import Loading from "../../../components/Loading";
 import { BackButton } from "../../../components/Buttons";
+import FormModal from "../../../components/Modal";
 
 const myLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
@@ -18,6 +19,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 // const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SingleProduct = () => {
+  const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const { id } = router?.query || {};
   const splitPath = router?.asPath?.split("/");
@@ -34,11 +36,24 @@ const SingleProduct = () => {
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/${id}`);
 
-  // console.log("id: ", data);
+  console.log("data: ", data);
 
 
   if (status === "authenticated") {
     return (
+      <>
+      <FormModal
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        productId={data?.product?._id}
+        name={data?.product?.name}
+        category={data?.product?.category}
+        categoryId={data?.product?.categoryId}
+        description={data?.product?.description}
+        price={data?.product?.price}
+        quantity={data?.product?.quantity}
+        status={data?.product?.status}
+      />
       <SharedLayout>
         <BackButton currentPath={currentPath} />
         <h1 data-testid="single-product-header">Single Product</h1>
@@ -63,17 +78,17 @@ const SingleProduct = () => {
           <p>Price: {data?.product?.price}</p>
           <p>Quantity: {data?.product?.quantity}</p>
           <p>Status: {data?.product?.status}</p>
-  
         </section>
   
-        {/* <section className={styles.product_actions}>
-          <button onClick={() => console.log("click")} className={styles.btn_fill}>
-            <Link href={`${router.pathname}/${data?.product?._id}`}>Edit</Link>
+        <section className={styles.product_actions}>
+          <button onClick={() => setOpenModal(true)} className={styles.btn_fill}>
+            Edit
           </button>
           <button onClick={() => handleDelete(data?.product?._id)} className={styles.btn_danger}>Delete</button>
-        </section> */}
+        </section>
   
       </SharedLayout>
+      </>
     )
   }
 

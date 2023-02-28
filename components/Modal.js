@@ -1,34 +1,29 @@
-import styles from "../../styles/AddProduct.module.scss";
-import { useState } from "react"
+// import styles from "../styles/globals.module.scss"
+import styles from "../styles/AddProduct.module.scss"
+import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import axios from "axios";
 import { Widget } from "@uploadcare/react-widget";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-import { customToast } from "../../components/Toasts";
-import { useFetchWithoutToken, postWithToken } from "../../utils/services";
-import SharedLayout from "../../components/layout/SharedLayout";
-import Loading from "../../components/Loading";
-import { FormInputs, FormTextArea } from "../../components/Form";
+import { FormInputs, FormTextArea } from "./Form";
+import { customToast } from "./Toasts";
+import { useFetchWithoutToken } from "../utils/services";
 
 const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 // const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
-const AddProduct = () => {
-  const [checked, setChecked] = useState(false);
-  const [images, setImages] = useState([]);
+const FormModal = ({ open, onClose, productId, name, categoryId, description, price, quantity, status }) => {
   const [formInputs, setFormInputs] = useState({});
   const [isBtnLoading, setIsBtnLoading] = useState(false);
-  const router = useRouter();
+  const [checked, setChecked] = useState(false);
+  const [images, setImages] = useState([]);
 
-  const { status, data: session } = useSession({
+  const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
-      // The user is not authenticated, handle it here.
       router.push("/auth/signin")
     },
   });
@@ -46,14 +41,24 @@ const AddProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsBtnLoading(true);
-
+    
     let modifiedData = {
       ...formInputs,
-      image: images,
+      name: formInputs.name ? formInputs.name : name,
+      // category: formInputs.category ? formInputs.category : category,
+      categoryId: formInputs.categoryId ? formInputs.categoryId : categoryId,
+      description: formInputs.description ? formInputs.description : description,
+      price: formInputs.price ? formInputs.price : price,
+      quantity: formInputs.quantity ? formInputs.quantity : quantity,
+      // status: formInputs.status ? formInputs.status : status,
+      image: images.length === 0 ? null : images,
       status: !checked ? "out of stock" : "available"
-    }
+    };
 
-    axios.post(`${BASE_URL}/products`, modifiedData, {
+    // console.log("jg: ", modifiedData)
+    // onClose();
+
+    axios.patch(`${BASE_URL}/products/${productId}`, modifiedData, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
@@ -61,7 +66,7 @@ const AddProduct = () => {
     })
       .then((res) => {
         console.log("res", res);
-        let resText = res?.statusText ? res?.statusText : "Product created."
+        let resText = res?.statusText ? res?.statusText : "Product updated successfully."
         customToast("success", resText, "top-right")
       })
       .catch((error) => {
@@ -72,8 +77,10 @@ const AddProduct = () => {
       .finally(() => {
         setTimeout(() => {
           setIsBtnLoading(false)
+          onClose();
         }, 4800);
       })
+
 
   }
 
@@ -82,13 +89,18 @@ const AddProduct = () => {
   };
 
 
-  if (status === "authenticated") {
-    return (
-      <SharedLayout>
-        <h1>Add new product</h1>
-        <ToastContainer />
+  if (!open) return null;
 
-        <form className={styles.form_container} onSubmit={handleSubmit}>
+  return (
+    <div className={styles.modal_wrapper}>
+      <section className={styles.modal_container}>
+        <div className={styles.modal_header_section}>
+          <h4 className={styles.modal_header_title}>Edit Product</h4>
+          <button onClick={onClose} className={styles.modal_close_btn}>x</button>
+        </div>
+        <form className={styles.form_container}
+          onSubmit={handleSubmit}
+        >
           <div className={styles.name_category_box}>
             <FormInputs
               htmlFor="name"
@@ -96,6 +108,7 @@ const AddProduct = () => {
               type="text"
               name="name"
               placeholder="Name"
+              defaultValue={name}
               onChange={handleInputsChange}
               data_testid="name"
             />
@@ -103,6 +116,7 @@ const AddProduct = () => {
               Category
               <select
                 name="categoryId"
+                // defaultValue={category}
                 onChange={handleInputsChange}
                 data-testid="categoryId"
               >
@@ -111,7 +125,13 @@ const AddProduct = () => {
                   categories?.categories?.map((category) => {
                     const { _id, categoryName } = category;
                     return (
-                      <option key={_id} value={_id}>{categoryName}</option>
+                      <option
+                        key={_id}
+                        value={_id}
+                        selected={_id == categoryId}
+                      >
+                        {categoryName}
+                      </option>
                     )
                   })
                 }
@@ -125,6 +145,7 @@ const AddProduct = () => {
               type="number"
               name="price"
               placeholder="Price"
+              defaultValue={price}
               onChange={handleInputsChange}
               data_testid="price"
             />
@@ -134,6 +155,7 @@ const AddProduct = () => {
               type="number"
               name="quantity"
               placeholder="Quantity"
+              defaultValue={quantity}
               onChange={handleInputsChange}
               data_testid="quantity"
             />
@@ -145,6 +167,7 @@ const AddProduct = () => {
               type="text"
               name="description"
               placeholder="Description"
+              defaultValue={description}
               onChange={handleInputsChange}
               data_testid="description"
             />
@@ -179,23 +202,26 @@ const AddProduct = () => {
               onChange={info => console.log("Upload completed:", info)}
             />
           </div>
-          <div>
+
+          <section
+            style={{
+              display: "flex",
+              gap: "20px",
+              marginTop: "30px",
+            }}
+          >
             <input
-              type="submit" 
-              value={!isBtnLoading ? "Submit" : "Submitting..."} 
-              className={!isBtnLoading ? styles.btn_fill : styles.btn_loading} 
+              type="submit"
+              value={!isBtnLoading ? "Submit" : "Submitting..."}
+              className={!isBtnLoading ? styles.btn_fill : styles.btn_loading}
               role="button"
             />
-          </div>
+            <button onClick={onClose} className={styles.btn_danger}>Cancel</button>
+          </section>
         </form>
-      </SharedLayout>
-    )
-
-  }
-
-  return <Loading />
-
+      </section>
+    </div>
+  );
 }
 
-
-export default AddProduct
+export default FormModal;
