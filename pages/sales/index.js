@@ -79,7 +79,7 @@ const Sales = () => {
   if (status === "authenticated") {
     return (
       <SharedLayout>
-        <h1 data-testid="header">Sales</h1>
+        <h1 className={styles.sales_title} data-testid="header">Sales</h1>
 
         <section className={styles.data_table}>
           <SalesTable

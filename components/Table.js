@@ -43,11 +43,13 @@ const ProductTable = ({
             <th>Quantity</th>
             <th>Price (&#8358;)</th>
             <th>Status</th>
-            {linkToMore && <td></td>}
+            <th>More</th>
           </tr>
           {products?.length === 0 ? 
-            <tr><td colSpan={6} style={{textAlign: "center"}}>No data</td></tr> : 
-            null
+            <tr>
+              <td colSpan={6} style={{textAlign: "center"}}>No data</td>
+            </tr>
+            : null
           }
           {
             products && products.map((item, index) => (
@@ -95,7 +97,7 @@ const SalesTable = ({
 
   return (
     <div className={styles.products_wrapper}>
-      <h2>{title}</h2>
+      <h2 className={styles.table_data_title}>{title}</h2>
       <table className={styles.products_container}>
         <tbody>
           <tr>

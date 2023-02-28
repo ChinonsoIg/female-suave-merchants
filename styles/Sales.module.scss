@@ -1,32 +1,35 @@
-@import "globals.module.scss";
+// @import "globals.module.scss";
 
-.sales_heading {
-  // border: 1px solid red;
-  margin-bottom: 20px;
 
-  div {
-    display: grid;
-    grid-template-columns: 100px auto;
 
-    p:last-child {
-      font-weight: 500;
-      color: $primary-color_20;
-    }
-  }
-}
 
-.table_sub_component {
-  // border: 1px solid red;
-  display: grid;
-  grid-template-columns: 4fr 1fr;
-  margin: 20px 0 0 40px;
+// .sales_heading {
+//   // border: 1px solid red;
+//   margin-bottom: 20px;
 
-  p {
-    margin: 0;
-  }
+//   div {
+//     display: grid;
+//     grid-template-columns: 100px auto;
 
-  p:last-child {
-    font-weight: 700;
-    color: $primary-color_10;
-  }
-}
+//     p:last-child {
+//       font-weight: 500;
+//       color: $primary-color_20;
+//     }
+//   }
+// }
+
+// .table_sub_component {
+//   // border: 1px solid red;
+//   display: grid;
+//   grid-template-columns: 4fr 1fr;
+//   margin: 20px 0 0 40px;
+
+//   p {
+//     margin: 0;
+//   }
+
+//   p:last-child {
+//     font-weight: 700;
+//     color: $primary-color_10;
+//   }
+// }
