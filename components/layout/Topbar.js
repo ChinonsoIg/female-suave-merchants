@@ -1,7 +1,7 @@
 import styles from "../../styles/Layout.module.scss";
 import React from "react";
 import Image from "next/image";
-import { Lobster } from "@next/font/google";
+import { Lobster, IBM_Plex_Mono } from "@next/font/google";
 import { useSession } from "next-auth/react";
 import { MdNotifications } from "react-icons/md";
 import { RiArrowDropDownFill } from "react-icons/ri";
@@ -15,6 +15,11 @@ const myLoader = ({ src }) => {
 
 const lobster = Lobster({
   weight: '400',
+  display: 'swap',
+  subsets: ['latin'],
+});
+const IBMPlexMono = IBM_Plex_Mono({
+  weight: '600',
   display: 'swap',
   subsets: ['latin'],
 });
@@ -39,9 +44,9 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
       <div className={styles.sidebar_toggle} onClick={toggleSidebar}>
         <GiHamburgerMenu size={24} color="#026897" />
       </div>
-      <h1 className={lobster.className}>
-        <span className={styles.logo_font_one}>FEMALE</span>{" "}
-        <span className={styles.logo_font_two}>SUAVE</span>
+      <h1 className={IBMPlexMono.className}>
+        <span className={styles.logo_font_one}>Female</span>
+        <span className={styles.logo_font_two}>Suave</span>
       </h1>
       <div className={styles.topbar_right_container}>
 

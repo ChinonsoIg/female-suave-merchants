@@ -2,6 +2,7 @@
 
 .container {
   font-family: 'Mulish', sans-serif;
+  background-color: #e5e7eb;
   // border: 2px solid green;
   // margin: 0;
 
@@ -42,13 +43,12 @@
 
       .logo_font_one {
         font-size: 16px;
-        color: $primary-color;
-        margin-right: 5px;
+        color: $primary-color-10;
       }
       
       .logo_font_two {
-        font-size: 24px;
-        color: $primary-color;
+        font-size: 16px;
+        color: $primary-color-10;
       }
     }
 
