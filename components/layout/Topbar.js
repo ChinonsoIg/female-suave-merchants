@@ -1,7 +1,7 @@
 import styles from "../../styles/Layout.module.scss";
 import React from "react";
 import Image from "next/image";
-import { Lobster, IBM_Plex_Mono } from "@next/font/google";
+import { IBM_Plex_Mono } from "@next/font/google";
 import { useSession } from "next-auth/react";
 import { MdNotifications } from "react-icons/md";
 import { RiArrowDropDownFill } from "react-icons/ri";
@@ -13,17 +13,11 @@ const myLoader = ({ src }) => {
   return src;
 };
 
-const lobster = Lobster({
-  weight: '400',
-  display: 'swap',
-  subsets: ['latin'],
-});
 const IBMPlexMono = IBM_Plex_Mono({
   weight: '600',
   display: 'swap',
   subsets: ['latin'],
 });
-
 
 
 export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
@@ -33,10 +27,8 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
   const firstName = session?.user?.firstName;
   const lastName = session?.user?.lastName;
 
-  const firstNameFallback = firstName.slice(0,1)
-  const lastNameFallback = lastName.slice(0,1)
-
-  // console.log(firstNameFallback, lastNameFallback)
+  const firstNameFallback = firstName.slice(0,1);
+  const lastNameFallback = lastName.slice(0,1);
 
 
   return (

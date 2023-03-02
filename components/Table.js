@@ -43,7 +43,7 @@ const ProductTable = ({
             <th>Quantity</th>
             <th>Price (&#8358;)</th>
             <th>Status</th>
-            <th>More</th>
+            {linkToMore && <th>More</th>}
           </tr>
           {products?.length === 0 ? 
             <tr>
