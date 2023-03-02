@@ -115,6 +115,12 @@ const SalesTable = ({
               ))
             }
           </tr>
+          {orders?.length === 0 ? 
+            <tr>
+              <td colSpan={6} style={{textAlign: "center"}}>No data</td>
+            </tr>
+            : null
+          }
           {
             orders && orders.map((item, index) => (
               <tr key={item._id}>
