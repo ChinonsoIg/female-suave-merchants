@@ -27,8 +27,8 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
   const firstName = session?.user?.firstName;
   const lastName = session?.user?.lastName;
 
-  const firstNameFallback = firstName.slice(0,1);
-  const lastNameFallback = lastName.slice(0,1);
+  const firstNameFallback = firstName && firstName.slice(0,1);
+  const lastNameFallback = lastName && lastName.slice(0,1);
 
 
   return (

@@ -10,7 +10,6 @@ import SharedLayout from '../../components/layout/SharedLayout'
 import Loading from "../../components/Loading";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const Profile = () => {
   const router = useRouter();

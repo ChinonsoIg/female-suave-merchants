@@ -16,7 +16,6 @@ import { FormInputs, FormTextArea } from "../../components/Form";
 
 const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY;
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const AddProduct = () => {
   const [checked, setChecked] = useState(false);
@@ -53,7 +52,7 @@ const AddProduct = () => {
       status: !checked ? "out of stock" : "available"
     }
 
-    axios.post(`${BASE_URL}/products`, modifiedData, {
+    axios.post(`${BASE_URL}/products/merchant`, modifiedData, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"

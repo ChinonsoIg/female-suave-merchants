@@ -6,7 +6,6 @@ import FacebookProvider from "next-auth/providers/facebook";
 import axios from "axios";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API
-// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL
 
 const authOptions = {
   providers: [

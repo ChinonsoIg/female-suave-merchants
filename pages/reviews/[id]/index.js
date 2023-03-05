@@ -9,6 +9,7 @@ const Review = () => {
   const routeId = router.query.id;
   const splitPath = router.asPath.split("/");
   const currentPath = splitPath[1]
+  console.log("router: ",router)
   
   return (
     <SharedLayout>

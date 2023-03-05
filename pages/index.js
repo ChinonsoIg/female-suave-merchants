@@ -12,7 +12,6 @@ import { ProductTable } from "../components/Table";
 import DataLimiter from "../components/DataLimiter";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 
 export default function Home() {
@@ -33,11 +32,11 @@ export default function Home() {
 
   const allNums = printNums();
 
-  const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products?limit=${limit}`)
+  const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant?limit=${limit}`)
 
   const { data: categories } = useFetchWithoutToken(`${BASE_URL}/categories`);
 
-  const { data: sales } = useFetchWithToken(`${BASE_URL}/orders`);
+  const { data: sales } = useFetchWithToken(`${BASE_URL}/orders/merchant`);
 
   const totalIncome = sales?.orders?.reduce((acc, obj) => {
     return acc + obj?.total;
@@ -80,19 +79,19 @@ export default function Home() {
         <section className={styles.figures_grid_container}>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Sales</p>
-            <p className={styles.grid_number}>{sales?.totalOrders}</p>
+            <p className={styles.grid_number}>{sales?.totalOrders ? sales?.totalOrders : 0}</p>
           </div>
           <div className={styles.figures_grid_child}>
             <p data-testid="income" className={styles.grid_title}>Income (&#8358;)</p>
-            <p className={styles.grid_number}>{addComma(totalIncome)}</p>
+            <p className={styles.grid_number}>{totalIncome ? addComma(totalIncome) : 0}</p>
           </div>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Customers</p>
-            <p className={styles.grid_number}>{uniqueCustomers}</p>
+            <p className={styles.grid_number}>{uniqueCustomers ? uniqueCustomers : 0}</p>
           </div>
           <div className={styles.figures_grid_child}>
             <p className={styles.grid_title}>Products</p>
-            <p className={styles.grid_number}>{products?.totalProducts}</p>
+            <p className={styles.grid_number}>{products?.totalProducts ? products?.totalProducts : 0}</p>
           </div>
         </section>
 
