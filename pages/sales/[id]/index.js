@@ -1,7 +1,6 @@
 import styles from "../../../styles/Sales.module.scss";
 import React from 'react'
 import Image from "next/image";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 import { useFetchWithToken } from "../../../utils/services";
@@ -9,12 +8,12 @@ import SharedLayout from '../../../components/layout/SharedLayout';
 import { BackButton } from "../../../components/Buttons";
 import { addComma } from "../../../utils/functions";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 const myLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 const SingleSale = () => {
   const router = useRouter();
@@ -25,25 +24,11 @@ const SingleSale = () => {
   const { data: orders, isError, isLoading } = useFetchWithToken(`${BASE_URL}/orders/merchant/${routeId}`)
   const { data: customers } = useFetchWithToken(`${BASE_URL}/customers/merchant`)
 
-  const {
-    status,
-    data: session
-  } = useSession({
-    required: true,
-    onUnauthenticated() {
-      // The user is not authenticated, handle it here.
-      router.push("/auth/signin")
-    },
-  });
-
   const findCustomer = (id) => {
     const found = customers?.customers?.find(element => element._id == id)?.name;
     return found;
   }
 
-  // console.log("sess: ", session)
-
-  if (status === "authenticated") {
 
     return (
       <SharedLayout>
@@ -105,9 +90,8 @@ const SingleSale = () => {
         </section>
       </SharedLayout>
     )
-  }
 
 }
 
 
-export default SingleSale
+export default SingleSale;

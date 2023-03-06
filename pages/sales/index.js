@@ -1,17 +1,11 @@
 import styles from "../../styles/Home.module.scss";
-import Image from "next/image";
-import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
-import { Inter } from "@next/font/google";
+import { useState, useEffect } from "react";
 
-import { useFetchWithoutToken, useFetchWithToken } from "../../utils/services";
-import SharedLayout from '../../components/layout/SharedLayout'
-import { printNums } from "../../utils/functions";
+import { useFetchWithToken } from "../../utils/services";
+import SharedLayout from "../../components/layout/SharedLayout";
 import { SalesTable } from "../../components/Table";
 import DataLimiter from "../../components/DataLimiter";
 import Pagination from "../../components/Pagination";
-import Loading from "../../components/Loading";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
@@ -19,24 +13,10 @@ const Sales = () => {
   const [limit, setLimit] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const router = useRouter();
-
-  const {
-    status,
-    data: session
-  } = useSession({
-    required: true,
-    onUnauthenticated() {
-      // The user is not authenticated, handle it here.
-      router.push("/auth/signin")
-    },
-  });
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/orders/merchant?search=${search}&limit=${limit}&page=${currentPage}`);
   const { data: customers } = useFetchWithToken(`${BASE_URL}/customers/merchant`);
 
-
-  const allNums = printNums();
   const handleLimit = (event) => {
     const value = Number(event.target.value);
     setLimit(value);
@@ -58,7 +38,7 @@ const Sales = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    fetchProducts();
+    // fetchProducts();
   }
 
   const headers = [
@@ -70,12 +50,19 @@ const Sales = () => {
     { name: "Total (₦)", id: "total" },
   ];
 
+  useEffect(() => {
+    if(data && data.totalProducts < limit) {
+      const value = Number(data?.totalProducts);
+      setLimit(value)
+    }
+
+    return () => {
+      console.log("clean")
+    }
+  }, [data?.totalProducts])
+
 
   // console.log("lim : ", limit)
-
-
-
-  if (status === "authenticated") {
     return (
       <SharedLayout>
         <h1 className={styles.sales_title} data-testid="header">Sales</h1>
@@ -96,7 +83,6 @@ const Sales = () => {
             <DataLimiter
               limit={limit}
               handleLimit={handleLimit}
-              allNums={allNums}
               totalProducts={data?.totalOrders}
             />
             <Pagination
@@ -110,10 +96,6 @@ const Sales = () => {
         </section>
       </SharedLayout>
     )
-  }
-
-  return <Loading />
-
 
 }
 
