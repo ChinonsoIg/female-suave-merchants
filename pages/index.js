@@ -51,7 +51,7 @@ export default function Home() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    fetchProducts();
+    // fetchProducts();
   }
 
   useEffect(() => {

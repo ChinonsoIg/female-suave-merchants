@@ -3,14 +3,12 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import Image from "next/image";
-import { BsArrowLeft } from "react-icons/bs";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from "../../../components/layout/SharedLayout";
-import Loading from "../../../components/Loading";
 import { BackButton } from "../../../components/Buttons";
 import FormModal from "../../../components/Modal";
 import { customToast } from "../../../components/Toasts";
@@ -29,20 +27,11 @@ const SingleProduct = () => {
   const splitPath = router?.asPath?.split("/");
   const currentPath = splitPath ? splitPath[1] : null
 
-  const {
-    status,
-    data: session
-  } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/auth/signin")
-    },
-  });
+  const { data: session } = useSession();
   const token = session?.user?.token;
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant/${id}`);
-
-
+// console.log("iserr: ", isError)
 
   const handleDelete = (productId) => {
     setIsBtnLoading(true);
@@ -54,12 +43,12 @@ const SingleProduct = () => {
       }
     })
       .then((res) => {
-        console.log("res", res);
+        // console.log("res", res);
         let resText = res?.statusText ? res?.statusText : "Product updated successfully."
         customToast("success", resText, "top-right")
       })
       .catch((error) => {
-        console.log("err: ", error);
+        // console.log("err: ", error);
         let errTex = error?.response?.data?.message ? error?.response?.data?.message : "An error occured!"
         customToast("error", errTex, "top-center")
       })
@@ -72,9 +61,8 @@ const SingleProduct = () => {
 
   }
 
-  if (status === "authenticated") {
-    return (
-      <>
+  return (
+    <>
       <FormModal
         open={openModal}
         onClose={() => setOpenModal(false)}
@@ -106,7 +94,7 @@ const SingleProduct = () => {
               </div>
             ))}
           </div>
-  
+
           <h3>Name: {data?.product?.name}</h3>
           <p>Category: {data?.product?.category}</p>
           <p>Description: {data?.product?.description}</p>
@@ -114,7 +102,7 @@ const SingleProduct = () => {
           <p>Quantity: {data?.product?.quantity}</p>
           <p>Status: {data?.product?.status}</p>
         </section>
-  
+
         <section className={styles.product_actions}>
           <button onClick={() => setOpenModal(true)} className={styles.btn_fill}>
             Edit
@@ -126,16 +114,11 @@ const SingleProduct = () => {
             {!isBtnLoading ? "Delete" : "Deleting..."}
           </button>
         </section>
-  
+
       </SharedLayout>
-      </>
-    )
-  }
+    </>
+  )
 
-
-  return <Loading />
-  
-  
 }
 
 export default SingleProduct;

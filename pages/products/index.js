@@ -1,15 +1,13 @@
 import styles from "../../styles/Products.module.scss";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useFetchWithToken } from "../../utils/services";
 import Pagination from "../../components/Pagination";
 import { ProductTable } from "../../components/Table";
 import DataLimiter from "../../components/DataLimiter";
 import SharedLayout from "../../components/layout/SharedLayout";
-import { printNums } from "../../utils/functions";
-import Loading from "../../components/Loading";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
@@ -19,19 +17,8 @@ const Products = () => {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
-  const {
-    status,
-    data: session
-  } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/auth/signin")
-    },
-  });
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant?search=${search}&limit=${limit}&page=${currentPage}`);
-
-  const allNums = printNums();
 
   const handleLimit = (event) => {
     const value = Number(event.target.value);
@@ -57,12 +44,17 @@ const Products = () => {
     // fetchData();
   }
 
+  useEffect(() => {
+    if(data && data.totalProducts < limit) {
+      const value = Number(data?.totalProducts);
+      setLimit(value)
+    }
 
-  // console.log("session: ", session)
-  // console.log("data: ", data)
+    return () => {
+      console.log("clean")
+    }
+  }, [data?.totalProducts])
 
-
-  if (status === "authenticated") {
     return (
       <SharedLayout>
         <h1 className={styles.products_title} data-testid="header">All Products</h1>
@@ -83,7 +75,6 @@ const Products = () => {
             <DataLimiter
               limit={limit}
               handleLimit={handleLimit}
-              allNums={allNums}
               totalProducts={data?.totalProducts}
             />
             <Pagination
@@ -96,11 +87,7 @@ const Products = () => {
           </div>
         </section>
       </SharedLayout>
-    )
-  }
-
-  return <Loading />
-
+    );
 
 }
 

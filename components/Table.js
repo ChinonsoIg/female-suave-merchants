@@ -58,7 +58,7 @@ const ProductTable = ({
                 <td>{item.name}</td>
                 {categories && <td>{findCategory(item.categoryId)}</td>}
                 <td>{item.quantity}</td>
-                <td>{item.price}</td>
+                <td>{addComma(item.price)}</td>
                 <td>{item.status}</td>
                 {
                   linkToMore && (
