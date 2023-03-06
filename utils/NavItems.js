@@ -21,12 +21,12 @@ export const navItems = [
         url: "/sales",
         icon: <MdAutoGraph />
       },
-      {
-        id: "103",
-        title: "reviews",
-        url: "/reviews",
-        icon: <MdReviews />
-      },
+      // {
+      //   id: "103",
+      //   title: "reviews",
+      //   url: "/reviews",
+      //   icon: <MdReviews />
+      // },
       // {
       //   id: "104",
       //   title: "customers",
