@@ -2,12 +2,15 @@ import styles from "../styles/globals.module.scss";
 import React from 'react'
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
+import { printNums } from "../utils/functions";
+
 const DataLimiter = ({
   limit,
   handleLimit,
-  allNums,
   totalProducts,
 }) => {
+
+  let allNums = printNums(totalProducts);
 
   if (!totalProducts) {
     return null;

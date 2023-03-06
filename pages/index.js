@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
 import SharedLayout from "../components/layout/SharedLayout";
-import { addComma, printNums } from "../utils/functions";
+import { addComma } from "../utils/functions";
 import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { ProductTable } from "../components/Table";
@@ -29,8 +29,6 @@ export default function Home() {
       router.push("/auth/signin")
     },
   });
-
-  const allNums = printNums();
 
   const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant?limit=${limit}`)
 
@@ -123,7 +121,6 @@ export default function Home() {
             <DataLimiter
               limit={limit}
               handleLimit={handleLimit}
-              allNums={allNums}
               totalProducts={products?.totalProducts}
             />
             <Pagination
