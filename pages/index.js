@@ -1,5 +1,5 @@
 import styles from "./../styles/Home.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
@@ -70,7 +70,19 @@ export default function Home() {
     fetchProducts();
   }
 
-  // console.log("session: ", products);
+  useEffect(() => {
+    if(products && products.totalProducts < limit) {
+      const value = Number(products?.totalProducts);
+      setLimit(value)
+    }
+
+    return () => {
+      console.log("clean", limit)
+    }
+  }, [products?.totalProducts])
+  
+
+  console.log("session: ", limit);
 
   if (status === "authenticated") {
     return (
@@ -123,6 +135,7 @@ export default function Home() {
             />
           </div>
         </section>
+        <h2>{limit}</h2>
 
       </SharedLayout>
 

@@ -17,7 +17,7 @@ const DataLimiter = ({
     <p className={styles.items_per_page}>Showing
       <select
         className={styles.num_value}
-        defaultValue={limit}
+        value={limit}
         onChange={handleLimit}
       >
         {allNums.map((num, ind) =>
