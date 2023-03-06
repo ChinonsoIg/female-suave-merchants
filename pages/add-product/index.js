@@ -1,7 +1,6 @@
 import styles from "../../styles/AddProduct.module.scss";
 import { useState } from "react"
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import axios from "axios";
 import { Widget } from "@uploadcare/react-widget";
 import { ToastContainer } from "react-toastify";
@@ -9,9 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 import { customToast } from "../../components/Toasts";
-import { useFetchWithoutToken, postWithToken } from "../../utils/services";
+import { useFetchWithoutToken } from "../../utils/services";
 import SharedLayout from "../../components/layout/SharedLayout";
-import Loading from "../../components/Loading";
 import { FormInputs, FormTextArea } from "../../components/Form";
 
 const uploadCarePublicKey = process.env.NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY;
@@ -22,15 +20,8 @@ const AddProduct = () => {
   const [images, setImages] = useState([]);
   const [formInputs, setFormInputs] = useState({});
   const [isBtnLoading, setIsBtnLoading] = useState(false);
-  const router = useRouter();
 
-  const { status, data: session } = useSession({
-    required: true,
-    onUnauthenticated() {
-      // The user is not authenticated, handle it here.
-      router.push("/auth/signin")
-    },
-  });
+  const { data: session } = useSession();
   const token = session?.user?.token;
 
   const { data: categories } = useFetchWithoutToken(`${BASE_URL}/categories`);
@@ -81,118 +72,114 @@ const AddProduct = () => {
   };
 
 
-  if (status === "authenticated") {
-    return (
-      <SharedLayout>
-        <h1>Add new product</h1>
-        <ToastContainer />
+  return (
+    <SharedLayout>
+      <h1>Add new product</h1>
+      <ToastContainer />
 
-        <form className={styles.form_container} onSubmit={handleSubmit}>
-          <div className={styles.name_category_box}>
-            <FormInputs
-              htmlFor="name"
-              title="Name"
-              type="text"
-              name="name"
-              placeholder="Name"
+      <form className={styles.form_container} onSubmit={handleSubmit}>
+        <div className={styles.name_category_box}>
+          <FormInputs
+            htmlFor="name"
+            title="Name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={handleInputsChange}
+            data_testid="name"
+          />
+          <label htmlFor="categoryId" className={styles.label}>
+            Category
+            <select
+              name="categoryId"
               onChange={handleInputsChange}
-              data_testid="name"
-            />
-            <label htmlFor="categoryId" className={styles.label}>
-              Category
-              <select
-                name="categoryId"
-                onChange={handleInputsChange}
-                data-testid="categoryId"
-              >
-                <option value="">--Choose an option--</option>
-                {
-                  categories?.categories?.map((category) => {
-                    const { _id, categoryName } = category;
-                    return (
-                      <option key={_id} value={_id}>{categoryName}</option>
-                    )
-                  })
-                }
-              </select>
-            </label>
-          </div>
-          <div className={styles.price_quantity_box}>
-            <FormInputs
-              htmlFor="price"
-              title="Price"
-              type="number"
-              name="price"
-              placeholder="Price"
-              onChange={handleInputsChange}
-              data_testid="price"
-            />
-            <FormInputs
-              htmlFor="quantity"
-              title="Quantity"
-              type="number"
-              name="quantity"
-              placeholder="Quantity"
-              onChange={handleInputsChange}
-              data_testid="quantity"
-            />
-          </div>
-          <div className={styles.textarea}>
-            <FormTextArea
-              htmlFor="description"
-              title="Description"
-              type="text"
-              name="description"
-              placeholder="Description"
-              onChange={handleInputsChange}
-              data_testid="description"
-            />
-          </div>
-          <div className={styles.last_box}>
-            <label htmlFor="status">
-              Status
-              <input
-                type="checkbox"
-                checked={checked}
-                onChange={handleCheckbox}
-                className={styles.switch}
-                data-testid="status"
-              />
-            </label>
-          </div>
-
-          <div className={styles.images_upload_box}>
-            <label htmlFor="images">Add images</label>{" "}
-            <Widget
-              publicKey={uploadCarePublicKey}
-              id="images"
-              multiple
-              onFileSelect={async (group) => {
-                const files = await Promise.all(group.files());
-                const urls = files.map((file) => file.cdnUrl);
-                // console.log("urls: ", urls);
-                setImages([...urls]);
-              }}
-              previewStep="true"
-              dataImageShrink="680x680"
-              onChange={info => console.log("Upload completed:", info)}
-            />
-          </div>
-          <div>
+              data-testid="categoryId"
+            >
+              <option value="">--Choose an option--</option>
+              {
+                categories?.categories?.map((category) => {
+                  const { _id, categoryName } = category;
+                  return (
+                    <option key={_id} value={_id}>{categoryName}</option>
+                  )
+                })
+              }
+            </select>
+          </label>
+        </div>
+        <div className={styles.price_quantity_box}>
+          <FormInputs
+            htmlFor="price"
+            title="Price"
+            type="number"
+            name="price"
+            placeholder="Price"
+            onChange={handleInputsChange}
+            data_testid="price"
+          />
+          <FormInputs
+            htmlFor="quantity"
+            title="Quantity"
+            type="number"
+            name="quantity"
+            placeholder="Quantity"
+            onChange={handleInputsChange}
+            data_testid="quantity"
+          />
+        </div>
+        <div className={styles.textarea}>
+          <FormTextArea
+            htmlFor="description"
+            title="Description"
+            type="text"
+            name="description"
+            placeholder="Description"
+            onChange={handleInputsChange}
+            data_testid="description"
+          />
+        </div>
+        <div className={styles.last_box}>
+          <label htmlFor="status">
+            Status
             <input
-              type="submit" 
-              value={!isBtnLoading ? "Submit" : "Submitting..."} 
-              className={!isBtnLoading ? styles.btn_fill : styles.btn_loading} 
-              role="button"
+              type="checkbox"
+              checked={checked}
+              onChange={handleCheckbox}
+              className={styles.switch}
+              data-testid="status"
             />
-          </div>
-        </form>
-      </SharedLayout>
-    )
+          </label>
+        </div>
 
-  }
+        <div className={styles.images_upload_box}>
+          <label htmlFor="images">Add images</label>{" "}
+          <Widget
+            publicKey={uploadCarePublicKey}
+            id="images"
+            multiple
+            onFileSelect={async (group) => {
+              const files = await Promise.all(group.files());
+              const urls = files.map((file) => file.cdnUrl);
+              // console.log("urls: ", urls);
+              setImages([...urls]);
+            }}
+            previewStep="true"
+            dataImageShrink="680x680"
+            onChange={info => console.log("Upload completed:", info)}
+          />
+        </div>
+        <div>
+          <input
+            type="submit"
+            value={!isBtnLoading ? "Submit" : "Submitting..."}
+            className={!isBtnLoading ? styles.btn_fill : styles.btn_loading}
+            role="button"
+          />
+        </div>
+      </form>
+    </SharedLayout>
+  );
 
-  return <Loading />
 
 }
 

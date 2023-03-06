@@ -1,13 +1,25 @@
 import styles from "../../styles/Layout.module.scss";
 import React from "react";
-import { AiFillEdit } from "react-icons/ai";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { Topbar } from "./Topbar";
 import { Sidebar } from "./Sidebar";
-import { Footer } from "./Footer";
+import Loading from "../Loading";
 
 const SharedLayout = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isDropdown, setIsDropdown] = React.useState(false);
+  const router = useRouter();
+
+  const {
+    status,
+    data: session
+  } = useSession({
+    required: true,
+    onUnauthenticated() {
+      router.push("/auth/signin")
+    },
+  });
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -17,30 +29,35 @@ const SharedLayout = ({ children }) => {
     setIsDropdown(!isDropdown);
   };
 
-  return (
-    <div
-      className={styles.container}
-    >
-      <Topbar
-        toggleSidebar={toggleSidebar}
-        handleDropdown={handleDropdown}
-        isDropdown={isDropdown}
-      />
+  if (status === "authenticated") {
+    return (
       <div
-        className={styles.layout}
+        className={styles.container}
       >
-        <div className={`${styles.sidebar} ${isOpen ? styles.show_sidebar : styles.hide_sidebar}`}>
-          <Sidebar />
-        </div>
-        <main
-          className={styles.main}
+        <Topbar
+          toggleSidebar={toggleSidebar}
+          handleDropdown={handleDropdown}
+          isDropdown={isDropdown}
+        />
+        <div
+          className={styles.layout}
         >
-          {children}
-        </main>
-      </div>
+          <div className={`${styles.sidebar} ${isOpen ? styles.show_sidebar : styles.hide_sidebar}`}>
+            <Sidebar />
+          </div>
+          <main
+            className={styles.main}
+          >
+            {children}
+          </main>
+        </div>
 
-    </div>
-  );
+      </div>
+    );
+  }
+
+  return <Loading />
+
 };
 
 export default SharedLayout;

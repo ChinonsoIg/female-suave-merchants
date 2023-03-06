@@ -1,12 +1,9 @@
 import styles from "./../styles/Home.module.scss";
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
 import { useFetchWithoutToken, useFetchWithToken } from "../utils/services";
 import SharedLayout from "../components/layout/SharedLayout";
 import { addComma } from "../utils/functions";
-import Loading from "../components/Loading";
 import Pagination from "../components/Pagination";
 import { ProductTable } from "../components/Table";
 import DataLimiter from "../components/DataLimiter";
@@ -18,17 +15,6 @@ export default function Home() {
   const [limit, setLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
-  const router = useRouter();
-
-  const {
-    status,
-    data: session
-  } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/auth/signin")
-    },
-  });
 
   const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant?limit=${limit}`)
 
@@ -75,14 +61,11 @@ export default function Home() {
     }
 
     return () => {
-      console.log("clean", limit)
+      console.log("clean")
     }
   }, [products?.totalProducts])
   
 
-  console.log("session: ", limit);
-
-  if (status === "authenticated") {
     return (
       <SharedLayout>
         <h1 data-testid="header">Dashboard</h1>
@@ -132,14 +115,10 @@ export default function Home() {
             />
           </div>
         </section>
-        <h2>{limit}</h2>
 
       </SharedLayout>
 
     );
-  }
-
-  return <Loading />
 
 }
 
