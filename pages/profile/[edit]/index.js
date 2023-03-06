@@ -13,8 +13,6 @@ import { BackButton } from "../../../components/Buttons";
 import { customToast } from "../../../components/Toasts";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
-
 
 const EditProfile = () => {
   const [formInputs, setFormInputs] = useState({

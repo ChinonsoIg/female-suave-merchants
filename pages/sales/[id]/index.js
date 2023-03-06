@@ -23,7 +23,7 @@ const SingleSale = () => {
   const currentPath = splitPath ? splitPath[1] : null
 
   const { data: orders, isError, isLoading } = useFetchWithToken(`${BASE_URL}/orders/merchant/${routeId}`)
-  const { data: customers } = useFetchWithToken(`${BASE_URL}/customers`)
+  const { data: customers } = useFetchWithToken(`${BASE_URL}/customers/merchant`)
 
   const {
     status,

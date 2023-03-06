@@ -8,7 +8,6 @@ import { ToastContainer } from "react-toastify";
 import { customToast } from "../../components/Toasts";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SignUp = () => {
   const [userInfo, setUserInfo] = useState({

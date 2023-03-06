@@ -52,7 +52,6 @@ const SignIn = ({ providers }) => {
       callbackUrl: "/",
     });
 
-    console.log("res signin: ", res)
   };
 
 

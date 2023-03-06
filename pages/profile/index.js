@@ -29,7 +29,7 @@ const Profile = () => {
   const { data: user } = useFetchWithToken(`${BASE_URL}/users/${userId}`);
 
   // console.log("Se: ", session)
-  // console.log("Us: ", user)
+  console.log("Us: ", user)
 
   if (status === "authenticated") {
     return (

@@ -14,7 +14,6 @@ import Pagination from "../../components/Pagination";
 import Loading from "../../components/Loading";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const Sales = () => {
   const [limit, setLimit] = useState(5);
@@ -33,8 +32,8 @@ const Sales = () => {
     },
   });
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/orders?search=${search}&limit=${limit}&page=${currentPage}`);
-  const { data: customers } = useFetchWithToken(`${BASE_URL}/customers`);
+  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/orders/merchant?search=${search}&limit=${limit}&page=${currentPage}`);
+  const { data: customers } = useFetchWithToken(`${BASE_URL}/customers/merchant`);
 
 
   const allNums = printNums();

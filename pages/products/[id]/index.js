@@ -20,7 +20,6 @@ const myLoader = ({ src, width, quality }) => {
 }
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
-// const BASE_URL_LOCAL = process.env.NEXT_PUBLIC_API_LOCAL;
 
 const SingleProduct = () => {
   const [isBtnLoading, setIsBtnLoading] = useState(false);
@@ -41,14 +40,14 @@ const SingleProduct = () => {
   });
   const token = session?.user?.token;
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/${id}`);
+  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant/${id}`);
 
 
 
   const handleDelete = (productId) => {
     setIsBtnLoading(true);
 
-    axios.delete(`${BASE_URL}/products/${productId}`, {
+    axios.delete(`${BASE_URL}/products/merchant/${productId}`, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
