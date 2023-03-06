@@ -1,37 +1,20 @@
 import styles from "../../styles/Profile.module.scss";
-import { useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { BiEditAlt } from "react-icons/bi";
 
 import { useFetchWithToken } from "../../utils/services";
-import SharedLayout from '../../components/layout/SharedLayout'
-import Loading from "../../components/Loading";
+import SharedLayout from "../../components/layout/SharedLayout";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 const Profile = () => {
-  const router = useRouter();
 
-  const {
-    status,
-    data: session
-  } = useSession({
-    required: true,
-    onUnauthenticated() {
-      router.push("/auth/signin")
-    },
-  });
-
+  const { data: session } = useSession();
   const userId = session?.user?.userId;
 
   const { data: user } = useFetchWithToken(`${BASE_URL}/users/${userId}`);
 
-  // console.log("Se: ", session)
-  console.log("Us: ", user)
-
-  if (status === "authenticated") {
     return (
       <SharedLayout>
         <h1 className={styles.page_title}>Profile Overview</h1>
@@ -61,9 +44,6 @@ const Profile = () => {
         </section>
       </SharedLayout>
     )
-  }
-
-  return <Loading />
 
 }
 

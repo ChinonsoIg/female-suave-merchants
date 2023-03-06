@@ -30,66 +30,66 @@ const SingleSale = () => {
   }
 
 
-    return (
-      <SharedLayout>
-        <BackButton currentPath={currentPath} />
-        <h1 data-testid="single-sale-header">Sale Item</h1>
-        <section className={styles.sales_heading}>
-          <div>
-            <p data-testid="single-sale-customer">Customer</p>
-            <p>{findCustomer(orders?.order?.customerId)}</p>
-          </div>
-          <div>
-            <p data-testid="single-sale-status">Status</p>
-            <p>{orders?.order?.status}</p>
-          </div>
-        </section>
-        <section>
-          <table className={styles.products_container}>
-            <tbody>
-              <tr>
-                <th>S/N</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Price (&#8358;)</th>
-                <th>Quantity</th>
-              </tr>
-              {
-                orders?.order?.orderItems.map((item, index) => (
-                  <tr key={item._id}>
-                    <td>{index + 1}</td>
-                    <td>
-                      <Image 
-                        loader={myLoader} 
-                        src={item.image} 
-                        height={100} 
-                        width={100}
-                        alt={item.name}
-                      />
-                    </td>
-                    <td>{item.name}</td>
-                    <td>{addComma(item.price)}</td>
-                    <td>{item.quantity}</td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
-          <div className={styles.table_sub_component}>
-            <p>Shipping fee</p>
-            <p>&#8358; {addComma(orders?.order?.shippingFee)}</p>
-          </div>
-          <div className={styles.table_sub_component}>
-            <p>Subtotal</p>
-            <p>&#8358; {addComma(orders?.order?.subtotal)}</p>
-          </div>
-          <div className={styles.table_sub_component}>
-            <p>Total</p>
-            <p>&#8358; {addComma(orders?.order?.total)}</p>
-          </div>
-        </section>
-      </SharedLayout>
-    )
+  return (
+    <SharedLayout>
+      <BackButton currentPath={currentPath} />
+      <h1 data-testid="single-sale-header">Sale Item</h1>
+      <section className={styles.sales_heading}>
+        <div>
+          <p data-testid="single-sale-customer">Customer</p>
+          <p>{findCustomer(orders?.order?.customerId)}</p>
+        </div>
+        <div>
+          <p data-testid="single-sale-status">Status</p>
+          <p>{orders?.order?.status}</p>
+        </div>
+      </section>
+      <section>
+        <table className={styles.products_container}>
+          <tbody>
+            <tr>
+              <th>S/N</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Price (&#8358;)</th>
+              <th>Quantity</th>
+            </tr>
+            {
+              orders?.order?.orderItems.map((item, index) => (
+                <tr key={item._id}>
+                  <td>{index + 1}</td>
+                  <td>
+                    <Image
+                      loader={myLoader}
+                      src={item.image}
+                      height={100}
+                      width={100}
+                      alt={item.name}
+                    />
+                  </td>
+                  <td>{item.name}</td>
+                  <td>{addComma(item.price)}</td>
+                  <td>{item.quantity}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <div className={styles.table_sub_component}>
+          <p>Shipping fee</p>
+          <p>&#8358; {addComma(orders?.order?.shippingFee)}</p>
+        </div>
+        <div className={styles.table_sub_component}>
+          <p>Subtotal</p>
+          <p>&#8358; {addComma(orders?.order?.subtotal)}</p>
+        </div>
+        <div className={styles.table_sub_component}>
+          <p>Total</p>
+          <p>&#8358; {addComma(orders?.order?.total)}</p>
+        </div>
+      </section>
+    </SharedLayout>
+  )
 
 }
 

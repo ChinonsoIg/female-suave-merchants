@@ -51,7 +51,7 @@ const Sales = () => {
   ];
 
   useEffect(() => {
-    if(data && data.totalProducts < limit) {
+    if (data && data.totalProducts < limit) {
       const value = Number(data?.totalProducts);
       setLimit(value)
     }
@@ -62,40 +62,39 @@ const Sales = () => {
   }, [data?.totalProducts])
 
 
-  // console.log("lim : ", limit)
-    return (
-      <SharedLayout>
-        <h1 className={styles.sales_title} data-testid="header">Sales</h1>
+  return (
+    <SharedLayout>
+      <h1 className={styles.sales_title} data-testid="header">Sales</h1>
 
-        <section className={styles.data_table}>
-          <SalesTable
-            title="All Sales"
-            headers={headers}
-            orders={data?.orders}
-            handleSearchSubmit={handleSearchSubmit}
-            setSearch={setSearch}
-            currentPage={currentPage}
-            pageSize={limit}
-            customers={customers?.customers}
+      <section className={styles.data_table}>
+        <SalesTable
+          title="All Sales"
+          headers={headers}
+          orders={data?.orders}
+          handleSearchSubmit={handleSearchSubmit}
+          setSearch={setSearch}
+          currentPage={currentPage}
+          pageSize={limit}
+          customers={customers?.customers}
+        />
+
+        <div className={styles.data_modifier}>
+          <DataLimiter
+            limit={limit}
+            handleLimit={handleLimit}
+            totalProducts={data?.totalOrders}
           />
-
-          <div className={styles.data_modifier}>
-            <DataLimiter
-              limit={limit}
-              handleLimit={handleLimit}
-              totalProducts={data?.totalOrders}
-            />
-            <Pagination
-              handlePrevPage={handlePrevPage}
-              handleNextPage={handleNextPage}
-              currentPage={currentPage}
-              limit={limit}
-              totalProducts={data?.totalOrders}
-            />
-          </div>
-        </section>
-      </SharedLayout>
-    )
+          <Pagination
+            handlePrevPage={handlePrevPage}
+            handleNextPage={handleNextPage}
+            currentPage={currentPage}
+            limit={limit}
+            totalProducts={data?.totalOrders}
+          />
+        </div>
+      </section>
+    </SharedLayout>
+  )
 
 }
 

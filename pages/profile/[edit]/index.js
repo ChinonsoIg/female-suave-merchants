@@ -85,7 +85,7 @@ const EditProfile = () => {
   }
 
 
-  if ((status === "authenticated") && user) {
+  if (user) {
     return (
       <SharedLayout>
         <BackButton currentPath={currentPath} />
