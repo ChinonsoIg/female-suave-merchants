@@ -13,7 +13,7 @@ const Profile = () => {
   const { data: session } = useSession();
   const userId = session?.user?.userId;
 
-  const { data: user } = useFetchWithToken(`${BASE_URL}/users/${userId}`);
+  const { data: user } = useFetchWithToken(`${BASE_URL}/users/merchant/${userId}`);
 
     return (
       <SharedLayout>

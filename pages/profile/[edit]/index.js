@@ -40,7 +40,7 @@ const EditProfile = () => {
 
   const token = session?.user?.token;
   const userId = session?.user?.userId;
-  const { data: user } = useFetchWithToken(`${BASE_URL}/users/${userId}`);
+  const { data: user } = useFetchWithToken(`${BASE_URL}/users/merchant/${userId}`);
 
   const handleInputsChange = (e) => {
     setFormInputs(() => ({
