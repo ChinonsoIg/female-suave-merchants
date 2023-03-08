@@ -89,7 +89,7 @@ const SignIn = ({ providers }) => {
                 <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
               <div>
-                <Link href="#/reset_password">Forgot password?</Link>
+                <Link href="/forgot-password">Forgot password?</Link>
                 <p>Don&apos;t have an account? <Link href="/auth/signup">Register</Link></p>
               </div>
             </div>
