@@ -19,9 +19,6 @@ const ResetPassword = ({ children }) => {
   const router = useRouter();
   const { token, id } = router.query;
 
-  console.log("query: ", router);
-  // console.log("query: ", router);
-
 
   const handleSubmitNewPassword = async (e) => {
     e.preventDefault();
