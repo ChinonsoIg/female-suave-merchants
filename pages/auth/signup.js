@@ -19,6 +19,7 @@ const SignUp = () => {
   });
   const [togglePassword, setTogglePassword] = useState(false);
   // const [isError, setIsError] = useState(false);
+  const [isBtnLoading, setIsBtnLoading] = useState(false);
   const router = useRouter();
 
   const handleInputsChange = (e) => {
@@ -34,6 +35,7 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsBtnLoading(true)
 
     const res = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
@@ -41,17 +43,19 @@ const SignUp = () => {
       headers: { "Content-Type": "application/json" }
     })
     const data = await res.json();
-    console.log("reg: ", data)
+    // console.log("reg: ", data)
 
     if (data.user) {
 
+      setIsBtnLoading(false)
       customToast("success", "Registration successfle", "top-right")
       setTimeout(() => {
         router.push("/auth/signin")
       }, 1000);
 
     } else {
-
+  
+      setIsBtnLoading(false)
       let msg = data?.message;
       return customToast("error", msg, "top-center");
     }
@@ -71,7 +75,7 @@ const SignUp = () => {
           <ToastContainer />
           <div className={styles.title_box}>
             <header className={styles.auth_title}>Welcome!</header>
-            <p className={styles.auth_subtitle}>Enter details to register</p>
+            <p className={styles.auth_subtitle}>Enter details to sign up.</p>
           </div>
           <form className={styles.auth_form}>
 
@@ -99,6 +103,13 @@ const SignUp = () => {
               />
               <input
                 type="text"
+                name="phoneNumber"
+                placeholder="Phone number"
+                className={styles.input_shared}
+                onChange={handleInputsChange}
+              />
+              <input
+                type="text"
                 name="address"
                 placeholder="Address"
                 className={styles.input_shared}
@@ -113,14 +124,14 @@ const SignUp = () => {
                 />
                 <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
-              <p>Have an acccount already? <Link href="/auth/signin">Log In</Link></p>
+              <p>Have an acccount already? <Link href="/auth/signin">Sign In</Link></p>
             </div>
             <button
               // type="submit"
-              className={styles.login_btn}
+              className={!isBtnLoading ? styles.login_btn : styles.login_btn_loading}
               onClick={handleSubmit}
             >
-              Register
+            {!isBtnLoading ? "Sign up" : "Signing up..."}
             </button>
           </form>
 

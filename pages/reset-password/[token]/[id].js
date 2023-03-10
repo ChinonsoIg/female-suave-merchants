@@ -116,7 +116,6 @@ const ResetPassword = () => {
               errors={errors.confirmPassword?.message}
             // data_testid="confirm_password"
             />
-
           </div>
 
           <input

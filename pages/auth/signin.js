@@ -30,6 +30,7 @@ const sortLogo = (credentials) => {
 const SignIn = ({ providers }) => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [togglePassword, setTogglePassword] = useState(false);
+  const [isBtnLoading, setIsBtnLoading] = useState(false);
   const router = useRouter();
 
   const handleInputsChange = (e) => {
@@ -45,12 +46,15 @@ const SignIn = ({ providers }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsBtnLoading(true)
 
     const res = await signIn("credentials", {
       email: userInfo.email,
       password: userInfo.password,
       callbackUrl: "/",
     });
+
+    console.log("res: ", res)
 
   };
 
@@ -68,7 +72,7 @@ const SignIn = ({ providers }) => {
         <div className={styles.auth_form_box}>
           <div className={styles.title_box}>
             <header className={styles.auth_title}>Welcome!</header>
-            <p className={styles.auth_subtitle}>Enter details to login</p>
+            <p className={styles.auth_subtitle}>Enter details to sign in.</p>
           </div>
           <form className={styles.auth_form}>
             <div className={styles.inputs_box}>
@@ -90,15 +94,15 @@ const SignIn = ({ providers }) => {
               </div>
               <div>
                 <Link href="/forgot-password">Forgot password?</Link>
-                <p>Don&apos;t have an account? <Link href="/auth/signup">Register</Link></p>
+                <p>Don&apos;t have an account? <Link href="/auth/signup">Sign up</Link></p>
               </div>
             </div>
             <button
               // type="submit"
-              className={styles.login_btn}
+              className={!isBtnLoading ? styles.login_btn : styles.login_btn_loading}
               onClick={handleSubmit}
             >
-              Log in
+              {!isBtnLoading ? "Sign in" : "Signing in..."}
             </button>
           </form>
 

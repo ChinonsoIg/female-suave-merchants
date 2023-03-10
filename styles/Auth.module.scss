@@ -6,7 +6,7 @@
   height: 100vh;
   font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
-  padding: 50px 0;
+  padding: 50px 20px;
   overflow-y: scroll;
 
   .auth_form_box {
@@ -114,6 +114,23 @@
         text-transform: uppercase;
         border: none;
         cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+      }
+
+      .login_btn_loading {
+        height: 40px;
+        width: 100%;
+        margin-top: 30px;
+        background-color: $primary-color_80;
+        color: #FFFFFF;
+        font-size: 14px;
+        letter-spacing: 10%;
+        font-weight: 600;
+        line-height: 19px;
+        border-radius: 5px;
+        text-transform: uppercase;
+        border: none;
+        cursor: not-allowed;
         font-family: 'Montserrat', sans-serif;
       }
     }
@@ -287,113 +304,6 @@
   }
 
 }
-
-
-// // Add new password
-// .forgot_password_wrapper {
-//   font-family: 'Mulish', sans-serif;
-//   display: grid;
-//   justify-content: center;
-//   // background-color: $white;
-//   // height: 100vh;
-
-//   .forgot_password_container {
-//     padding: 30px 20px;
-//     border-radius: 5px;
-//     height: 500px;
-//     max-width: 400px;
-
-//     .key_box_outer {
-//       margin: 50px auto;
-//       display: grid;
-//       place-items: center;
-//       background-color: $primary-color_95;
-//       width: 60px;
-//       height: 60px;
-//       border-radius: 50%;
-
-
-//       .key_box_inner {
-//         display: grid;
-//         place-items: center;
-//         background-color: $primary-color_80;
-//         width: 40px;
-//         height: 40px;
-//         border-radius: 50%;
-//       }
-//     }
-
-//     h2 {
-//       margin: 5px 0;
-//       text-align: center;
-//       color: $primary-color_10;
-//     }
-
-//     p {
-//       text-align: center;
-//       margin: 5px 0;
-//     }
-
-//     .form {
-//       margin: 50px 0 30px;
-//       width: 100%;
-//       // border: 1px solid red;
-
-//       // div {
-//       //   display: flex;
-//       //   flex-direction: column;
-//       //   gap: 10px;
-        
-//       //   // gap: 10px;
-//       //   // border: 1px solid red;
-//       // }
-
-//       .submit {
-//         width: 100%;
-//         font-size: 18px;
-//         font-weight: 500;
-//         letter-spacing: 1px;
-//         border: none;
-//         border-radius: 5px;
-//         text-transform: uppercase;
-//         margin: 40px 0 0;
-//         padding: 10px;
-//         width: 100%;
-//         color: $white;
-//         background-color: $primary-color;
-//       }
-
-//       .submit_loading {
-//         color: $white;
-//         background-color: $primary-color_80;
-//         padding: 10px;
-//         cursor: not-allowed;
-//         width: 100%;
-//         font-size: 18px;
-//         font-weight: 500;
-//         letter-spacing: 1px;
-//         border: none;
-//         border-radius: 5px;
-//         text-transform: uppercase;
-//         margin: 40px 0;
-//       }
-//     }
-
-//     .back_to_login {
-//       margin: 0 auto;
-//       display: flex;
-//       justify-content: center;
-//       align-items: center;
-//       gap: 10px;
-//       padding: 5px;
-//       text-decoration: none;
-//       color: $primary-color_10;
-//       border-radius: 5px;
-//     }
-
-//   }
-
-// }
 
 
 
