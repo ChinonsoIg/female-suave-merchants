@@ -123,7 +123,7 @@ const ForgotPasswordForm = () => {
 
         <Link href="/auth/signin" className={styles.back_to_login}>
           <MdKeyboardBackspace />
-          <span>Back to Log in</span>
+          <span>Back to Signin</span>
         </Link>
 
 

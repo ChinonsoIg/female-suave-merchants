@@ -57,7 +57,7 @@ const FormWithValidation = ({ htmlFor, title, type, name, placeholder, data_test
           {...register}
         />
       </label>
-      <p>{errors}</p>
+      <span className={styles.form_error}>{errors}</span>
     </div>
   )
 }

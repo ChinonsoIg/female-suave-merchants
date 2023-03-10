@@ -394,12 +394,14 @@ $red: #b30000;
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 2px;
+  margin-bottom: 15px;
 
   .label {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    margin: 0;
 
     input,
     select {
@@ -419,11 +421,12 @@ $red: #b30000;
     }
   }
 
-  p {
-    margin: 10px 0;
+  .form_error {
+    // margin: 5px 0;
     font-size: 14px;
     color: $red;
     align-self: flex-start;
+    // border: 2px solid red;
   }
 
 }
