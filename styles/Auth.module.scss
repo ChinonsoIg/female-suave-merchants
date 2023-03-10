@@ -157,6 +157,139 @@
 }
 
 
+// Forgot password
+.forgot_password_wrapper {
+  font-family: 'Mulish', sans-serif;
+  display: grid;
+  justify-content: center;
+  // background-color: $white;
+  // height: 100vh;
+
+  .forgot_password_container {
+    padding: 30px 20px;
+    border-radius: 5px;
+    height: 500px;
+    max-width: 400px;
+
+    .key_box_outer {
+      margin: 50px auto;
+      display: grid;
+      place-items: center;
+      background-color: $primary-color_95;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+
+
+      .key_box_inner {
+        display: grid;
+        place-items: center;
+        background-color: $primary-color_80;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+    }
+
+    h2 {
+      margin: 5px 0;
+      text-align: center;
+      color: $primary-color_10;
+    }
+
+    p {
+      text-align: center;
+      margin: 5px 0;
+    }
+
+    .reset_success {
+      color: $primary-color_30;
+      margin-top: 50px;
+      font-size: 18px;
+      font-weight: 500;
+
+      span {
+        background-color: $primary-color_30;
+        cursor: pointer;
+        color: $white;
+        font-size: 14px;
+        margin: 0 5px;
+        padding: 2px 5px;
+        border-radius: 3px;
+      }
+    }
+
+    .reset_error {
+      color: $red;
+      margin-top: 50px;
+      font-size: 18px;
+      font-weight: 500;
+
+      span {
+        background-color: $primary-color_30;
+        cursor: pointer;
+        color: $white;
+        font-size: 14px;
+        margin: 0 5px;
+        padding: 2px 5px;
+        border-radius: 3px;
+      }
+    }
+
+    .form {
+      margin: 50px 0 30px;
+      width: 100%;
+      // border: 1px solid red;
+
+      .submit {
+        width: 100%;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        border: none;
+        border-radius: 5px;
+        text-transform: uppercase;
+        margin: 40px 0 0;
+        padding: 10px;
+        width: 100%;
+        color: $white;
+        background-color: $primary-color;
+      }
+
+      .submit_loading {
+        color: $white;
+        background-color: $primary-color_80;
+        padding: 10px;
+        cursor: not-allowed;
+        width: 100%;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        border: none;
+        border-radius: 5px;
+        text-transform: uppercase;
+        margin: 40px 0;
+      }
+    }
+
+    .back_to_login {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 5px;
+      text-decoration: none;
+      color: $primary-color_10;
+      border-radius: 5px;
+    }
+
+  }
+
+}
+
+
+
 // Large devices (1200px and down)
 @media (max-width: 1200px) {
   .login {
@@ -301,5 +434,79 @@
 
   }
 
-}
 
+
+  // Forgot password
+  .forgot_password_wrapper {
+    height: 100vh;
+    // background-color: $white;
+
+    .forgot_password_container {
+      padding: 0 20px;
+      height: 100%;
+      max-width: 400px;
+      // border: 2px solid red;
+
+      .key_box_outer {
+        margin: 30px auto;
+
+        .key_box_inner {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+      }
+
+      h2 {
+        margin: 5px 0;
+        font-size: 16px;
+      }
+
+      p {
+        margin: 5px 0;
+        font-size: 14px;
+      }
+
+      .reset_success {
+        margin-top: 30px;
+        font-size: 14px;
+        font-weight: 500;
+
+        span {
+          font-size: 12px;
+          margin: 0 5px;
+          padding: 2px 4px;
+          border-radius: 3px;
+        }
+      }
+
+      .reset_error {
+        margin-top: 30px;
+        font-size: 14px;
+        font-weight: 400;
+      }
+
+      .form {
+        margin: 30px 0 0;
+        width: 100%;
+
+        .submit {
+          font-size: 14px;
+          margin: 40px 0 30px;
+        }
+
+        .submit_loading {
+          font-size: 14px;
+        }
+      }
+
+      .back_to_login {
+        font-size: 14px;
+        gap: 5px;
+      }
+
+    }
+
+  }
+
+}

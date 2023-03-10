@@ -8,7 +8,7 @@ import axios from "axios";
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 
-const ResetPassword = ({ children }) => {
+const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState("");
   // const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const ResetPassword = ({ children }) => {
       password: newPassword
     }
 
-    axios.post(`http://localhost:5000/api/v1/auth/reset-password`, modifiedData, {
+    axios.post(`${BASE_URL}/auth/reset-password`, modifiedData, {
       headers: {
         "Content-Type": "application/json"
       }
