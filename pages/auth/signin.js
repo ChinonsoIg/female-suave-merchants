@@ -5,10 +5,13 @@ import { signIn, getProviders } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import Link from "next/link";
+import { customToast } from "../../components/Toasts";
 
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -51,10 +54,24 @@ const SignIn = ({ providers }) => {
     const res = await signIn("credentials", {
       email: userInfo.email,
       password: userInfo.password,
+      redirect: false,
       callbackUrl: "/",
     });
 
-    console.log("res: ", res)
+    const { ok, error } = res;
+
+    if (ok) {
+      
+      router.push("/");
+      setTimeout(() => {
+        setIsBtnLoading(false);
+      }, 3000);
+
+    } else {
+      // console.log("wrong credentials: ", error)
+      customToast("error", "Invalid email or password", "top-right")
+      setIsBtnLoading(false);
+    }
 
   };
 
@@ -68,6 +85,7 @@ const SignIn = ({ providers }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <ToastContainer />
       <div className={styles.auth}>
         <div className={styles.auth_form_box}>
           <div className={styles.title_box}>
