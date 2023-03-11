@@ -366,7 +366,6 @@
     align-items: center;
     gap: 10px;
     font-size: 16px;
-    // color: #213F7D;
   }
 
   .container {
@@ -383,6 +382,9 @@
 
       .sidebar_toggle {
         display: block;
+        width: fit-content;
+        background: none;
+        border: none;
       }
 
       .topbar_right_container {
@@ -481,11 +483,6 @@
       box-shadow: 0px 24px 48px 0 rgba(0, 0, 0, 0.04);
       overflow: scroll;
 
-      // .logo_box {
-      //   display: flex;
-      //   align-items: center;
-      //   height: 100px;
-
         .close_btn {
           display: block;
           font-size: 30px;
@@ -582,16 +579,10 @@
 
       .sidebar_toggle {
         display: block;
-        // border: 1px solid green;
+        width: fit-content;
+        background: none;
+        border: none;
       }
-
-      // .logo {
-      //   // border: 1px solid green;
-      //   width: 100%;
-      //   max-width: 120px;
-      //   margin-left: 15px;
-      //   justify-self: flex-start;
-      // }
 
       .topbar_right_container {
         justify-self: flex-end;
