@@ -13,8 +13,6 @@ export const Sidebar = () => {
   const router = useRouter();
   const routerPath = router?.asPath;
 
-  // console.log("as path", router)
-
   return (
     <>
       <Link href="/" className={`${styles.flex_container_1} ${routerPath === "/" ? styles.active_link : null}`}>

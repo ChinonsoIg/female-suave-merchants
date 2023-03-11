@@ -13,11 +13,11 @@ import { BackButton } from "../../../components/Buttons";
 import FormModal from "../../../components/Modal";
 import { customToast } from "../../../components/Toasts";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API;
+
 const myLoader = ({ src, width, quality }) => {
   return `${src}?w=${width}&q=${quality || 75}`
 }
-
-const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 const SingleProduct = () => {
   const [isBtnLoading, setIsBtnLoading] = useState(false);
