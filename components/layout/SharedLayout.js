@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Topbar } from "./Topbar";
 import { Sidebar } from "./Sidebar";
-import Loading from "../Loading";
+import { Loading, LoadingSpinner } from "../Loading";
 
 const SharedLayout = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);

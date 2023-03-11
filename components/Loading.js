@@ -1,3 +1,4 @@
+import styles from "../styles/globals.module.scss";
 import React from "react";
 import { Raleway } from "@next/font/google"
 
@@ -15,4 +16,14 @@ const Loading = () => {
   )
 }
 
-export default Loading;
+
+const LoadingSpinner = () => {
+
+  return (
+    <div className={styles.loading_parent}>
+    <div className={styles.loader}></div>
+    </div>
+  )
+}
+
+export { Loading, LoadingSpinner };

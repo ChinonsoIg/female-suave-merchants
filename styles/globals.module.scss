@@ -274,7 +274,6 @@ $red: #b30000;
 }
 
 
-
 .pagination_container {
   display: flex;
   gap: 15px;
@@ -548,6 +547,36 @@ $red: #b30000;
 }
 
 
+// // Loading spinner
+// .loading_parent {
+//   position: fixed;
+//   display: grid;
+//   place-content: center;
+//   height: 100%;
+//   width: 100%;
+
+// .loader {
+//   border: 3px solid #f3f3f3;
+//   border-radius: 50%;
+//   border-top: 3px solid $primary-color;
+//   width: 20px;
+//   height: 20px;
+//   -webkit-animation: spin 1s linear infinite; /* Safari */
+//   animation: spin 1s linear infinite;
+// }
+
+// /* Safari */
+// @-webkit-keyframes spin {
+//   0% { -webkit-transform: rotate(0deg); }
+//   100% { -webkit-transform: rotate(360deg); }
+// }
+
+// @keyframes spin {
+//   0% { transform: rotate(0deg); }
+//   100% { transform: rotate(360deg); }
+// }
+
+// }
 
 
 
