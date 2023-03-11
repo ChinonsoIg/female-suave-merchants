@@ -383,8 +383,11 @@
       .sidebar_toggle {
         display: block;
         width: fit-content;
+        height: fit-content;
         background: none;
         border: none;
+        padding: none;
+        margin: none;
       }
 
       .topbar_right_container {
@@ -492,10 +495,6 @@
           width: 85%;
         }
 
-      //   .logo {
-      //     display: none;
-      //   }
-      // }
 
       .flex_container_1 {
         @extend %flex_shared_medium_screen;
@@ -574,14 +573,17 @@
   .container {
     .topbar_container {
       display: grid;
-      grid-template-columns: 30px auto auto;
+      grid-template-columns: 50px auto auto;
       padding: 0 15px 0 15px;
 
       .sidebar_toggle {
         display: block;
         width: fit-content;
+        height: fit-content;
         background: none;
         border: none;
+        padding: none;
+        margin: none;
       }
 
       .topbar_right_container {
@@ -600,7 +602,7 @@
     }
 
     .sidebar {
-      display: none;
+      display: block;
     }
 
     .hide_sidebar {

@@ -12,6 +12,7 @@ const ProductTable = ({
   currentPage,
   pageSize,
   isSearch,
+  isProductLoading,
   linkToMore
 }) => {
   const router = useRouter();
@@ -45,14 +46,19 @@ const ProductTable = ({
             <th>Status</th>
             {linkToMore && <th>More</th>}
           </tr>
-          {products?.length === 0 ? 
+          {isProductLoading && 
+            <tr>
+              <td colSpan={6} style={{textAlign: "center"}}>Loading</td>
+            </tr>
+          }
+          {!isProductLoading && products?.length === 0 ? 
             <tr>
               <td colSpan={6} style={{textAlign: "center"}}>No data</td>
             </tr>
             : null
           }
           {
-            products && products.map((item, index) => (
+            !isProductLoading && products && products.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{item.name}</td>

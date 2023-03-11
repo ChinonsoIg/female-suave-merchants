@@ -16,7 +16,11 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
 
-  const { data: products, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant?limit=${limit}`)
+  const { 
+    data: products, 
+    isError: isProductError, 
+    isLoading: isProductLoading 
+  } = useFetchWithToken(`${BASE_URL}/products/merchant?limit=${limit}`)
 
   const { data: categories } = useFetchWithoutToken(`${BASE_URL}/categories`);
 
@@ -106,6 +110,7 @@ export default function Home() {
             search={search}
             currentPage={currentPage}
             pageSize={limit}
+            isProductLoading={isProductLoading}
           />
 
           <div className={styles.data_modifier}>

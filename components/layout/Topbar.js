@@ -37,7 +37,7 @@ export const Topbar = ({ isDropdown, handleDropdown, toggleSidebar }) => {
         <GiHamburgerMenu size={24} color="#014565" />
       </div> */}
       <button onClick={toggleSidebar} className={styles.sidebar_toggle}>
-      <GiHamburgerMenu size={24} color="#014565" />
+        <GiHamburgerMenu size={24} color="#014565" />
       </button>
       <h1 className={IBMPlexMono.className}>
         <span className={styles.logo_font_one}>Female</span>
