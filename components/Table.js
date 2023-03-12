@@ -2,6 +2,7 @@ import styles from "./../styles/globals.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { addComma } from "../utils/functions";
+import LoadingSpinner from "./LoadingSpinner";
 
 const ProductTable = ({
   title,
@@ -21,6 +22,7 @@ const ProductTable = ({
     const found = categories?.find(element => element._id == id)?.categoryName;
     return found;
   }
+
 
 
   return (
@@ -48,7 +50,12 @@ const ProductTable = ({
           </tr>
           {isProductLoading && 
             <tr>
-              <td colSpan={6} style={{textAlign: "center"}}>Loading</td>
+              <td colSpan={6} style={{textAlign: "center"}}>
+                <LoadingSpinner
+                  height="10px"
+                  width="10px"
+                />
+              </td>
             </tr>
           }
           {!isProductLoading && products?.length === 0 ? 
@@ -99,6 +106,7 @@ const SalesTable = ({
     const found = customers?.find(element => element._id == id)?.name;
     return found;
   }
+  
 
 
   return (

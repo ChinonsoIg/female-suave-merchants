@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Topbar } from "./Topbar";
 import { Sidebar } from "./Sidebar";
-import { Loading, LoadingSpinner } from "../Loading";
+import LoadingSpinner from "../LoadingSpinner";
 
 const SharedLayout = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -56,7 +56,17 @@ const SharedLayout = ({ children }) => {
     );
   }
 
-  return <Loading />
+  return (
+    <div
+      style={{
+        display: "grid",
+        placeItems: "center",
+        height: "100vh"
+      }}
+    >
+      <LoadingSpinner height="20px" width="20px" />
+    </div>
+  );
 
 };
 
