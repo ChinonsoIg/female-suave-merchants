@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { useFetchWithToken } from "../../../utils/services";
 import SharedLayout from '../../../components/layout/SharedLayout';
 import { FormInputs, FormTextArea } from "../../../components/Form";
-import Loading from "../../../components/Loading";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 import { BackButton } from "../../../components/Buttons";
 import { customToast } from "../../../components/Toasts";
 
@@ -160,7 +160,7 @@ const EditProfile = () => {
     )
   }
 
-  return <Loading />
+  return <LoadingSpinner height="10px" width="10px" />
 
 }
 

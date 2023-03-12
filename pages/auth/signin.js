@@ -5,7 +5,6 @@ import { signIn, getProviders } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai";
-import { IBM_Plex_Mono } from "@next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
@@ -44,7 +43,6 @@ const schema = yup.object({
 }).required();
 
 const SignIn = ({ providers }) => {
-  const [userInfo, setUserInfo] = useState({ email: "", password: "" });
   const [togglePassword, setTogglePassword] = useState(false);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const router = useRouter();
