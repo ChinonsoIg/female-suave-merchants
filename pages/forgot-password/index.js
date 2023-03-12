@@ -46,37 +46,13 @@ const ForgotPasswordForm = () => {
         }
       })
     const resData = await res.json();
-    console.log("data : ", resData);
+    // console.log("data : ", resData);
 
     if (resData.status === 200) {
       setResetSuccess(true)
     } else {
       setResetError(true)
     }
-
-
-    // axios.post(``, modifiedData, {
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   }
-    // })
-    //   .then((res) => {
-    //     console.log("res", res);
-    //     if (res.status === 200) {
-    //       // setResestSuccess(true)
-
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log("err: ", error);
-    //     // setResetError(true);
-    //   })
-    //   .finally(() => {
-    //     setTimeout(() => {
-    //       console.log('done')
-    //       // setIsBtnLoading(false)
-    //     }, 4800);
-    //   })
 
   }
 

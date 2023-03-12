@@ -19,7 +19,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API;
 
 const schema = yup.object({
   password: yup.string()
-    .required("Password is required biko")
+    .required("Password is required")
     .min(6, "Password length must be more than 6 characters")
     .max(20, "Password length cannnot exceed 20 characters"),
   confirmPassword: yup.string()

@@ -8,11 +8,15 @@ import { AiFillFacebook, AiFillGithub, AiFillGoogleCircle } from "react-icons/ai
 import { IBM_Plex_Mono } from "@next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth]";
 import Link from "next/link";
 import { customToast } from "../../components/Toasts";
+import { FormWithValidation } from "../../components/Form";
 
 
 // const inter = Inter({ subsets: ["latin"] });
@@ -31,11 +35,13 @@ const sortLogo = (credentials) => {
   }
 }
 
-const IBMPlexMono = IBM_Plex_Mono({
-  weight: '600',
-  display: 'swap',
-  subsets: ['latin'],
-});
+const schema = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string()
+    .required("Password is required")
+    .min(6, "Password length must be more than 6 characters")
+    .max(20, "Password length cannnot exceed 20 characters"),
+}).required();
 
 const SignIn = ({ providers }) => {
   const [userInfo, setUserInfo] = useState({ email: "", password: "" });
@@ -43,44 +49,39 @@ const SignIn = ({ providers }) => {
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const router = useRouter();
 
-  const handleInputsChange = (e) => {
-    setUserInfo(() => ({
-      ...userInfo,
-      [e.target.name]: e.target.value
-    }))
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
+
+  const onSubmit = async (data) => {
+    setIsBtnLoading(true);
+
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+        callbackUrl: "/",
+      });
+
+      const { ok, error } = res;
+
+      if (ok) {
+
+        router.push("/");
+        setTimeout(() => {
+          setIsBtnLoading(false);
+        }, 4000);
+
+      } else {
+        // console.log("wrong credentials: ", error)
+        customToast("error", "Invalid email or password", "top-right")
+        setIsBtnLoading(false);
+      }
+
+
   }
 
   const handleTogglePassword = () => {
     setTogglePassword(!togglePassword)
   }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsBtnLoading(true)
-
-    const res = await signIn("credentials", {
-      email: userInfo.email,
-      password: userInfo.password,
-      redirect: false,
-      callbackUrl: "/",
-    });
-
-    const { ok, error } = res;
-
-    if (ok) {
-      
-      router.push("/");
-      setTimeout(() => {
-        setIsBtnLoading(false);
-      }, 3000);
-
-    } else {
-      // console.log("wrong credentials: ", error)
-      customToast("error", "Invalid email or password", "top-right")
-      setIsBtnLoading(false);
-    }
-
-  };
 
 
   return (
@@ -99,23 +100,33 @@ const SignIn = ({ providers }) => {
             <header className={styles.auth_title}>Welcome!</header>
             <p className={styles.auth_subtitle}>Enter details to sign in.</p>
           </div>
-          <form className={styles.auth_form}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles.auth_form}
+          >
             <div className={styles.inputs_box}>
-              <input
+              <FormWithValidation
+                htmlFor="email"
+                title="Email"
                 type="email"
                 name="email"
                 placeholder="Email"
-                className={styles.input_shared}
-                onChange={handleInputsChange}
+                register={register("email")}
+                errors={errors.email?.message}
+              // data_testid="signin-email"
               />
               <div className={styles.password_container}>
-                <input
-                  name="password"
+                <FormWithValidation
+                  htmlFor="password"
+                  title="Password"
                   type={togglePassword ? "text" : "password"}
+                  name="password"
                   placeholder="Password"
-                  onChange={handleInputsChange}
+                  register={register("password")}
+                  errors={errors.password?.message}
+                // data_testid="signin-password"
                 />
-                <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
+                <span className={styles.password_hide_show} onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
               <div>
                 <Link href="/forgot-password">Forgot password?</Link>

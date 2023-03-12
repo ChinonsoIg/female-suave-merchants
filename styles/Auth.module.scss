@@ -60,21 +60,11 @@
         }
 
         .password_container {
-          width: 100%;
           position: relative;
 
-          input {
-            @extend %input-shared;
-            width: 100%;
-          }
-
-          input:focus {
-            @extend %input-shared-focus
-          }
-
-          span {
+          .password_hide_show {
             position: absolute;
-            top: 12px;
+            top: 35px;
             right: 18px;
             font-size: 12px;
             font-weight: 400;
