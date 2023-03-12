@@ -12,6 +12,7 @@ import SharedLayout from "../../../components/layout/SharedLayout";
 import { BackButton } from "../../../components/Buttons";
 import FormModal from "../../../components/Modal";
 import { customToast } from "../../../components/Toasts";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
@@ -31,7 +32,6 @@ const SingleProduct = () => {
   const token = session?.user?.token;
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant/${id}`);
-// console.log("iserr: ", isError)
 
   const handleDelete = (productId) => {
     setIsBtnLoading(true);
@@ -80,40 +80,45 @@ const SingleProduct = () => {
         <BackButton currentPath={currentPath} />
         <ToastContainer />
         <h1 className={styles.single_product_title} data-testid="single-product-header">Single Product</h1>
-        <section className={styles.product_details}>
-          <div className={styles.image_container}>
-            {data && data.product.image.map((img, ind) => (
-              <div key={ind}>
-                <Image
-                  loader={myLoader}
-                  src={img}
-                  height={200}
-                  width={200}
-                  alt={data.product.name}
-                />
-              </div>
-            ))}
-          </div>
+        {!data && <LoadingSpinner height="15px" width="15px" />}
+        {data &&
+          <section className={styles.product_details}>
+            <div className={styles.image_container}>
+              {data.product.image.map((img, ind) => (
+                <div key={ind}>
+                  <Image
+                    loader={myLoader}
+                    src={img}
+                    height={200}
+                    width={200}
+                    alt={data.product.name}
+                  />
+                </div>
+              ))}
+            </div>
 
-          <h3>Name: {data?.product?.name}</h3>
-          <p>Category: {data?.product?.category}</p>
-          <p>Description: {data?.product?.description}</p>
-          <p>Price: {data?.product?.price}</p>
-          <p>Quantity: {data?.product?.quantity}</p>
-          <p>Status: {data?.product?.status}</p>
-        </section>
+            <h3>Name: {data?.product?.name}</h3>
+            <p>Category: {data?.product?.category}</p>
+            <p>Description: {data?.product?.description}</p>
+            <p>Price: {data?.product?.price}</p>
+            <p>Quantity: {data?.product?.quantity}</p>
+            <p>Status: {data?.product?.status}</p>
+          </section>
+        }
 
-        <section className={styles.product_actions}>
-          <button onClick={() => setOpenModal(true)} className={styles.btn_fill}>
-            Edit
-          </button>
-          <button
-            onClick={() => handleDelete(data?.product?._id)}
-            className={!isBtnLoading ? styles.btn_danger : styles.btn_danger_loading}
-          >
-            {!isBtnLoading ? "Delete" : "Deleting..."}
-          </button>
-        </section>
+        {data &&
+          <section className={styles.product_actions}>
+            <button onClick={() => setOpenModal(true)} className={styles.btn_fill}>
+              Edit
+            </button>
+            <button
+              onClick={() => handleDelete(data?.product?._id)}
+              className={!isBtnLoading ? styles.btn_danger : styles.btn_danger_loading}
+            >
+              {!isBtnLoading ? "Delete" : "Deleting..."}
+            </button>
+          </section>
+        }
 
       </SharedLayout>
     </>
