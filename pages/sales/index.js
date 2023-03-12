@@ -14,7 +14,11 @@ const Sales = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/orders/merchant?search=${search}&limit=${limit}&page=${currentPage}`);
+  const {
+    data,
+    isError,
+    isLoading
+  } = useFetchWithToken(`${BASE_URL}/orders/merchant?search=${search}&limit=${limit}&page=${currentPage}`);
   const { data: customers } = useFetchWithToken(`${BASE_URL}/customers/merchant`);
 
   const handleLimit = (event) => {

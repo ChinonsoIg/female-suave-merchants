@@ -18,8 +18,8 @@ export default function Home() {
 
   const { 
     data: products, 
-    isError: isProductError, 
-    isLoading: isProductLoading 
+    isError, 
+    isLoading,
   } = useFetchWithToken(`${BASE_URL}/products/merchant?limit=${limit}`)
 
   const { data: categories } = useFetchWithoutToken(`${BASE_URL}/categories`);
@@ -53,10 +53,6 @@ export default function Home() {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    // fetchProducts();
-  }
 
   useEffect(() => {
     if(products && products.totalProducts < limit) {
@@ -105,12 +101,10 @@ export default function Home() {
             title="Recent Products"
             categories={categories?.categories}
             products={products?.products}
-            handleSearchSubmit={handleSearchSubmit}
             setSearch={setSearch}
             search={search}
             currentPage={currentPage}
             pageSize={limit}
-            isProductLoading={isProductLoading}
           />
 
           <div className={styles.data_modifier}>

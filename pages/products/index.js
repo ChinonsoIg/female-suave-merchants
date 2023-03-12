@@ -18,7 +18,11 @@ const Products = () => {
   const router = useRouter();
 
 
-  const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant?search=${search}&limit=${limit}&page=${currentPage}`);
+  const {
+    data,
+    isError,
+    isLoading
+  } = useFetchWithToken(`${BASE_URL}/products/merchant?search=${search}&limit=${limit}&page=${currentPage}`);
 
   const handleLimit = (event) => {
     const value = Number(event.target.value);

@@ -13,7 +13,6 @@ const ProductTable = ({
   currentPage,
   pageSize,
   isSearch,
-  isProductLoading,
   linkToMore
 }) => {
   const router = useRouter();
@@ -22,7 +21,6 @@ const ProductTable = ({
     const found = categories?.find(element => element._id == id)?.categoryName;
     return found;
   }
-
 
 
   return (
@@ -48,7 +46,7 @@ const ProductTable = ({
             <th>Status</th>
             {linkToMore && <th>More</th>}
           </tr>
-          {isProductLoading && 
+          {!products && 
             <tr>
               <td colSpan={6} style={{textAlign: "center"}}>
                 <LoadingSpinner
@@ -58,14 +56,13 @@ const ProductTable = ({
               </td>
             </tr>
           }
-          {!isProductLoading && products?.length === 0 ? 
+          {products?.length === 0 &&  
             <tr>
               <td colSpan={6} style={{textAlign: "center"}}>No data</td>
             </tr>
-            : null
           }
           {
-            !isProductLoading && products && products.map((item, index) => (
+            products && products.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1 + (currentPage - 1) * pageSize}</td>
                 <td>{item.name}</td>
@@ -106,7 +103,7 @@ const SalesTable = ({
     const found = customers?.find(element => element._id == id)?.name;
     return found;
   }
-  
+
 
 
   return (
@@ -129,11 +126,20 @@ const SalesTable = ({
               ))
             }
           </tr>
-          {orders?.length === 0 ? 
+          {!orders && 
             <tr>
-              <td colSpan={6} style={{textAlign: "center"}}>No data</td>
+              <td colSpan={6} style={{textAlign: "center"}}>
+                <LoadingSpinner
+                  height="10px"
+                  width="10px"
+                />
+              </td>
             </tr>
-            : null
+          }
+          {orders?.length === 0 && 
+            <tr>
+              <td colSpan={6} style={{textAlign: "center"}}>No data available</td>
+            </tr>
           }
           {
             orders && orders.map((item, index) => (
