@@ -69,11 +69,9 @@ const SignIn = ({ providers }) => {
         }, 4000);
 
       } else {
-        // console.log("wrong credentials: ", error)
         customToast("error", "Invalid email or password", "top-right")
         setIsBtnLoading(false);
       }
-
 
   }
 
@@ -131,13 +129,12 @@ const SignIn = ({ providers }) => {
                 <p>Don&apos;t have an account? <Link href="/auth/signup">Sign up</Link></p>
               </div>
             </div>
-            <button
-              // type="submit"
+            <input
+              type="submit"
+              role="button"
               className={!isBtnLoading ? styles.login_btn : styles.login_btn_loading}
-              onClick={handleSubmit}
-            >
-              {!isBtnLoading ? "Sign in" : "Signing in..."}
-            </button>
+              value={!isBtnLoading ? "Sign in" : "Signing in..."}
+            />
           </form>
 
           {/* <div className={styles.divider_box}>
