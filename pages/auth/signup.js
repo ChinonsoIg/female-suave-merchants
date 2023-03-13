@@ -4,10 +4,30 @@ import Link from "next/link";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ToastContainer } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { customToast } from "../../components/Toasts";
+import { FormTextAreaWithValidation, FormWithValidation } from "../../components/Form";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
+
+const schema = yup.object({
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  email: yup.string().email().required("Email is required"),
+  phoneNumber: yup.string().required("Phone number is required"),
+  address: yup.string()
+    .min(10, "Password length must be more than 6 characters")
+    .max(250, "Password length cannnot exceed 20 characters")
+    .required("Address is required"),
+  password: yup.string()
+    .required("Password is required")
+    .min(6, "Password length must be more than 6 characters")
+    .max(20, "Password length cannnot exceed 20 characters"),
+}).required();
+
 
 const SignUp = () => {
   const [userInfo, setUserInfo] = useState({
@@ -17,35 +37,29 @@ const SignUp = () => {
     address: "",
     password: ""
   });
+
   const [togglePassword, setTogglePassword] = useState(false);
   // const [isError, setIsError] = useState(false);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const router = useRouter();
 
-  const handleInputsChange = (e) => {
-    setUserInfo(() => ({
-      ...userInfo,
-      [e.target.name]: e.target.value
-    }))
-  }
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(schema) });
 
   const handleTogglePassword = () => {
     setTogglePassword(!togglePassword)
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsBtnLoading(true)
+  const onSubmit = async (data) => {
+    setIsBtnLoading(true);
 
     const res = await fetch(`${BASE_URL}/auth/register`, {
       method: "POST",
-      body: JSON.stringify(userInfo),
+      body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
     })
-    const data = await res.json();
-    // console.log("reg: ", data)
+    const resData = await res.json();
 
-    if (data.user) {
+    if (resData.user) {
 
       setIsBtnLoading(false)
       customToast("success", "Registration successful", "top-right")
@@ -54,18 +68,18 @@ const SignUp = () => {
       }, 1000);
 
     } else {
-  
+
       setIsBtnLoading(false)
-      let msg = data?.message;
+      let msg = resData?.message;
       return customToast("error", msg, "top-center");
     }
 
-  };
+  }
 
   return (
     <>
       <Head>
-        <title>Register</title>
+        <title>Sign up</title>
         <meta name="description" content="Signup" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -77,62 +91,84 @@ const SignUp = () => {
             <header className={styles.auth_title}>Welcome!</header>
             <p className={styles.auth_subtitle}>Enter details to sign up.</p>
           </div>
-          <form className={styles.auth_form}>
-
-            <div className={styles.inputs_box}>
-              <input
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles.auth_form}
+          >
+            <div
+              className={styles.inputs_box}
+            >
+              <FormWithValidation
+                htmlFor="firstName"
+                title="First name"
                 type="text"
                 name="firstName"
                 placeholder="First name"
-                className={styles.input_shared}
-                onChange={handleInputsChange}
+                register={register("firstName")}
+                errors={errors.firstName?.message}
+              // data_testid="signup-firstName"
               />
-              <input
+              <FormWithValidation
+                htmlFor="lastName"
+                title="Last name"
                 type="text"
                 name="lastName"
                 placeholder="Last name"
-                className={styles.input_shared}
-                onChange={handleInputsChange}
+                register={register("lastName")}
+                errors={errors.lastName?.message}
+              // data_testid="signup-lastName"
               />
-              <input
+              <FormWithValidation
+                htmlFor="email"
+                title="Email"
                 type="email"
                 name="email"
                 placeholder="Email"
-                className={styles.input_shared}
-                onChange={handleInputsChange}
+                register={register("email")}
+                errors={errors.email?.message}
+              // data_testid="signup-email"
               />
-              <input
+              <FormWithValidation
+                htmlFor="phoneNumber"
+                title="Phone number"
                 type="text"
                 name="phoneNumber"
                 placeholder="Phone number"
-                className={styles.input_shared}
-                onChange={handleInputsChange}
+                register={register("phoneNumber")}
+                errors={errors.phoneNumber?.message}
+              // data_testid="signup-phoneNumber"
               />
-              <input
+              <FormTextAreaWithValidation
+                htmlFor="address"
+                title="Address"
                 type="text"
                 name="address"
                 placeholder="Address"
-                className={styles.input_shared}
-                onChange={handleInputsChange}
+                register={register("address")}
+                errors={errors.address?.message}
+              // data_testid="signup-address"
               />
               <div className={styles.password_container}>
-                <input
-                  name="password"
+                <FormWithValidation
+                  htmlFor="password"
+                  title="Password"
                   type={togglePassword ? "text" : "password"}
+                  name="password"
                   placeholder="Password"
-                  onChange={handleInputsChange}
+                  register={register("password")}
+                  errors={errors.password?.message}
+                // data_testid="signup-password"
                 />
-                <span onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
+                <span className={styles.password_hide_show} onClick={handleTogglePassword}>{togglePassword ? "hide" : "show"}</span>
               </div>
               <p>Have an acccount already? <Link href="/auth/signin">Sign In</Link></p>
             </div>
-            <button
-              // type="submit"
+            <input
+              type="submit"
+              role="button"
               className={!isBtnLoading ? styles.login_btn : styles.login_btn_loading}
-              onClick={handleSubmit}
-            >
-            {!isBtnLoading ? "Sign up" : "Signing up..."}
-            </button>
+              value={!isBtnLoading ? "Sign up" : "Signing up..."}
+            />
           </form>
 
         </div>
