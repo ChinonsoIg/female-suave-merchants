@@ -56,22 +56,26 @@ const SignIn = ({ providers }) => {
         email: data.email,
         password: data.password,
         redirect: false,
-        callbackUrl: "/",
+        // callbackUrl: "/",
       });
-
-      const { ok, error } = res;
-
-      if (ok) {
-
-        router.push("/");
-        setTimeout(() => {
-          setIsBtnLoading(false);
-        }, 4000);
-
-      } else {
-        customToast("error", "Invalid email or password", "top-right")
-        setIsBtnLoading(false);
-      }
+      console.log("data : ", res)
+      // if (!res) {
+      //   customToast("error", "Invalid email or password", "top-right")
+      //   setIsBtnLoading(false);
+      //   return;
+      // } else {
+      //   const { ok, error } = res;
+      //   if (ok) {
+      //     router.push("/");
+      //     setTimeout(() => {
+      //       setIsBtnLoading(false);
+      //     }, 4000);
+  
+      //   } else {
+      //     customToast("error", "Invalid email and/or password", "top-right")
+      //     setIsBtnLoading(false);
+      //   }
+      // }
 
   }
 

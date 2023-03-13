@@ -8,7 +8,7 @@ import axios from "axios";
 import { FiKey } from "react-icons/fi";
 import { MdKeyboardBackspace } from "react-icons/md"
 
-import { FormInputs, FormWithValidation } from "../../components/Form";
+import { FormWithValidation } from "../../components/Form";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API;
 
@@ -28,7 +28,7 @@ const ForgotPasswordForm = () => {
   const onSubmit = async (data) => {
     setIsBtnLoading(true);
 
-    console.log(data);
+    // console.log(data);
 
     // const res = await fetch(`${BASE_URL}/auth/request-password-reset`, {
     //   method: 'POST',
@@ -70,7 +70,7 @@ const ForgotPasswordForm = () => {
         <p>No worries, we&apos;ll send you reset instruction.</p>
 
         {resetSuccess && <p className={styles.reset_success}>An password reset link has been sent to your email.
-          {/* <span>Open email app</span> */}
+          {/* TODO: <span>Open email app</span> */}
         </p>}
 
         {resetError && <p className={styles.reset_error}>An error occured while attempting to send a password reset link. Try again later.</p>}
@@ -92,6 +92,7 @@ const ForgotPasswordForm = () => {
 
           <input
             type="submit"
+            role="button"
             value={!isBtnLoading ? "Reset Password" : "Please wait..."}
             className={!isBtnLoading ? styles.submit : styles.submit_loading}
           />
