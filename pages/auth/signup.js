@@ -19,8 +19,8 @@ const schema = yup.object({
   email: yup.string().email().required("Email is required"),
   phoneNumber: yup.string().required("Phone number is required"),
   address: yup.string()
-    .min(10, "Password length must be more than 6 characters")
-    .max(250, "Password length cannnot exceed 20 characters")
+    .min(10, "Password length must be more than 10 characters")
+    .max(250, "Password length cannnot exceed 250 characters")
     .required("Address is required"),
   password: yup.string()
     .required("Password is required")
@@ -30,16 +30,7 @@ const schema = yup.object({
 
 
 const SignUp = () => {
-  const [userInfo, setUserInfo] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    address: "",
-    password: ""
-  });
-
   const [togglePassword, setTogglePassword] = useState(false);
-  // const [isError, setIsError] = useState(false);
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const router = useRouter();
 

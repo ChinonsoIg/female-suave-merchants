@@ -44,7 +44,7 @@ const SingleProduct = () => {
     })
       .then((res) => {
         // console.log("res", res);
-        let resText = res?.statusText ? res?.statusText : "Product updated successfully."
+        let resText = res?.statusText ? res?.statusText : "Product deleted successfully."
         customToast("success", resText, "top-right")
       })
       .catch((error) => {

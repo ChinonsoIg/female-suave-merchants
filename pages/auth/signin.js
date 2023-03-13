@@ -52,30 +52,25 @@ const SignIn = ({ providers }) => {
   const onSubmit = async (data) => {
     setIsBtnLoading(true);
 
-      const res = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-        // callbackUrl: "/",
-      });
-      console.log("data : ", res)
-      // if (!res) {
-      //   customToast("error", "Invalid email or password", "top-right")
-      //   setIsBtnLoading(false);
-      //   return;
-      // } else {
-      //   const { ok, error } = res;
-      //   if (ok) {
-      //     router.push("/");
-      //     setTimeout(() => {
-      //       setIsBtnLoading(false);
-      //     }, 4000);
-  
-      //   } else {
-      //     customToast("error", "Invalid email and/or password", "top-right")
-      //     setIsBtnLoading(false);
-      //   }
-      // }
+    const res = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+      callbackUrl: "/",
+    });
+
+    const { ok, error } = res;
+
+    if (ok) {
+      router.push("/");
+      setTimeout(() => {
+        setIsBtnLoading(false);
+      }, 4000);
+
+    } else {
+      customToast("error", "Invalid email and/or password", "top-right")
+      setIsBtnLoading(false);
+    }
 
   }
 
