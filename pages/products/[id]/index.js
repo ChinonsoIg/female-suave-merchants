@@ -33,10 +33,12 @@ const SingleProduct = () => {
 
   const { data, isError, isLoading } = useFetchWithToken(`${BASE_URL}/products/merchant/${id}`);
 
-  const handleDelete = (productId) => {
+  const handleDelete = async (productId) => {
     setIsBtnLoading(true);
 
-    axios.delete(`${BASE_URL}/products/merchant/${productId}`, {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      // console.log("im sure!")
+      axios.delete(`${BASE_URL}/products/merchant/${productId}`, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
@@ -58,6 +60,11 @@ const SingleProduct = () => {
           router.back();
         }, 4800);
       })
+
+    } else {
+      setIsBtnLoading(false)
+      console.log("nope!")
+    }
 
   }
 
