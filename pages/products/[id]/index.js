@@ -79,7 +79,11 @@ const SingleProduct = () => {
       <SharedLayout>
         <BackButton currentPath={currentPath} />
         <ToastContainer />
-        <h1 className={styles.single_product_title} data-testid="single-product-header">Single Product</h1>
+        <h1
+          className={styles.single_product_title} data-testid="single-product-header"
+        >
+          Single Product
+        </h1>
         {!data && <LoadingSpinner height="15px" width="15px" />}
         {data &&
           <section className={styles.product_details}>

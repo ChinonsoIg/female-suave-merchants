@@ -1,7 +1,18 @@
 import { SessionProvider } from "next-auth/react";
+// import Error from "next/error";
 
 
 export default function App({ Component, pageProps }) {
+
+  // if (pageProps.error) {
+  //   console.log("err: ", pageProps.error)
+  //   return (
+  //     <Error
+  //       statusCode={pageProps.error.statusCode} 
+  //       title={pageProps.error.message}
+  //     />
+  //   )
+  // }
 
 
   return (

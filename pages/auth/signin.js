@@ -60,6 +60,7 @@ const SignIn = ({ providers }) => {
     });
 
     const { ok, error } = res;
+    console.log("err: ", error)
 
     if (ok) {
       router.push("/");
@@ -68,8 +69,20 @@ const SignIn = ({ providers }) => {
       }, 4000);
 
     } else {
-      customToast("error", "Invalid email and/or password", "top-right")
       setIsBtnLoading(false);
+
+      switch (error) {
+        case "fetch failed":
+          customToast("error", "Sign in failed. Please make sure you're connected to the internet", "top-right");
+          break;
+        case "CredentialsSignin":
+          customToast("error", "Invalid email and/or password", "top-right");
+          break;
+
+        default:
+          customToast("error", "Sign in attempt failed! Please try again later.", "top-right")
+          break;
+      }
     }
 
   }
