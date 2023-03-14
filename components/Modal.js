@@ -58,7 +58,7 @@ const FormModal = ({ open, onClose, productId, name, categoryId, description, pr
     // console.log("jg: ", modifiedData)
     // onClose();
 
-    axios.patch(`${BASE_URL}/products/${productId}`, modifiedData, {
+    axios.patch(`${BASE_URL}/products/merchant/${productId}`, modifiedData, {
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json"
