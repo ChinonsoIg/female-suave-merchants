@@ -71,25 +71,25 @@ export default function Home() {
         <h1 data-testid="header">Dashboard</h1>
         <section className={styles.figures_grid_container}>
           <div className={styles.figures_grid_child}
-            style={{ background: "#cdeffe" }}
+            style={{ background: "#03a9f4" }}
           >
             <p className={styles.grid_title}>Sales</p>
             <p className={styles.grid_number}>{sales?.totalOrders ? sales?.totalOrders : 0}</p>
           </div>
           <div className={styles.figures_grid_child}
-            style={{ background: "#feeee5" }}
+            style={{ background: "#009900" }}
           >
             <p data-testid="income" className={styles.grid_title}>Income (&#8358;)</p>
             <p className={styles.grid_number}>{totalIncome ? addComma(totalIncome) : 0}</p>
           </div>
           <div className={styles.figures_grid_child}
-          style={{ background: "#efdbf7" }}
+          style={{ background: "#ac43d6" }}
           >
             <p className={styles.grid_title}>Customers</p>
             <p className={styles.grid_number}>{uniqueCustomers ? uniqueCustomers : 0}</p>
           </div>
           <div className={styles.figures_grid_child}
-          style={{ background: "#d4e4e2" }}
+          style={{ background: "#f68b1e" }}
           >
             <p className={styles.grid_title}>Products</p>
             <p className={styles.grid_number}>{products?.totalProducts ? products?.totalProducts : 0}</p>
